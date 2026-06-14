@@ -89,7 +89,7 @@ img {
   display: flex;
   gap: var(--space-7);
   justify-content: space-between;
-  margin-bottom: var(--space-14);
+  margin-bottom: var(--space-11);
 }
 
 .brand {
@@ -552,7 +552,7 @@ img {
 
 .back-link {
   display: inline-block;
-  margin-bottom: var(--space-10);
+  margin-bottom: var(--space-7);
 }
 
 .specs-box {
