@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arda — Naming Convention &amp; Roadmap · LOTR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #080b10;
+    color: #e8eaf0;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 48px 40px 64px;
+    min-height: 100vh;
+  }
+
+  .header-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    color: #4a9eff;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .header-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 38px;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+
+  .header-sub {
+    font-size: 12px;
+    color: #5a6680;
+    margin-bottom: 44px;
+    letter-spacing: 0.04em;
+  }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #2e3a52;
+    margin: 36px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #12192a;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label .section-count {
+    margin-left: auto;
+    font-size: 9px;
+    color: #1e2a3a;
+  }
+
+  .server-card {
+    background: #0d1320;
+    border: 1px solid #1a2236;
+    border-radius: 12px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 6px;
+  }
+
+  .server-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #4a9eff, #8b5cf6, #c9913a);
+  }
+
+  .server-orb {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: #0d1828;
+    border: 1px solid #2a3550;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+
+  .server-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 4px;
+  }
+
+  .server-meta {
+    font-size: 11px;
+    color: #5a6680;
+    line-height: 1.7;
+  }
+
+  .server-meta span { color: #4a9eff; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 10px;
+  }
+
+  .card {
+    background: #0d1320;
+    border: 1px solid #1a2236;
+    border-radius: 10px;
+    padding: 16px 18px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    border-radius: 10px 10px 0 0;
+  }
+
+  .card.blue::before   { background: #4a9eff; }
+  .card.gold::before   { background: #c9913a; }
+  .card.green::before  { background: #3a9e6e; }
+  .card.purple::before { background: #8b5cf6; }
+  .card.teal::before   { background: #2cb8a0; }
+  .card.red::before    { background: #e05050; }
+  .card.amber::before  { background: #e8a830; }
+  .card.rose::before   { background: #d46ba0; }
+  .card.cyan::before   { background: #22c5d4; }
+  .card.indigo::before { background: #6d7fd4; }
+  .card.lime::before   { background: #7ec44a; }
+  .card.silver::before { background: #4a5670; }
+
+  /* Pending / not-started cards: darkened */
+  .card.pending {
+    opacity: 0.46;
+    filter: saturate(0.55);
+  }
+
+  .card.pending::before {
+    background: #1e2a3a;
+  }
+
+  .card.pending .card-name,
+  .card.pending .priority-badge {
+    color: #6a7790;
+  }
+
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    gap: 8px;
+  }
+
+  .card-emoji {
+    font-size: 20px;
+  }
+
+  .badges-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+  }
+
+  .type-pill {
+    font-size: 8px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .type-libre   { background: #071e1a; color: #2cb8a0; }
+  .type-propio  { background: #1f0808; color: #e05050; }
+  .type-script  { background: #1a1500; color: #e8a830; }
+
+  .priority-badge {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    color: #4a9eff;
+    white-space: nowrap;
+  }
+
+  .priority-badge.live {
+    color: #3a9e6e;
+  }
+
+  .card-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 2px;
+    line-height: 1.2;
+  }
+
+  .card-service {
+    font-size: 10px;
+    color: #5a6680;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+  .card-sw {
+    font-size: 10px;
+    color: #3a4a62;
+    margin-bottom: 6px;
+    letter-spacing: 0.02em;
+  }
+
+  .card-sw span { color: #4a6080; }
+
+  .card-desc {
+    font-size: 11px;
+    color: #8895aa;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+
+  .card-badge {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+
+  .badge-blue   { background: #0d2040; color: #4a9eff; }
+  .badge-gold   { background: #201408; color: #c9913a; }
+  .badge-green  { background: #0a1f14; color: #3a9e6e; }
+  .badge-purple { background: #180d30; color: #8b5cf6; }
+  .badge-teal   { background: #071e1a; color: #2cb8a0; }
+  .badge-amber  { background: #1f1500; color: #e8a830; }
+  .badge-rose   { background: #1f0a14; color: #d46ba0; }
+  .badge-red    { background: #1f0808; color: #e05050; }
+  .badge-cyan   { background: #04191c; color: #22c5d4; }
+  .badge-indigo { background: #0e1020; color: #6d7fd4; }
+  .badge-lime   { background: #0d1a06; color: #7ec44a; }
+  .badge-silver { background: #14181f; color: #5a6680; }
+
+  .legend {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 4px;
+    flex-wrap: wrap;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    color: #5a6680;
+  }
+
+  .legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+  }
+
+  .dot-libre  { background: #2cb8a0; }
+  .dot-propio { background: #e05050; }
+  .dot-script { background: #e8a830; }
+  .dot-pending { background: #1e2a3a; border: 1px solid #2e3a52; }
+
+  .footer {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid #12192a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .footer-left  { font-size: 10px; color: #2e3a52; letter-spacing: 0.1em; }
+  .footer-right { font-size: 10px; color: #2e3a52; letter-spacing: 0.06em; }
+  .footer-right span { color: #4a9eff; }
+</style>
+</head>
+<body>
+
+  <div class="header-eyebrow">// naming convention &amp; roadmap · tolkien universe</div>
+  <div class="header-title">Arda &amp; sus reinos</div>
+  <div class="header-sub">Paradigma de nombres y orden de despliegue del homelab · LOTR/Tolkien · v3.0</div>
+
+  <div class="section-label">// el mundo padre</div>
+
+  <div class="server-card">
+    <div class="server-orb">🌍</div>
+    <div>
+      <div class="server-name">Arda</div>
+      <div class="server-meta">
+        hostname: <span>arda</span> &nbsp;·&nbsp; Intel i7-3770 &nbsp;·&nbsp; 24GB RAM &nbsp;·&nbsp; Debian 13 Trixie<br>
+        ip local: <span>192.168.1.180</span> &nbsp;·&nbsp; tailscale: <span>100.91.253.84</span> &nbsp;·&nbsp; ssh port: <span>2621</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">// leyenda</div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot dot-libre"></div>SW libre — instalar y configurar</div>
+    <div class="legend-item"><div class="legend-dot dot-script"></div>Scripting / integración</div>
+    <div class="legend-item"><div class="legend-dot dot-propio"></div>Desarrollo propio — desde cero</div>
+    <div class="legend-item"><div class="legend-dot dot-pending"></div>Atenuado = pendiente de empezar</div>
+  </div>
+
+  <div class="section-label">// en producción <span class="section-count">3 servicios · nombres pendientes de adaptar</span></div>
+
+  <div class="grid">
+
+    <div class="card blue">
+      <div class="card-top">
+        <span class="card-emoji">🚪</span>
+        <div class="badges-right">
+          <span class="priority-badge live">● LIVE</span>
+          <span class="type-pill type-libre">sw libre</span>
+        </div>
+      </div>
+      <div class="card-name">Moria</div>
+      <div class="card-service">Gestor de contraseñas</div>
+      <div class="card-sw">sw: <span>Passbolt</span></div>
+      <div class="card-desc">"Speak, friend, and enter." Solo entra quien sabe la palabra.</div>
+      <span class="card-badge badge-blue">moria.codinglab.es</span>
+    </div>
+
+    <div class="card purple">
+      <div class="card-top">
+        <span class="card-emoji">👁️</span>
+        <div class="badges-right">
+          <span class="priority-badge live">● LIVE</span>
+          <span class="type-pill type-libre">sw libre</span>
+        </div>
+      </div>
+      <div class="card-name">Palantír</div>
+      <div class="card-service">Monitorización</div>
+      <div class="card-sw">sw: <span>Uptime Kuma (v1)</span></div>
+      <div class="card-desc">El nombre sigue la función. v1 con Uptime Kuma; Prometheus+Grafana en el futuro.</div>
+      <span class="card-badge badge-purple">palantir.codinglab.es</span>
+    </div>
+
+    <div class="card teal">
+      <div class="card-top">
+        <span class="card-emoji">🏔️</span>
+        <div class="badges-right">
+          <span class="priority-badge live">● LIVE</span>
+          <span class="type-pill type-libre">sw libre</span>
+        </div>
+      </div>
+      <div class="card-name">Valinor</div>
+      <div class="card-service">Backups</div>
+      <div class="card-sw">sw: <span>Restic</span></div>
+      <div class="card-desc">La tierra inmortal donde nada se pierde nunca. Repo en /backups/restic.</div>
+      <span class="card-badge badge-teal">—</span>
+    </div>
+
+  </div>
+
+  <div class="section-label">// en curso — prioridad 1 <span class="section-count">en paralelo</span></div>
+
+  <div class="grid">
+
+    <div class="card gold">
+      <div class="card-top">
+        <span class="card-emoji">💎</span>
+        <div class="badges-right">
+          <span class="priority-badge">P1a</span>
+          <span class="type-pill type-propio">dev propio</span>
+        </div>
+      </div>
+      <div class="card-name">The Arkenstone</div>
+      <div class="card-service">MoneyPlanner SaaS</div>
+      <div class="card-sw">sw: <span>desarrollo propio · en despliegue</span></div>
+      <div class="card-desc">La joya más valiosa de Erebor. Live en codinglab.es, futuro dominio propio thearkenstone.money.</div>
+      <span class="card-badge badge-gold">arkenstone.codinglab.es</span>
+    </div>
+
+    <div class="card silver">
+      <div class="card-top">
+        <span class="card-emoji">🌐</span>
+        <div class="badges-right">
+          <span class="priority-badge">P1b</span>
+          <span class="type-pill type-propio">dev propio</span>
+        </div>
+      </div>
+      <div class="card-name">pablesite.es</div>
+      <div class="card-service">Web personal</div>
+      <div class="card-sw">sw: <span>desarrollo propio</span></div>
+      <div class="card-desc">Sin nombre Tolkien por decisión propia. En paralelo a The Arkenstone.</div>
+      <span class="card-badge badge-silver">pablesite.es</span>
+    </div>
+
+  </div>
+
+  <div class="section-label">// próximos — orden de despliegue <span class="section-count">9 servicios pendientes</span></div>
+
+  <div class="grid">
+
+    <div class="card lime pending">
+      <div class="card-top">
+        <span class="card-emoji">💍</span>
+        <div class="badges-right">
+          <span class="priority-badge">P2</span>
+          <span class="type-pill type-libre">sw libre</span>
+        </div>
+      </div>
+      <div class="card-name">Narya</div>
+      <div class="card-service">LiteLLM Gateway</div>
+      <div class="card-sw">sw: <span>LiteLLM</span></div>
+      <div class="card-desc">El anillo del fuego de Gandalf. La fuente de poder detrás de la magia.</div>
+      <span class="card-badge badge-lime">narya.codinglab.es</span>
+    </div>
+
+    <div class="card amber pending">
+      <div class="card-top">
+        <span class="card-emoji">🧙</span>
+        <div class="badges-right">
+          <span class="priority-badge">P3</span>
+          <span class="type-pill type-script">scripting</span>
+        </div>
+      </div>
+      <div class="card-name">Gandalf</div>
+      <div class="card-service">Bot Telegram · asistente IA</div>
+      <div class="card-sw">sw: <span>python-telegram-bot + Narya</span></div>
+      <div class="card-desc">Ya hay una base a medio hacer. Terminal personal desde el móvil.</div>
+      <span class="card-badge badge-amber">@codinglab_es_bot</span>
+    </div>
+
+    <div class="card purple pending">
+      <div class="card-top">
+        <span class="card-emoji">👁️</span>
+        <div class="badges-right">
+          <span class="priority-badge">P4</span>
+          <span class="type-pill type-libre">sw libre</span>
+        </div>
+      </div>
+      <div class="card-name">Palantír</div>
+      <div class="card-service">Monitorización avanzada</div>
+      <div class="card-sw">sw: <span>Prometheus + Grafana</span></div>
+      <div class="card-desc">Sustituye a Uptime Kuma en el mismo subdominio. El nombre sigue la función.</div>
+      <span class="card-badge badge-purple">palantir.codinglab.es</span>
+    </div>
+
+    <div class="card indigo pending">
+      <div class="card-top">
+        <span class="card-emoji">📋</span>
+        <div class="badges-right">
+          <span class="priority-badge">P5</span>
+          <span class="type-pill type-libre">sw libre</span>
+        </div>
+      </div>
+      <div class="card-name">The Council</div>
+      <div class="card-service">Gestor de tareas</div>
+      <div class="card-sw">sw: <span>Vikunja</span></div>
+      <div class="card-desc">Sustituye Todoist (de pago). El Consejo de Elrond decide qué misiones acometer.</div>
+      <span class="card-badge badge-indigo">council.codinglab.es</span>
+    </div>
+
+    <div class="card cyan pending">
+      <div class="card-top">
+        <span class="card-emoji">🏛️</span>
+        <div class="badges-right">
+          <span class="priority-badge">P6</span>
+          <span class="type-pill type-libre">sw libre</span>
+        </div>
+      </div>
+      <div class="card-name">Rivendell</div>
+      <div class="card-service">Almacenamiento</div>
+      <div class="card-sw">sw: <span>Nextcloud</span></div>
+      <div class="card-desc">Sustituye Dropbox (de pago). La biblioteca élfica donde todo está a salvo.</div>
+      <span class="card-badge badge-cyan">rivendell.codinglab.es</span>
+    </div>
+
+    <div class="card rose pending">
+      <div class="card-top">
+        <span class="card-emoji">🏭</span>
+        <div class="badges-right">
+          <span class="priority-badge">P7</span>
+          <span class="type-pill type-libre">sw libre</span>
+        </div>
+      </div>
+      <div class="card-name">Orthanc</div>
+      <div class="card-service">Domótica</div>
+      <div class="card-sw">sw: <span>Home Assistant</span></div>
+      <div class="card-desc">Diseño + lista de compras para la casa nueva. La torre de Saruman.</div>
+      <span class="card-badge badge-rose">orthanc.codinglab.es</span>
+    </div>
+
+    <div class="card green pending">
+      <div class="card-top">
+        <span class="card-emoji">🌿</span>
+        <div class="badges-right">
+          <span class="priority-badge">P8</span>
+          <span class="type-pill type-libre">sw libre</span>
+        </div>
+      </div>
+      <div class="card-name">The Shire</div>
+      <div class="card-service">Fotos familiares</div>
+      <div class="card-sw">sw: <span>Immich</span></div>
+      <div class="card-desc">Integración rápida que ahorra una tarea recurrente y pesada.</div>
+      <span class="card-badge badge-green">shire.codinglab.es</span>
+    </div>
+
+    <div class="card amber pending">
+      <div class="card-top">
+        <span class="card-emoji">🍺</span>
+        <div class="badges-right">
+          <span class="priority-badge">P9</span>
+          <span class="type-pill type-libre">sw libre</span>
+        </div>
+      </div>
+      <div class="card-name">Prancing Pony</div>
+      <div class="card-service">Estación multimedia</div>
+      <div class="card-sw">sw: <span>por definir</span></div>
+      <div class="card-desc">Integración rápida, justo después de The Shire.</div>
+      <span class="card-badge badge-amber">pony.codinglab.es</span>
+    </div>
+
+    <div class="card amber pending">
+      <div class="card-top">
+        <span class="card-emoji">💰</span>
+        <div class="badges-right">
+          <span class="priority-badge">P10</span>
+          <span class="type-pill type-script">scripting</span>
+        </div>
+      </div>
+      <div class="card-name">Glóin</div>
+      <div class="card-service">Extractor de facturas</div>
+      <div class="card-sw">sw: <span>Python + Claude API</span></div>
+      <div class="card-desc">El enano contable. Tarea fácil, parsea Amazon y PcComponentes a BD.</div>
+      <span class="card-badge badge-amber">—</span>
+    </div>
+
+    <div class="card teal pending">
+      <div class="card-top">
+        <span class="card-emoji">🌸</span>
+        <div class="badges-right">
+          <span class="priority-badge">P11</span>
+          <span class="type-pill type-propio">dev propio</span>
+        </div>
+      </div>
+      <div class="card-name">Lórien</div>
+      <div class="card-service">Salud &amp; deporte</div>
+      <div class="card-sw">sw: <span>desarrollo propio</span></div>
+      <div class="card-desc">Versión pequeña inicial para actualizar datos de Garmin y Apple Health.</div>
+      <span class="card-badge badge-teal">lorien.codinglab.es</span>
+    </div>
+
+    <div class="card red pending">
+      <div class="card-top">
+        <span class="card-emoji">⚔️</span>
+        <div class="badges-right">
+          <span class="priority-badge">P12</span>
+          <span class="type-pill type-propio">dev propio</span>
+        </div>
+      </div>
+      <div class="card-name">Fëanor</div>
+      <div class="card-service">Astra · trading &amp; backtesting</div>
+      <div class="card-sw">sw: <span>desarrollo propio · base TFM mates</span></div>
+      <div class="card-desc">Se retoma cuando todo lo demás esté funcionando. Ahí "me volveré loco".</div>
+      <span class="card-badge badge-red">dev only</span>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <div class="footer-left">// arda · homelab naming convention &amp; roadmap · tolkien universe · v3.0</div>
+    <div class="footer-right">3 en producción · 2 en curso (P1a/P1b) · 9 pendientes (P2-P12)</div>
+  </div>
+
+</body>
+</html>

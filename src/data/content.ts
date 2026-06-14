@@ -130,8 +130,8 @@ export const ardaServices = [
   {
     name: "Moria",
     description: {
-      es: "Gestión de contraseñas para todo el ecosistema, propio y de proyectos.",
-      en: "Password management for my personal and project ecosystem.",
+      es: "Gestión de contraseñas. Solo entra quien sabe la palabra.",
+      en: "Password management. Only those who know the word may enter.",
     },
     technology: "Passbolt",
     status: "up",
@@ -144,6 +144,16 @@ export const ardaServices = [
       en: "Monitoring for Arda services: availability, latency and alerts.",
     },
     technology: "Uptime Kuma",
+    status: "up",
+    kind: "third-party",
+  },
+  {
+    name: "Valinor",
+    description: {
+      es: "Backups con Restic: la tierra inmortal donde nada debería perderse.",
+      en: "Restic backups: the undying land where nothing should be lost.",
+    },
+    technology: "Restic",
     status: "up",
     kind: "third-party",
   },
@@ -161,6 +171,46 @@ export const ardaServices = [
     kind: "own",
   },
   {
+    name: "Narya",
+    description: {
+      es: "Gateway a modelos de IA, con registro y control de uso.",
+      en: "Gateway to AI models, with logging and usage control.",
+    },
+    technology: "LiteLLM",
+    status: "planned",
+    kind: "third-party",
+  },
+  {
+    name: "Gandalf",
+    description: {
+      es: "Bot de Telegram y asistente IA para gestionar Arda desde el móvil.",
+      en: "Telegram bot and AI assistant to manage Arda from the phone.",
+    },
+    technology: "Bot + Narya",
+    status: "planned",
+    kind: "own",
+  },
+  {
+    name: "Rivendell",
+    description: {
+      es: "Almacenamiento personal en la nube. La biblioteca élfica del homelab.",
+      en: "Personal cloud storage. The homelab's elven library.",
+    },
+    technology: "Nextcloud",
+    status: "planned",
+    kind: "third-party",
+  },
+  {
+    name: "The Council",
+    description: {
+      es: "Gestor de tareas y proyectos: decidir qué misiones acometer.",
+      en: "Tasks and projects: deciding which quests to take on.",
+    },
+    technology: "Vikunja",
+    status: "planned",
+    kind: "third-party",
+  },
+  {
     name: "Lórien",
     description: {
       es: "Dashboard de salud y deporte, con datos de Garmin y Apple Health.",
@@ -174,6 +224,16 @@ export const ardaServices = [
     kind: "own",
   },
   {
+    name: "The Shire",
+    description: {
+      es: "Fotos familiares con Immich, para guardar memoria sin depender de terceros.",
+      en: "Family photos with Immich, keeping memories without relying on third parties.",
+    },
+    technology: "Immich",
+    status: "planned",
+    kind: "third-party",
+  },
+  {
     name: "Fëanor",
     description: {
       es: "Sistema automático de trading algorítmico.",
@@ -183,46 +243,6 @@ export const ardaServices = [
       es: "Desarrollo propio",
       en: "Own product",
     },
-    status: "planned",
-    kind: "own",
-  },
-  {
-    name: "Rivendell",
-    description: {
-      es: "Almacenamiento personal en la nube.",
-      en: "Personal cloud storage.",
-    },
-    technology: "Nextcloud",
-    status: "planned",
-    kind: "third-party",
-  },
-  {
-    name: "El Consejo",
-    description: {
-      es: "Gestor de tareas y proyectos personales.",
-      en: "Personal tasks and projects manager.",
-    },
-    technology: "Vikunja",
-    status: "planned",
-    kind: "third-party",
-  },
-  {
-    name: "Narya",
-    description: {
-      es: "Puerta de entrada centralizada a modelos de IA, con registro y control de uso.",
-      en: "Central gateway to AI models, with logging and usage control.",
-    },
-    technology: "LiteLLM Gateway",
-    status: "planned",
-    kind: "third-party",
-  },
-  {
-    name: "Gandalf",
-    description: {
-      es: "Asistente vía Telegram para gestionar el servidor desde el móvil.",
-      en: "Telegram assistant to manage the server from the phone.",
-    },
-    technology: "Bot + Claude API",
     status: "planned",
     kind: "own",
   },
