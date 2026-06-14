@@ -34,6 +34,13 @@ infraestructura del proyecto.
 
 ---
 
+## Fase 1: Validación de contenido
+
+- **Estado:** ✅ Completada
+- **Detalles:** CV PDF colocado en `public/cv/pablo.pdf`, URLs sociales validadas en `src/data/content.ts`, y build local verificado con `npm run build`.
+
+---
+
 ## Legend
 
 | Symbol | Meaning                 |
