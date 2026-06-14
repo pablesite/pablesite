@@ -97,14 +97,6 @@ export const projects = {
       accent: "purple",
       stack: ["Python", "Backtesting", "Trading"],
     },
-    {
-      name: "Fëanor Front",
-      description:
-        "Interfaz del motor de backtesting. De momento conserva el nombre provisional Astra Front en GitHub.",
-      href: "https://github.com/pablesite/astra-front",
-      accent: "green",
-      stack: ["Frontend", "Trading", "UI"],
-    },
   ],
   en: [
     {
@@ -122,14 +114,6 @@ export const projects = {
       href: "https://github.com/pablesite/astra",
       accent: "purple",
       stack: ["Python", "Backtesting", "Trading"],
-    },
-    {
-      name: "Fëanor Front",
-      description:
-        "Frontend for the backtesting engine. The GitHub repository still keeps the provisional Astra Front name.",
-      href: "https://github.com/pablesite/astra-front",
-      accent: "green",
-      stack: ["Frontend", "Trading", "UI"],
     },
   ],
 } satisfies Localized<
