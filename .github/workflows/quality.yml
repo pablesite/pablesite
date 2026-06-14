@@ -4,6 +4,10 @@ on:
   pull_request:
     branches: [main]
 
+concurrency:
+  group: quality-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   gitleaks:
     name: Secret scan
@@ -30,6 +34,11 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: "20"
+
+      - name: Mark stack-specific checks as deferred
+        run: |
+          echo "No app stack selected yet."
+          echo "This workflow currently validates the portable repo gate only."
 
       - name: Run pre-push gate
         run: ./scripts/pre-push-check.sh

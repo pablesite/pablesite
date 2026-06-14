@@ -63,6 +63,8 @@ Leer al inicio de cualquier tarea:
 5. `docs/standards/planning-guide.md`
 6. `docs/frontend/frontend-visual-guide.md`
 7. `docs/frontend/frontend-visual-contract.md`
+8. `docs/operations/ci-cd.md`
+9. `docs/operations/release-flow.md`
 
 ## Cierre de tarea
 
