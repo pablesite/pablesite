@@ -33,8 +33,10 @@ const statusLabel = isUp
       {statusLabel}
     </span>
   </div>
-  <p class="service-card__description">{description[locale]}</p>
-  <span class={`tag ${kind === "own" ? "tag--green" : "tag--blue"}`}
-    >{technologyLabel}</span
-  >
+  <div class="service-card__body">
+    <p class="service-card__description">{description[locale]}</p>
+    <span class={`tag ${kind === "own" ? "tag--green" : "tag--blue"}`}
+      >{technologyLabel}</span
+    >
+  </div>
 </article>

@@ -364,6 +364,7 @@ img {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
+  min-height: 12rem;
 }
 
 .service-card--live {
@@ -386,6 +387,18 @@ img {
 
 .service-card--live .service-card__name {
   color: var(--green);
+}
+
+.service-card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.service-card__body .tag {
+  justify-content: center;
+  width: 100%;
 }
 
 .status {
