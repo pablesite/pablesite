@@ -1,0 +1,62 @@
+name: Build, Publish and Deploy
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+  IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/pablesite
+  PROD_TAG: v1.0.0
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site
+        run: npm run build
+
+      - name: Log into GHCR
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ env.IMAGE_NAME }}:latest
+            ${{ env.IMAGE_NAME }}:${{ env.PROD_TAG }}
+            ${{ env.IMAGE_NAME }}:${{ github.sha }}
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to ARDA via SSH
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.ARDA_SSH_HOST }}
+          username: ${{ secrets.ARDA_SSH_USER }}
+          key: ${{ secrets.ARDA_SSH_PRIVATE_KEY }}
+          port: ${{ secrets.ARDA_SSH_PORT }}
+          script: |
+            set -e
+            cd /opt/arda/pablesite || exit 1
+            export PABLESITE_IMAGE=${{ env.IMAGE_NAME }}:${{ env.PROD_TAG }}
+            docker-compose pull
+            docker-compose up -d
+            docker-compose ps
