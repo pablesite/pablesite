@@ -1,7 +1,6 @@
 ---
 import BlogList from "@components/BlogList.astro";
 import Icon from "@components/Icon.astro";
-import MetaLabel from "@components/MetaLabel.astro";
 import ProjectCard from "@components/ProjectCard.astro";
 import Section from "@components/Section.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
@@ -25,10 +24,6 @@ const featuredServices = ardaServices.slice(0, 8);
   locale={locale}
 >
   <section class="hero">
-    <div class="hero__top">
-      <img class="hero__avatar" src={site.avatar} alt="Avatar de Pablo Ruiz" />
-      <MetaLabel label="pablesite.es" />
-    </div>
     <h1 class="hero__title">{t.home.title}</h1>
     <p class="hero__subtitle">
       Mismo enfoque, distinto equipo: construyendo mi propio
