@@ -29,7 +29,20 @@ const statusLabel = isUp
   class={`service-card ${isUp ? "service-card--live" : "service-card--planned"}`}
 >
   <div class="service-card__head">
-    <h3 class="service-card__name">{name}</h3>
+    {
+      url ? (
+        <a
+          class="service-card__name service-card__name--link"
+          href={url}
+          rel="noreferrer"
+          target="_blank"
+        >
+          {name}
+        </a>
+      ) : (
+        <h3 class="service-card__name">{name}</h3>
+      )
+    }
     <span class={`status ${isUp ? "status--up" : "status--dim"}`}>
       <span class="status__dot"></span>
       {statusLabel}
@@ -37,21 +50,8 @@ const statusLabel = isUp
   </div>
   <div class="service-card__body">
     <p class="service-card__description">{description[locale]}</p>
-    {
-      url ? (
-        <a
-          class={`tag ${kind === "own" ? "tag--green" : "tag--blue"}`}
-          href={url}
-          rel="noreferrer"
-          target="_blank"
-        >
-          {technologyLabel}
-        </a>
-      ) : (
-        <span class={`tag ${kind === "own" ? "tag--green" : "tag--blue"}`}>
-          {technologyLabel}
-        </span>
-      )
-    }
+    <span class={`tag ${kind === "own" ? "tag--green" : "tag--blue"}`}>
+      {technologyLabel}
+    </span>
   </div>
 </article>

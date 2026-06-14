@@ -90,30 +90,28 @@ const featuredServices = ardaServices.slice(0, 8);
             <article
               class={`compact-service ${service.status === "up" ? "compact-service--live" : ""}`}
             >
-              <h3 class="compact-service__name">{service.name}</h3>
-              <p class="compact-service__description">
-                {service.description[locale]}
-              </p>
               {"url" in service && service.url ? (
                 <a
-                  class={`tag ${service.kind === "own" ? "tag--green" : "tag--blue"}`}
+                  class="compact-service__name compact-service__name--link"
                   href={service.url}
                   rel="noreferrer"
                   target="_blank"
                 >
-                  {typeof service.technology === "string"
-                    ? service.technology
-                    : service.technology[locale]}
+                  {service.name}
                 </a>
               ) : (
-                <span
-                  class={`tag ${service.kind === "own" ? "tag--green" : "tag--blue"}`}
-                >
-                  {typeof service.technology === "string"
-                    ? service.technology
-                    : service.technology[locale]}
-                </span>
+                <h3 class="compact-service__name">{service.name}</h3>
               )}
+              <p class="compact-service__description">
+                {service.description[locale]}
+              </p>
+              <span
+                class={`tag ${service.kind === "own" ? "tag--green" : "tag--blue"}`}
+              >
+                {typeof service.technology === "string"
+                  ? service.technology
+                  : service.technology[locale]}
+              </span>
             </article>
           ))
         }

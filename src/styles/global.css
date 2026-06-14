@@ -389,6 +389,18 @@ img {
   color: var(--green);
 }
 
+.service-card__name--link,
+.compact-service__name--link {
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, currentColor, transparent 55%);
+  text-underline-offset: var(--space-1);
+}
+
+.service-card__name--link:hover,
+.compact-service__name--link:hover {
+  text-decoration-color: currentColor;
+}
+
 .service-card__body {
   display: flex;
   flex: 1;
