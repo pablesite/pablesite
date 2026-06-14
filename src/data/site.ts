@@ -12,11 +12,11 @@ export const site = {
   },
   baseUrl: "https://pablesite.es",
   avatar: "/avatar_pixelart_48px.png",
-  email: "mailto:hola@pablesite.es",
+  email: "mailto:contacto@pablesite.es",
   links: {
-    github: "https://github.com/pableras",
-    linkedin: "https://www.linkedin.com/in/pableras",
-    x: "https://x.com/pableras",
+    github: "https://github.com/pablesite",
+    linkedin: "https://www.linkedin.com/in/pablo-ruiz-molina-14955126/",
+    x: "https://x.com/pablesite",
   },
 };
 

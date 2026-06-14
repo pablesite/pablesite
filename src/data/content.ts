@@ -90,12 +90,20 @@ export const projects = {
       stack: ["Django", "Vue", "PostgreSQL", "Docker"],
     },
     {
-      name: "Fëanor",
+      name: "Astra",
       description:
-        "Motor de backtesting para estrategias de trading, desarrollado como proyecto de máster.",
-      href: "https://github.com/pableras",
+        "Motor de backtesting para estrategias de trading, desarrollado como proyecto de máster. El nombre público todavía está pendiente de ajuste.",
+      href: "https://github.com/pablesite/astra",
       accent: "purple",
       stack: ["Python", "Backtesting", "Trading"],
+    },
+    {
+      name: "Astra Front",
+      description:
+        "Interfaz del motor de backtesting. De momento conserva el nombre provisional del repositorio.",
+      href: "https://github.com/pablesite/astra-front",
+      accent: "green",
+      stack: ["Frontend", "Trading", "UI"],
     },
   ],
   en: [
@@ -108,12 +116,20 @@ export const projects = {
       stack: ["Django", "Vue", "PostgreSQL", "Docker"],
     },
     {
-      name: "Fëanor",
+      name: "Astra",
       description:
-        "A trading-strategy backtesting engine built as a master's degree project.",
-      href: "https://github.com/pableras",
+        "A trading-strategy backtesting engine built as a master's degree project. The public name is still pending a final rename.",
+      href: "https://github.com/pablesite/astra",
       accent: "purple",
       stack: ["Python", "Backtesting", "Trading"],
+    },
+    {
+      name: "Astra Front",
+      description:
+        "Frontend for the backtesting engine. It still keeps the provisional repository name for now.",
+      href: "https://github.com/pablesite/astra-front",
+      accent: "green",
+      stack: ["Frontend", "Trading", "UI"],
     },
   ],
 } satisfies Localized<
@@ -174,7 +190,7 @@ export const ardaServices = [
     kind: "own",
   },
   {
-    name: "Fëanor",
+    name: "Astra",
     description: {
       es: "Sistema automático de trading algorítmico.",
       en: "Automated algorithmic trading system.",
@@ -246,44 +262,44 @@ export const outside = {
     {
       label: "Strava",
       icon: "bike",
-      main: "42 km esta semana (3 actividades)",
-      sub: "Última: rodaje largo · 65 km · hace 2 días",
+      main: "Placeholder de actividad",
+      sub: "Aquí irá un resumen curado de Strava cuando decida si integrarlo o mantenerlo manual.",
       href: "https://www.strava.com/",
     },
     {
       label: "Spotify",
       icon: "music",
-      main: "Ahora: [canción] — [artista]",
-      sub: "Esta semana: [artista 1], [artista 2], [artista 3]",
+      main: "Placeholder musical",
+      sub: "Aquí irá una escucha reciente o una selección manual, sin fingir datos en directo.",
       href: "https://open.spotify.com/",
     },
     {
       label: "Leyendo ahora",
       icon: "book",
-      main: "[Título del libro]",
-      sub: "de [Autor]",
+      main: "El poder del metal",
+      sub: "También en la mesilla: One Piece y The Muscle and Strength Pyramid: Entrenamiento",
     },
   ],
   en: [
     {
       label: "Strava",
       icon: "bike",
-      main: "42 km this week (3 activities)",
-      sub: "Latest: long ride · 65 km · 2 days ago",
+      main: "Activity placeholder",
+      sub: "A curated Strava summary will live here if I decide to integrate it or keep it manual.",
       href: "https://www.strava.com/",
     },
     {
       label: "Spotify",
       icon: "music",
-      main: "Now: [song] — [artist]",
-      sub: "This week: [artist 1], [artist 2], [artist 3]",
+      main: "Music placeholder",
+      sub: "A recent listen or manual selection will live here, without pretending it is live data.",
       href: "https://open.spotify.com/",
     },
     {
       label: "Reading now",
       icon: "book",
-      main: "[Book title]",
-      sub: "by [Author]",
+      main: "El poder del metal",
+      sub: "Also on the pile: One Piece and The Muscle and Strength Pyramid: Training",
     },
   ],
 } satisfies Localized<

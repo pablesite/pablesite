@@ -28,8 +28,9 @@ infraestructura del proyecto.
 | -------- | -------- | ------ | ---------------------------------------------------------------------------- | ------------------------------------------- |
 | Frontend | High     | ✅     | Implementar `pablesite` v1 con Astro, rutas i18n y diseño base               | `docs/tasks/frontend/phase-1-pablesite-v1/` |
 | Ops      | High     | ✅     | Preparar Dockerfile y Compose para despliegue como servicio ARDA             | `docs/tasks/frontend/phase-1-pablesite-v1/` |
-| Manual   | Medium   | ⚪     | Añadir CV PDF real y revisar URLs sociales antes de publicar                 | —                                           |
+| Manual   | Medium   | ✅     | Añadir CV PDF real y revisar URLs sociales antes de publicar                 | —                                           |
 | Manual   | Medium   | ⚪     | Diseñar integraciones dinámicas futuras para Arda, Spotify/Strava y contacto | —                                           |
+| Ops      | Medium   | ⚪     | Definir correo `contacto@pablesite.es` en ARDA o proveedor externo           | —                                           |
 
 ---
 

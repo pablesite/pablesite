@@ -17,9 +17,9 @@ const specs = [
   ["Sistema", "Debian 13 (Trixie)"],
 ];
 const usage = [
-  ["CPU", "usage-card__fill--cpu", "18% · i7-3770, 4c/8t"],
-  ["RAM", "usage-card__fill--ram", "10 / 24 GB"],
-  ["Disco", "usage-card__fill--disk", "961 GB / 1.5 TB"],
+  ["CPU", "usage-card__fill--cpu", "Placeholder · i7-3770, 4c/8t"],
+  ["RAM", "usage-card__fill--ram", "Placeholder · 24 GB DDR3"],
+  ["Disco", "usage-card__fill--disk", "Placeholder · SSD + HDD"],
 ];
 const stack = [
   ["Sistema operativo", "Debian 13 (Trixie)"],
@@ -80,10 +80,10 @@ const stack = [
     </div>
   </section>
 
-  <Section title="Servicios" accent="estado curado">
+  <Section title="Servicios" accent="placeholder curado">
     <p class="section-subtitle">
-      Estado publicado como contenido curado para esta v1. La conexión con
-      Palantír/Uptime Kuma queda para una API posterior.
+      Estado provisional publicado como placeholder para esta v1. La conexión
+      con Palantír/Uptime Kuma queda para una API posterior.
     </p>
     <div class="service-grid">
       {
@@ -94,7 +94,11 @@ const stack = [
     </div>
   </Section>
 
-  <Section title="Uso del servidor" accent="snapshot">
+  <Section title="Uso del servidor" accent="placeholder">
+    <p class="section-subtitle">
+      Estos valores no son lectura en directo todavía. Mantienen el hueco visual
+      para la futura integración real con Arda.
+    </p>
     <div class="usage-grid">
       {
         usage.map(([label, fillClass, value]) => (
