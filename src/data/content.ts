@@ -136,6 +136,7 @@ export const ardaServices = [
     technology: "Passbolt",
     status: "up",
     kind: "third-party",
+    url: "https://moria.codinglab.es",
   },
   {
     name: "Palantír",
@@ -146,6 +147,7 @@ export const ardaServices = [
     technology: "Uptime Kuma",
     status: "up",
     kind: "third-party",
+    url: "https://palantir.codinglab.es",
   },
   {
     name: "Valinor",
@@ -169,6 +171,7 @@ export const ardaServices = [
     },
     status: "up",
     kind: "own",
+    url: "https://arkenstone.codinglab.es",
   },
   {
     name: "Narya",

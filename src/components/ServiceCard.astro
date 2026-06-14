@@ -7,10 +7,12 @@ interface Props {
   technology: string | Record<Locale, string>;
   status: "up" | "planned";
   kind: "own" | "third-party";
+  url?: string;
   locale: Locale;
 }
 
-const { name, description, technology, status, kind, locale } = Astro.props;
+const { name, description, technology, status, kind, url, locale } =
+  Astro.props;
 const technologyLabel =
   typeof technology === "string" ? technology : technology[locale];
 const isUp = status === "up";
@@ -35,8 +37,21 @@ const statusLabel = isUp
   </div>
   <div class="service-card__body">
     <p class="service-card__description">{description[locale]}</p>
-    <span class={`tag ${kind === "own" ? "tag--green" : "tag--blue"}`}
-      >{technologyLabel}</span
-    >
+    {
+      url ? (
+        <a
+          class={`tag ${kind === "own" ? "tag--green" : "tag--blue"}`}
+          href={url}
+          rel="noreferrer"
+          target="_blank"
+        >
+          {technologyLabel}
+        </a>
+      ) : (
+        <span class={`tag ${kind === "own" ? "tag--green" : "tag--blue"}`}>
+          {technologyLabel}
+        </span>
+      )
+    }
   </div>
 </article>
