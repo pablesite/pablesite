@@ -1,0 +1,25 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "{ git diff --name-only HEAD 2>/dev/null; git diff --cached --name-only 2>/dev/null; } | grep -qE \"\\.(py|ts|tsx|vue|js|jsx|css|md)$\" && printf '{\"systemMessage\":\"Docs: si esta sesion cambió funcionalidad, arquitectura o el estado del proyecto, actualiza docs/project-status.md y la documentación canónica afectada antes de cerrar.\"}' || true"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cat | grep -q 'docker compose down -v' && printf '{\"continue\":false,\"stopReason\":\"PELIGRO: docker compose down -v elimina volúmenes. Pide confirmación explícita del usuario antes de continuar.\"}' && exit 2 || exit 0"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+repos:
+  - repo: local
+    hooks:
+      - id: frontend-visual-guardrails
+        name: frontend visual guardrails
+        entry: python3 scripts/check_frontend_visual_guardrails.py
+        language: system
+        pass_filenames: false
