@@ -154,10 +154,10 @@ img {
 .hero__title,
 .page-title {
   color: var(--white);
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: clamp(2rem, 7vw, 3rem);
-  font-weight: 800;
-  line-height: 1.15;
+  font-weight: 700;
+  line-height: 1.18;
   text-wrap: balance;
 }
 
