@@ -620,12 +620,14 @@ img {
   background: var(--bg-2);
   border: 1px solid color-mix(in srgb, var(--green), transparent 72%);
   border-radius: var(--radius-2);
-  padding: var(--space-5);
+  padding: var(--space-4);
   text-align: center;
 }
 
 .arch-node__icon {
+  height: var(--space-12);
   margin: 0 auto var(--space-2);
+  width: var(--space-12);
 }
 
 .arch-node__label {
