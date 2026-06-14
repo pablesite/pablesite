@@ -90,17 +90,17 @@ export const projects = {
       stack: ["Django", "Vue", "PostgreSQL", "Docker"],
     },
     {
-      name: "Astra",
+      name: "Fëanor",
       description:
-        "Motor de backtesting para estrategias de trading, desarrollado como proyecto de máster. El nombre público todavía está pendiente de ajuste.",
+        "Motor de backtesting para estrategias de trading, desarrollado como proyecto de máster. El repositorio conserva temporalmente el nombre Astra.",
       href: "https://github.com/pablesite/astra",
       accent: "purple",
       stack: ["Python", "Backtesting", "Trading"],
     },
     {
-      name: "Astra Front",
+      name: "Fëanor Front",
       description:
-        "Interfaz del motor de backtesting. De momento conserva el nombre provisional del repositorio.",
+        "Interfaz del motor de backtesting. De momento conserva el nombre provisional Astra Front en GitHub.",
       href: "https://github.com/pablesite/astra-front",
       accent: "green",
       stack: ["Frontend", "Trading", "UI"],
@@ -116,17 +116,17 @@ export const projects = {
       stack: ["Django", "Vue", "PostgreSQL", "Docker"],
     },
     {
-      name: "Astra",
+      name: "Fëanor",
       description:
-        "A trading-strategy backtesting engine built as a master's degree project. The public name is still pending a final rename.",
+        "A trading-strategy backtesting engine built as a master's degree project. The repository temporarily keeps the Astra name.",
       href: "https://github.com/pablesite/astra",
       accent: "purple",
       stack: ["Python", "Backtesting", "Trading"],
     },
     {
-      name: "Astra Front",
+      name: "Fëanor Front",
       description:
-        "Frontend for the backtesting engine. It still keeps the provisional repository name for now.",
+        "Frontend for the backtesting engine. The GitHub repository still keeps the provisional Astra Front name.",
       href: "https://github.com/pablesite/astra-front",
       accent: "green",
       stack: ["Frontend", "Trading", "UI"],
@@ -190,7 +190,7 @@ export const ardaServices = [
     kind: "own",
   },
   {
-    name: "Astra",
+    name: "Fëanor",
     description: {
       es: "Sistema automático de trading algorítmico.",
       en: "Automated algorithmic trading system.",
@@ -277,7 +277,7 @@ export const outside = {
       label: "Leyendo ahora",
       icon: "book",
       main: "El poder del metal",
-      sub: "También en la mesilla: One Piece y The Muscle and Strength Pyramid: Entrenamiento",
+      sub: "Miguel de Lys recorre historia y cultura a través del rock y el metal. También estoy con One Piece, de Eiichiro Oda, y The Muscle & Strength Pyramid: Training, de Eric Helms, Andy Morgan y Andrea Valdez.",
     },
   ],
   en: [
@@ -299,7 +299,7 @@ export const outside = {
       label: "Reading now",
       icon: "book",
       main: "El poder del metal",
-      sub: "Also on the pile: One Piece and The Muscle and Strength Pyramid: Training",
+      sub: "Miguel de Lys explores history and culture through rock and metal. Also on the pile: One Piece by Eiichiro Oda, and The Muscle & Strength Pyramid: Training by Eric Helms, Andy Morgan and Andrea Valdez.",
     },
   ],
 } satisfies Localized<
