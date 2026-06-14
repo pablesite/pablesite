@@ -1,0 +1,30 @@
+---
+import BlogList from "@components/BlogList.astro";
+import MetaLabel from "@components/MetaLabel.astro";
+import Section from "@components/Section.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { blogPosts } from "@data/content";
+
+const locale = "en";
+---
+
+<BaseLayout
+  title="Blog — pablesite.es"
+  description="Notes and lessons about Arda, The Arkenstone, agentic AI and self-hosted infrastructure."
+  locale={locale}
+  path="blog/"
+>
+  <a class="back-link" href="/en/">← pablesite.es</a>
+  <section class="page-hero">
+    <MetaLabel label="blog" />
+    <h1 class="page-title">Notes without a publishing treadmill.</h1>
+    <p class="page-subtitle">
+      Case studies, migrations, technical decisions and lessons worth writing
+      down.
+    </p>
+  </section>
+
+  <Section title="Upcoming posts" accent="drafts">
+    <BlogList posts={blogPosts[locale]} statusLabel="coming soon" />
+  </Section>
+</BaseLayout>

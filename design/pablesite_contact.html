@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contacto — pablesite.es</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Syne:wght@400;700;800&display=swap');
+  :root {
+    --bg: #080b10; --bg2: #0d1117; --bg3: #131923; --border: #1e2a38;
+    --green: #00e5a0; --blue: #38bdf8; --text: #cbd5e1; --text-dim: #64748b;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); font-family: 'JetBrains Mono', monospace; color: var(--text); line-height: 1.7; }
+
+  .wrap { max-width: 620px; margin: 0 auto; padding: 60px 24px 100px; }
+
+  .meta-label { font-size: 10px; letter-spacing: 4px; color: var(--green); text-transform: uppercase; margin-bottom: 14px; }
+  .meta-label::before { content: '// '; color: var(--text-dim); }
+  .back-link { font-size: 11px; color: var(--blue); margin-bottom: 24px; display: inline-block; }
+
+  .page-title {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 32px; color: #fff;
+    line-height: 1.2; margin-bottom: 14px;
+  }
+  .page-sub { font-size: 14px; color: var(--text-dim); margin-bottom: 36px; max-width: 480px; }
+
+  /* DIRECT LINKS */
+  .links-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 48px; max-width: 280px; }
+  .direct-link {
+    border: 1px solid var(--green); color: var(--green); border-radius: 20px;
+    padding: 8px 20px; font-size: 12px; text-align: center;
+  }
+
+  /* FORM */
+  .form-card {
+    background: var(--bg2); border: 1px solid var(--border); border-radius: 12px;
+    padding: 24px;
+  }
+  .form-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 16px; color: #fff; margin-bottom: 18px; }
+  .field { margin-bottom: 16px; }
+  .field label {
+    display: block; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--text-dim); margin-bottom: 6px;
+  }
+  .field input, .field select, .field textarea {
+    width: 100%; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px;
+    padding: 10px 12px; color: var(--text); font-family: 'JetBrains Mono', monospace; font-size: 13px;
+  }
+  .field textarea { resize: vertical; min-height: 100px; }
+  .field select { appearance: none; cursor: pointer; }
+  .submit-btn {
+    background: var(--green); color: var(--bg); border: none; border-radius: 20px;
+    padding: 10px 28px; font-size: 12px; font-weight: 700; font-family: 'JetBrains Mono', monospace;
+    cursor: pointer; letter-spacing: 0.5px; margin-top: 4px;
+  }
+
+  .footer { text-align: center; font-size: 10px; color: var(--text-dim); margin-top: 60px; letter-spacing: 1px; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <a href="/" class="back-link">← pablesite.es</a>
+
+  <div class="meta-label">contacto</div>
+  <div class="page-title">¿Hablamos?</div>
+  <div class="page-sub">
+    Puedes escribirme directamente o usar el formulario.
+  </div>
+
+  <div class="links-row">
+    <div class="direct-link">Email</div>
+    <div class="direct-link">LinkedIn</div>
+  </div>
+
+  <div class="form-card">
+    <div class="form-title">Enviar un mensaje</div>
+    <div class="field">
+      <label>Nombre</label>
+      <input type="text" placeholder="Tu nombre">
+    </div>
+    <div class="field">
+      <label>Email</label>
+      <input type="email" placeholder="tu@email.com">
+    </div>
+    <div class="field">
+      <label>Motivo</label>
+      <select>
+        <option>Sobre The Arkenstone</option>
+        <option>Sobre Arda / mi homelab</option>
+        <option>Colaboración o propuesta</option>
+        <option>Otro</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Mensaje</label>
+      <textarea placeholder="Escribe aquí..."></textarea>
+    </div>
+    <button class="submit-btn">Enviar →</button>
+  </div>
+
+  <div class="footer">pablesite.es · Murcia, España · © 2026</div>
+
+</div>
+
+</body>
+</html>

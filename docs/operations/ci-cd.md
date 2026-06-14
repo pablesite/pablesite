@@ -1,8 +1,9 @@
-# CI/CD Baseline
+# CI/CD
 
 ## Objetivo
 
-Tener una base de CI/CD útil desde el inicio sin acoplarla todavía a un stack concreto.
+Mantener una validación pequeña y fiable para una web Astro estática que se despliega como imagen
+Docker en ARDA.
 
 ## Qué sí definimos ya
 
@@ -10,16 +11,16 @@ Tener una base de CI/CD útil desde el inicio sin acoplarla todavía a un stack 
 2. Workflow de calidad en GitHub como espejo mínimo del gate local
 3. Escaneo de secretos con `gitleaks`
 4. Actualización automática de dependencias para GitHub Actions vía `dependabot`
-5. Reglas de publicación y despliegue documentadas antes de automatizarlas
+5. Scripts npm reales para build, lint, typecheck y formato
+6. Dockerfile reproducible para servir `dist/` con Nginx
 
-## Qué dejamos pendiente hasta conocer el stack
+## Pendiente
 
-1. Jobs reales de build
-2. Tests de aplicación específicos
-3. Docker image builds
-4. Deploy automático
-5. Release automation con versionado real
-6. Code scanning específico del lenguaje si requiere build real
+1. Publicación automática de imagen
+2. Deploy remoto a ARDA
+3. Rollback documentado con tags de imagen
+4. Release automation con versionado real
+5. Code scanning adicional si el stack crece
 
 ## Contrato actual
 
@@ -28,8 +29,9 @@ Tener una base de CI/CD útil desde el inicio sin acoplarla todavía a un stack 
 En cada PR a `main`, la expectativa es:
 
 1. Ejecutar el workflow `Quality`
-2. Validar que el gate local tenga paridad razonable con CI
-3. Bloquear merge si el workflow falla
+2. Ejecutar `npm run build`, `npm run lint`, `npm run typecheck` y `npm run format:check`
+3. Validar que el gate local tenga paridad razonable con CI
+4. Bloquear merge si el workflow falla
 
 ### Push local
 
@@ -48,8 +50,7 @@ Antes de cualquier push:
 
 ## Próximos pasos cuando exista stack
 
-1. Añadir instalación de dependencias real
-2. Añadir lint, format, typecheck y tests específicos
-3. Añadir build reproducible
-4. Añadir estrategia de artefactos o imágenes
-5. Añadir deploy con rollback documentado
+1. Añadir build de imagen Docker en CI
+2. Publicar imágenes versionadas
+3. Añadir deploy manual aprobado hacia ARDA
+4. Documentar rollback por tag de imagen

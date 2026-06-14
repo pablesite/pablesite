@@ -1,0 +1,40 @@
+---
+import type { Locale } from "@data/site";
+
+interface Props {
+  name: string;
+  description: Record<Locale, string>;
+  technology: string | Record<Locale, string>;
+  status: "up" | "planned";
+  kind: "own" | "third-party";
+  locale: Locale;
+}
+
+const { name, description, technology, status, kind, locale } = Astro.props;
+const technologyLabel =
+  typeof technology === "string" ? technology : technology[locale];
+const isUp = status === "up";
+const statusLabel = isUp
+  ? locale === "es"
+    ? "Up"
+    : "Up"
+  : locale === "es"
+    ? "Planificado"
+    : "Planned";
+---
+
+<article
+  class={`service-card ${isUp ? "service-card--live" : "service-card--planned"}`}
+>
+  <div class="service-card__head">
+    <h3 class="service-card__name">{name}</h3>
+    <span class={`status ${isUp ? "status--up" : "status--dim"}`}>
+      <span class="status__dot"></span>
+      {statusLabel}
+    </span>
+  </div>
+  <p class="service-card__description">{description[locale]}</p>
+  <span class={`tag ${kind === "own" ? "tag--green" : "tag--blue"}`}
+    >{technologyLabel}</span
+  >
+</article>

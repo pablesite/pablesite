@@ -1,0 +1,188 @@
+---
+import BlogList from "@components/BlogList.astro";
+import Icon from "@components/Icon.astro";
+import MetaLabel from "@components/MetaLabel.astro";
+import ProjectCard from "@components/ProjectCard.astro";
+import Section from "@components/Section.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import {
+  ardaServices,
+  blogPosts,
+  copy,
+  outside,
+  projects,
+} from "@data/content";
+import { site } from "@data/site";
+
+const locale = "es";
+const t = copy[locale];
+const featuredServices = ardaServices.slice(0, 6);
+---
+
+<BaseLayout
+  title="pablesite.es — Pablo Ruiz"
+  description={t.home.description}
+  locale={locale}
+>
+  <section class="hero">
+    <div class="hero__top">
+      <img class="hero__avatar" src={site.avatar} alt="Avatar de Pablo Ruiz" />
+      <MetaLabel label="pablesite.es" />
+    </div>
+    <h1 class="hero__title">{t.home.title}</h1>
+    <p class="hero__subtitle">
+      Mismo enfoque, distinto equipo: construyendo mi propio
+      <span class="highlight">sistema de finanzas personales</span> y un
+      <span class="highlight">homelab</span> desde cero.
+    </p>
+    <div class="hero-links">
+      <a class="hero-link hero-link--primary" href={site.links.github}>GitHub</a
+      >
+      <a class="hero-link hero-link--primary" href={site.links.linkedin}
+        >LinkedIn</a
+      >
+      <a class="hero-link hero-link--primary" href={site.links.x}>X</a>
+      <a class="hero-link hero-link--primary" href={site.email}>Email</a>
+    </div>
+  </section>
+
+  <Section title={t.labels.about} accent={t.labels.aboutAccent}>
+    <div class="prose">
+      {t.home.about.map((paragraph) => <p>{paragraph}</p>)}
+    </div>
+    <div class="now-box">
+      <strong>Ahora mismo</strong>
+      {t.home.now.replace("Ahora mismo ", "")}
+    </div>
+  </Section>
+
+  <Section
+    title={t.labels.projects}
+    accent={t.labels.projectsAccent}
+    actionHref={site.links.github}
+    actionLabel="ver GitHub →"
+  >
+    <div class="grid grid--two">
+      {
+        projects[locale].map((project) => (
+          <ProjectCard
+            name={project.name}
+            description={project.description}
+            href={project.href}
+            accent={project.accent}
+            stack={project.stack}
+            linkLabel="Ver proyecto"
+          />
+        ))
+      }
+    </div>
+  </Section>
+
+  <Section
+    title={t.labels.arda}
+    accent={t.labels.ardaAccent}
+    actionHref="/es/arda/"
+    actionLabel="/arda →"
+  >
+    <div class="teaser">
+      <p class="teaser__description">
+        Un PC antiguo olvidado en el trastero, ahora reconvertido en mi servidor
+        casero: Debian, Docker y Traefik. Cada servicio tiene nombre propio,
+        sacado del universo de Tolkien.
+      </p>
+      <div class="compact-grid">
+        {
+          featuredServices.map((service) => (
+            <article
+              class={`compact-service ${service.status === "up" ? "compact-service--live" : ""}`}
+            >
+              <h3 class="compact-service__name">{service.name}</h3>
+              <p class="compact-service__description">
+                {service.description[locale]}
+              </p>
+              <span
+                class={`tag ${service.kind === "own" ? "tag--green" : "tag--blue"}`}
+              >
+                {typeof service.technology === "string"
+                  ? service.technology
+                  : service.technology[locale]}
+              </span>
+            </article>
+          ))
+        }
+      </div>
+      <a class="text-link" href="/es/arda/">Ver todos los servicios →</a>
+    </div>
+  </Section>
+
+  <Section
+    title={t.labels.arkenstone}
+    accent={t.labels.arkenstoneAccent}
+    actionHref="/es/arkenstone/"
+    actionLabel="/arkenstone →"
+  >
+    <div class="teaser">
+      <p class="teaser__description">
+        Empecé a construirlo porque las herramientas que existían no encajaban
+        con cómo gestiono mi dinero, y acabé con un Excel demasiado complejo.
+        Hoy es un sistema funcional con modelo open core: núcleo gratuito y
+        autohospedable, y versión gestionada para quien prefiera no complicarse.
+      </p>
+      <div class="ark-feature-row">
+        {
+          ["Patrimonio", "Presupuesto", "Contabilidad", "Guía financiera"].map(
+            (item) => <span class="pill tag--green">{item}</span>,
+          )
+        }
+      </div>
+      <div class="ark-stack-row">
+        {
+          ["Django", "Vue", "PostgreSQL", "Docker", "CI/CD"].map((item) => (
+            <span class="pill">{item}</span>
+          ))
+        }
+      </div>
+      <a class="text-link" href="/es/arkenstone/">Saber más →</a>
+    </div>
+  </Section>
+
+  <Section
+    title={t.labels.blog}
+    accent={t.labels.blogAccent}
+    actionHref="/es/blog/"
+    actionLabel="/blog →"
+  >
+    <BlogList posts={blogPosts[locale]} statusLabel={t.labels.soon} />
+  </Section>
+
+  <Section title={t.labels.outside} accent={t.labels.outsideAccent}>
+    <div class="grid grid--three">
+      {
+        outside[locale].map((item) => (
+          <article class="outside-card">
+            <Icon name={item.icon} />
+            <div class="outside-card__label">{item.label}</div>
+            <h3 class="outside-card__title">{item.main}</h3>
+            <p class="outside-card__text">{item.sub}</p>
+            {item.href && (
+              <a class="text-link" href={item.href}>
+                Ver perfil →
+              </a>
+            )}
+          </article>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Section title={t.labels.contact}>
+    <div class="contact-box">
+      <p>¿Hablamos?</p>
+      <div class="contact-links">
+        <a class="direct-link" href={site.email}>Email</a>
+        <a class="direct-link" href={site.links.linkedin}>LinkedIn</a>
+        <a class="direct-link" href="/es/contact/">Contacto →</a>
+      </div>
+    </div>
+  </Section>
+</BaseLayout>

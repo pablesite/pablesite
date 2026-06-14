@@ -1,0 +1,83 @@
+---
+import { nav, site, type Locale } from "@data/site";
+import "@styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  locale: Locale;
+  path?: string;
+}
+
+const { title, description, locale, path = "" } = Astro.props;
+const canonical = new URL(`/${locale}/${path}`, site.baseUrl).toString();
+const alternateLocale = locale === "es" ? "en" : "es";
+const alternatePath = `/${alternateLocale}/${path}`;
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link
+      rel="alternate"
+      hreflang="es"
+      href={new URL(`/es/${path}`, site.baseUrl)}
+    />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href={new URL(`/en/${path}`, site.baseUrl)}
+    />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href={new URL(`/es/${path}`, site.baseUrl)}
+    />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(site.avatar, site.baseUrl)} />
+    <meta name="theme-color" content="#080b10" />
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="site-header">
+        <a class="brand" href={`/${locale}/`} aria-label={site.name}>
+          <img class="brand__avatar" src={site.avatar} alt="" />
+          <span>{site.name}</span>
+        </a>
+        <nav
+          class="site-nav"
+          aria-label={locale === "es"
+            ? "Navegación principal"
+            : "Main navigation"}
+        >
+          {
+            nav[locale].map((item) => (
+              <a href={item.href} class="site-nav__link">
+                {item.label}
+              </a>
+            ))
+          }
+          <a class="site-nav__link site-nav__link--locale" href={alternatePath}>
+            {alternateLocale.toUpperCase()}
+          </a>
+        </nav>
+      </header>
+
+      <main>
+        <slot />
+      </main>
+
+      <footer class="footer">
+        {site.name} · {site.location[locale]} · © 2026
+      </footer>
+    </div>
+  </body>
+</html>

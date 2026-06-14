@@ -1,0 +1,91 @@
+---
+import MetaLabel from "@components/MetaLabel.astro";
+import Section from "@components/Section.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { site } from "@data/site";
+
+const locale = "es";
+---
+
+<BaseLayout
+  title="CV — pablesite.es"
+  description="CV profesional de Pablo Ruiz: dirección tecnológica, I+D, software e infraestructura."
+  locale={locale}
+  path="cv/"
+>
+  <a class="back-link" href="/es/">← pablesite.es</a>
+  <section class="page-hero">
+    <MetaLabel label="cv" />
+    <h1 class="page-title">
+      Dirección tecnológica con las manos cerca del código.
+    </h1>
+    <p class="page-subtitle">
+      Coordino equipos, tomo decisiones técnicas y sigo construyendo proyectos
+      propios para mantener criterio práctico.
+    </p>
+    <div class="hero-links">
+      <a class="hero-link hero-link--primary" href="/cv-pablo-ruiz.pdf"
+        >Descargar PDF</a
+      >
+      <a class="hero-link hero-link--primary" href={site.links.linkedin}
+        >LinkedIn</a
+      >
+    </div>
+  </section>
+
+  <Section title="Perfil" accent="resumen">
+    <div class="prose">
+      <p>
+        Director de Tecnología en un centro tecnológico, con experiencia
+        coordinando equipos técnicos, priorizando proyectos de I+D y tomando
+        decisiones en contextos donde conviven producto, ingeniería, clientes y
+        restricciones reales.
+      </p>
+      <p>
+        Mi punto fuerte está en combinar visión de sistema con ejecución
+        práctica: arquitectura, calidad, automatización, despliegue y una
+        relación muy directa con herramientas de IA agéntica.
+      </p>
+    </div>
+  </Section>
+
+  <Section title="Experiencia" accent="actual">
+    <div class="grid">
+      <article class="card card--accent-green">
+        <h3 class="card__title">Director de Tecnología</h3>
+        <p class="card__text">
+          Dirección de equipo técnico, coordinación de proyectos de I+D,
+          decisiones de arquitectura y entrega de tecnología en el sector naval.
+        </p>
+      </article>
+      <article class="card card--accent-blue">
+        <h3 class="card__title">Proyectos propios</h3>
+        <p class="card__text">
+          The Arkenstone, Arda y otros sistemas personales para seguir
+          aprendiendo infraestructura, producto y automatización desde la
+          práctica.
+        </p>
+      </article>
+    </div>
+  </Section>
+
+  <Section title="Formación" accent="base técnica">
+    <div class="stack-list">
+      <div class="stack-row">
+        <span class="stack-key">Ingeniería</span><span class="stack-value"
+          >Telecomunicaciones</span
+        >
+      </div>
+      <div class="stack-row">
+        <span class="stack-key">Máster</span><span class="stack-value"
+          >Tecnologías de la información y las comunicaciones</span
+        >
+      </div>
+      <div class="stack-row">
+        <span class="stack-key">Máster</span><span class="stack-value"
+          >Ingeniería matemática y computación</span
+        >
+      </div>
+    </div>
+  </Section>
+</BaseLayout>

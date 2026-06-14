@@ -1,0 +1,104 @@
+---
+import MetaLabel from "@components/MetaLabel.astro";
+import Section from "@components/Section.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { site } from "@data/site";
+
+const locale = "es";
+---
+
+<BaseLayout
+  title="The Arkenstone — pablesite.es"
+  description="The Arkenstone, antes MoneyPlanner: sistema de finanzas personales open core construido desde una necesidad real."
+  locale={locale}
+  path="arkenstone/"
+>
+  <a class="back-link" href="/es/">← pablesite.es</a>
+
+  <section class="page-hero">
+    <MetaLabel label="the arkenstone" />
+    <h1 class="page-title">
+      Finanzas personales, <span class="highlight"
+        >sin pelearte con la herramienta</span
+      >
+    </h1>
+    <p class="page-subtitle">
+      The Arkenstone es el nuevo nombre de MoneyPlanner: un sistema para
+      patrimonio, presupuesto, contabilidad y toma de decisiones financieras.
+    </p>
+  </section>
+
+  <Section title="Origen" accent="problema real">
+    <div class="prose">
+      <p>
+        Empezó como una necesidad propia. Las herramientas disponibles no
+        encajaban con cómo gestiono mi dinero, así que construí un Excel cada
+        vez más sofisticado. Durante un tiempo funcionó; después se volvió
+        demasiado frágil, demasiado manual y demasiado dependiente de
+        integraciones sueltas.
+      </p>
+      <p>
+        The Arkenstone nace para convertir ese sistema en producto: una base
+        clara para saber dónde estás, decidir qué hacer con tu dinero y reducir
+        el ruido operativo de la gestión personal.
+      </p>
+    </div>
+  </Section>
+
+  <Section title="Producto" accent="open core">
+    <div class="grid grid--two">
+      <article class="card card--accent-green">
+        <h3 class="card__title">Core autohospedable</h3>
+        <p class="card__text">
+          El núcleo será gratuito y público para quien quiera ejecutar su propia
+          instancia, revisar el modelo o adaptarlo a su forma de trabajar.
+        </p>
+      </article>
+      <article class="card card--accent-blue">
+        <h3 class="card__title">SaaS gestionado</h3>
+        <p class="card__text">
+          Encima del core corre una versión gestionada para quien prefiera no
+          ocuparse de servidores, despliegues, backups ni mantenimiento.
+        </p>
+      </article>
+    </div>
+  </Section>
+
+  <Section title="Qué cubre" accent="v1">
+    <div class="grid grid--two">
+      {
+        [
+          "Patrimonio neto",
+          "Presupuesto",
+          "Contabilidad personal",
+          "Guía financiera",
+        ].map((item) => (
+          <article class="card card--accent-purple">
+            <h3 class="card__title">{item}</h3>
+            <p class="card__text">
+              Una pieza del sistema para transformar datos financieros dispersos
+              en decisiones más claras y revisables.
+            </p>
+          </article>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Section title="Stack" accent="producto propio">
+    <div class="pill-row">
+      {
+        ["Django", "Vue", "PostgreSQL", "Docker", "CI/CD", "PWA"].map(
+          (item) => <span class="pill">{item}</span>,
+        )
+      }
+    </div>
+    <div class="contact-box">
+      <p>Si te interesa The Arkenstone, hablemos.</p>
+      <div class="contact-links">
+        <a class="direct-link" href={site.email}>Email</a>
+        <a class="direct-link" href={site.links.linkedin}>LinkedIn</a>
+      </div>
+    </div>
+  </Section>
+</BaseLayout>

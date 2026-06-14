@@ -1,0 +1,34 @@
+---
+interface Props {
+  name: string;
+  description: string;
+  href: string;
+  accent?: "green" | "blue" | "purple";
+  stack?: string[];
+  linkLabel: string;
+}
+
+const {
+  name,
+  description,
+  href,
+  accent = "green",
+  stack = [],
+  linkLabel,
+} = Astro.props;
+---
+
+<article class={`card card--accent-${accent}`}>
+  <h3 class="card__title">{name}</h3>
+  <p class="card__text">{description}</p>
+  {
+    stack.length > 0 && (
+      <div class="pill-row">
+        {stack.map((item) => (
+          <span class="pill">{item}</span>
+        ))}
+      </div>
+    )
+  }
+  <a class="text-link" href={href}>{linkLabel} →</a>
+</article>

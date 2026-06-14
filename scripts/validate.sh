@@ -32,6 +32,33 @@ sys.exit(0 if script_name in data.get("scripts", {}) else 1)
 PY
 }
 
+npm_runner() {
+  local dir="$1"
+  shift
+
+  if command -v node >/dev/null 2>&1 && command -v npm >/dev/null 2>&1; then
+    npm --prefix "$dir" "$@"
+    return
+  fi
+
+  if command -v docker >/dev/null 2>&1; then
+    docker run --rm -v "$dir":/app -w /app node:22-alpine npm "$@"
+    return
+  fi
+
+  step ERROR "npm validations require node+npm or Docker"
+  return 1
+}
+
+ensure_npm_deps_in_dir() {
+  local dir="$1"
+
+  [[ -f "$dir/package-lock.json" ]] || return 0
+  [[ -d "$dir/node_modules" ]] && return 0
+
+  run "${dir#"$ROOT_DIR"/} npm ci" npm_runner "$dir" ci
+}
+
 run_npm_checks_in_dir() {
   local dir="$1"
   local package_json="$dir/package.json"
@@ -39,23 +66,24 @@ run_npm_checks_in_dir() {
   [[ -f "$package_json" ]] || return 0
 
   step CHECK "npm validations in ${dir#"$ROOT_DIR"/}"
+  ensure_npm_deps_in_dir "$dir"
 
   if has_npm_script "$package_json" "lint"; then
-    run "${dir#"$ROOT_DIR"/} npm run lint" npm --prefix "$dir" run lint
+    run "${dir#"$ROOT_DIR"/} npm run lint" npm_runner "$dir" run lint
   fi
 
   if has_npm_script "$package_json" "format:check"; then
-    run "${dir#"$ROOT_DIR"/} npm run format:check" npm --prefix "$dir" run format:check
+    run "${dir#"$ROOT_DIR"/} npm run format:check" npm_runner "$dir" run format:check
   fi
 
   if has_npm_script "$package_json" "typecheck"; then
-    run "${dir#"$ROOT_DIR"/} npm run typecheck" npm --prefix "$dir" run typecheck
+    run "${dir#"$ROOT_DIR"/} npm run typecheck" npm_runner "$dir" run typecheck
   fi
 
   if has_npm_script "$package_json" "test"; then
-    run "${dir#"$ROOT_DIR"/} npm test" npm --prefix "$dir" test -- --runInBand
+    run "${dir#"$ROOT_DIR"/} npm test" npm_runner "$dir" test -- --runInBand
   elif has_npm_script "$package_json" "test:unit"; then
-    run "${dir#"$ROOT_DIR"/} npm run test:unit" npm --prefix "$dir" run test:unit
+    run "${dir#"$ROOT_DIR"/} npm run test:unit" npm_runner "$dir" run test:unit
   fi
 }
 

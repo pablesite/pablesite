@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>pablesite.es — Estructura y decisiones</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Syne:wght@400;700;800&display=swap');
+  :root {
+    --bg: #080b10; --bg2: #0d1117; --bg3: #131923; --border: #1e2a38;
+    --green: #00e5a0; --blue: #38bdf8; --purple: #a78bfa; --orange: #fb923c;
+    --red: #f87171; --teal: #2dd4bf; --text: #cbd5e1; --text-dim: #64748b;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); font-family: 'JetBrains Mono', monospace; color: var(--text); padding: 40px 32px; min-height: 100vh; }
+  .header { text-align: center; margin-bottom: 40px; position: relative; }
+  .header::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); }
+  .header-inner { display: inline-block; background: var(--bg); padding: 0 24px; position: relative; }
+  .phase-label { font-size: 10px; letter-spacing: 4px; color: var(--green); text-transform: uppercase; margin-bottom: 6px; }
+  .title { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 800; color: #fff; line-height: 1.1; }
+  .title span { color: var(--green); }
+  .subtitle { font-size: 11px; color: var(--text-dim); margin-top: 6px; letter-spacing: 1px; }
+  .badge { display: inline-flex; align-items: center; gap: 6px; border-radius: 20px; padding: 5px 14px; font-size: 11px; margin-top: 12px; letter-spacing: 1px; }
+  .badge-progress { background: #00e5a008; border: 1px solid #00e5a030; color: var(--green); }
+  .badge::before { content: '●'; font-size: 8px; }
+
+  .layout { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; max-width: 920px; margin: 0 auto; }
+  .card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 20px; position: relative; overflow: hidden; }
+  .card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--accent, var(--border)); }
+  .card.full { grid-column: 1 / -1; }
+  .card.c-green { --accent: var(--green); }
+  .card.c-blue { --accent: var(--blue); }
+  .card.c-purple { --accent: var(--purple); }
+  .card.c-orange { --accent: var(--orange); }
+  .card.c-teal { --accent: var(--teal); }
+  .card.c-red { --accent: var(--red); }
+
+  .card-label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); margin-bottom: 12px; }
+  .card-title { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; color: var(--accent, #fff); margin-bottom: 14px; }
+
+  .checklist { list-style: none; }
+  .checklist li { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 12px; line-height: 1.45; }
+  .checklist li:last-child { border-bottom: none; }
+  .check-icon { flex-shrink: 0; margin-top: 1px; }
+  .check-done { color: var(--green); }
+  .check-warn { color: var(--orange); }
+  .check-pending { color: var(--text-dim); }
+  .check-text { color: var(--text); }
+  .check-text.dim { color: var(--text-dim); }
+  .checklist code { color: var(--purple); font-size: 11px; }
+
+  /* Sitemap */
+  .sitemap { display: flex; flex-direction: column; gap: 10px; }
+  .site-home {
+    background: var(--bg3); border: 1px solid var(--green); border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .site-home .sh-title { font-family: 'Syne', sans-serif; font-weight: 700; color: var(--green); font-size: 13px; margin-bottom: 8px; }
+  .sh-sections { display: flex; flex-direction: column; gap: 4px; }
+  .sh-section { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--text); padding: 4px 8px; background: var(--bg2); border-radius: 6px; }
+  .sh-section .sh-arrow { color: var(--text-dim); font-size: 10px; margin-left: auto; }
+  .sh-section .sh-link { color: var(--blue); font-size: 10px; }
+
+  .pages-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 4px; }
+  .page-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 12px; }
+  .page-card.full-w { grid-column: 1 / -1; }
+  .page-route { font-family: 'JetBrains Mono', monospace; color: var(--blue); font-size: 11px; font-weight: 600; margin-bottom: 4px; }
+  .page-desc { color: var(--text-dim); font-size: 10.5px; line-height: 1.5; }
+
+  /* Hero box */
+  .hero-box {
+    background: var(--bg3); border: 1px solid #00e5a030; border-radius: 10px; padding: 16px;
+    margin-bottom: 10px;
+  }
+  .hero-tag { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--green); margin-bottom: 8px; }
+  .hero-line1 { font-family: 'Syne', sans-serif; font-weight: 800; color: #fff; font-size: 15px; line-height: 1.4; }
+  .hero-line2 { color: var(--text-dim); font-size: 12px; line-height: 1.6; margin-top: 6px; }
+  .hero-line2 .hl { color: var(--green); }
+
+  /* Decision pills */
+  .decision-grid { display: flex; flex-direction: column; gap: 8px; }
+  .decision-row { display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 11px; }
+  .decision-row:last-child { border-bottom: none; }
+  .d-topic { color: #fff; font-weight: 600; min-width: 110px; flex-shrink: 0; }
+  .d-status { color: var(--text-dim); line-height: 1.5; }
+  .d-status .pending-tag { display: inline-block; font-size: 9px; padding: 1px 6px; border-radius: 4px; background: #fb923c15; color: var(--orange); border: 1px solid #fb923c30; margin-left: 4px; }
+  .d-status .done-tag { display: inline-block; font-size: 9px; padding: 1px 6px; border-radius: 4px; background: #00e5a015; color: var(--green); border: 1px solid #00e5a030; margin-left: 4px; }
+
+  /* Stack */
+  .stack-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+  .stack-pill { background: var(--bg3); border: 1px solid var(--border); border-radius: 20px; padding: 5px 12px; font-size: 11px; color: var(--text); }
+  .stack-pill.hl { border-color: var(--green); color: var(--green); }
+
+  .note { background: #38bdf808; border: 1px solid #38bdf825; border-radius: 8px; padding: 12px 14px; font-size: 11px; color: var(--text-dim); margin-top: 8px; line-height: 1.5; }
+  .note strong { color: var(--blue); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="phase-label">pablesite.es</div>
+    <div class="title">Diseño de <span>contenidos</span></div>
+    <div class="subtitle">Estructura del sitio · tagline · decisiones de marca personal</div>
+    <div class="badge badge-progress">Fase de planificación — pendiente diseño visual</div>
+  </div>
+</div>
+
+<div class="layout">
+
+  <!-- Objetivo -->
+  <div class="card c-green full">
+    <div class="card-label">Objetivo del sitio</div>
+    <div class="card-title">Marca personal · credibilidad · oportunidades</div>
+    <div class="checklist">
+      <li><span class="check-icon check-done">✓</span><span class="check-text">Dar credibilidad a proyectos propios que se vayan a vender (The Arkenstone)</span></li>
+      <li><span class="check-icon check-done">✓</span><span class="check-text">Atraer potenciales empleadores o clientes interesados en el perfil</span></li>
+      <li><span class="check-icon check-done">✓</span><span class="check-text">Mostrar trabajo real: proyectos, infraestructura propia (Arda), resultados</span></li>
+    </div>
+  </div>
+
+  <!-- Hero / Tagline -->
+  <div class="card c-green full">
+    <div class="card-label">Hero — tagline definitivo</div>
+    <div class="card-title">La frase de apertura</div>
+    <div class="hero-box">
+      <div class="hero-tag">Línea 1</div>
+      <div class="hero-line1">De gestionar equipos a gestionar también agentes de IA.</div>
+      <div class="hero-tag" style="margin-top:12px;">Línea 2</div>
+      <div class="hero-line2">Mismo enfoque, distinto equipo — ahora construyendo <span class="hl">The Arkenstone</span> y mi propio <span class="hl">homelab</span>.</div>
+    </div>
+    <div class="note"><strong>Por qué funciona:</strong> conecta tu rol actual de dirección con el uso real de IA agéntica (Claude Code), sin sonar a buzzword. Es corto, se lee en 3 segundos, y deja el "por qué" para el About.</div>
+  </div>
+
+  <!-- Sitemap -->
+  <div class="card c-blue full">
+    <div class="card-label">Arquitectura del sitio</div>
+    <div class="card-title">Sitemap — Home como escaparate</div>
+    <div class="sitemap">
+      <div class="site-home">
+        <div class="sh-title">🏠 Home — teaser de todo, con enlaces</div>
+        <div class="sh-sections">
+          <div class="sh-section">Hero <span class="sh-arrow">tagline + links rápidos</span></div>
+          <div class="sh-section">About / Now <span class="sh-arrow">quién eres + en qué andas</span></div>
+          <div class="sh-section">Proyectos GitHub <span class="sh-arrow">2-3 repos destacados → GitHub</span></div>
+          <div class="sh-section">Arda <span class="sh-arrow">preview → <span class="sh-link">/arda</span></span></div>
+          <div class="sh-section">The Arkenstone <span class="sh-arrow">teaser → <span class="sh-link">/arkenstone</span></span></div>
+          <div class="sh-section">Blog <span class="sh-arrow">últimos posts → <span class="sh-link">/blog</span></span></div>
+          <div class="sh-section">CV <span class="sh-arrow">highlights → <span class="sh-link">/cv</span></span></div>
+          <div class="sh-section">Contacto <span class="sh-arrow">CTA → <span class="sh-link">/contact</span></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pages-grid">
+      <div class="page-card">
+        <div class="page-route">/arda</div>
+        <div class="page-desc">Homelab completo. Tarjetas grandes estilo friki, nombres LOTR, estado de cada servicio y acceso directo.</div>
+      </div>
+      <div class="page-card">
+        <div class="page-route">/arkenstone</div>
+        <div class="page-desc">Landing de MoneyPlanner como producto. Origen, problema real que resuelve, stack, link al SaaS.</div>
+      </div>
+      <div class="page-card">
+        <div class="page-route">/cv</div>
+        <div class="page-desc">CV completo + descarga PDF. Resumen también en home.</div>
+      </div>
+      <div class="page-card">
+        <div class="page-route">/blog</div>
+        <div class="page-desc">Bitácora profesional. Casos de éxito, migraciones, proyectos terminados. Sin presión de frecuencia.</div>
+      </div>
+      <div class="page-card full-w">
+        <div class="page-route">/contact</div>
+        <div class="page-desc">Email, LinkedIn, formulario simple. CTA directo para empleadores/clientes.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Decisiones de identidad -->
+  <div class="card c-purple full">
+    <div class="card-label">Decisiones de identidad y marca</div>
+    <div class="card-title">Tono, contenido y enfoque</div>
+    <div class="decision-grid">
+      <div class="decision-row">
+        <div class="d-topic">Enfoque</div>
+        <div class="d-status">Perfil técnico/profesional — marca personal para vender proyectos y atraer empleadores/clientes</div>
+      </div>
+      <div class="decision-row">
+        <div class="d-topic">Aficiones</div>
+        <div class="d-status">Fuera como secciones. Pincelada breve en About (deporte). Spotify en footer, sin protagonismo</div>
+      </div>
+      <div class="decision-row">
+        <div class="d-topic">Familia / hijo</div>
+        <div class="d-status">Excluido por prudencia — no se indexa info personal/familiar en un sitio con tu nombre</div>
+      </div>
+      <div class="decision-row">
+        <div class="d-topic">Casa nueva</div>
+        <div class="d-status">Solo como contexto de infraestructura (futuro MiniPC + solar), no como lifestyle</div>
+      </div>
+      <div class="decision-row">
+        <div class="d-topic">CTN / rol CTO</div>
+        <div class="d-status">Se menciona el rol y la experiencia, no la empresa ni vivencias internas</div>
+      </div>
+      <div class="decision-row">
+        <div class="d-topic">Finanzas personales</div>
+        <div class="d-status">No como sección propia — sí como storytelling de origen en la página de The Arkenstone</div>
+      </div>
+      <div class="decision-row">
+        <div class="d-topic">Now</div>
+        <div class="d-status">Integrado en About/Home, no página propia <span class="pending-tag">migrable a /now si crece</span></div>
+      </div>
+      <div class="decision-row">
+        <div class="d-topic">Avatar</div>
+        <div class="d-status">Avatar ilustrado/estilizado en lugar de foto — pendiente generar y mantener consistente en GitHub/LinkedIn/web</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Idioma -->
+  <div class="card c-orange full">
+    <div class="card-label">Internacionalización</div>
+    <div class="card-title">Español + Inglés</div>
+    <div class="checklist">
+      <li><span class="check-icon check-warn">⏳</span><span class="check-text">Estructura i18n de Astro desde el día 1 — rutas <code>/es/</code> y <code>/en/</code> aunque el contenido en inglés llegue después</span></li>
+      <li><span class="check-icon check-warn">⏳</span><span class="check-text">Páginas estructurales (Home, CV, Arda, Arkenstone) — traducidas a inglés, textos cortos y estables</span></li>
+      <li><span class="check-icon check-pending">→</span><span class="check-text dim">Blog — español por defecto. Traducción solo de posts puntuales, sin obligación</span></li>
+    </div>
+    <div class="note"><strong>Por qué ahora:</strong> definir rutas i18n desde el inicio evita romper URLs y SEO al añadir inglés más adelante.</div>
+  </div>
+
+  <!-- Stack técnico -->
+  <div class="card c-teal full">
+    <div class="card-label">Stack técnico decidido</div>
+    <div class="card-title">Framework, despliegue y diseño</div>
+    <div class="stack-row">
+      <div class="stack-pill hl">Astro</div>
+      <div class="stack-pill">Markdown / MDX (blog)</div>
+      <div class="stack-pill">i18n routing</div>
+      <div class="stack-pill hl">Cloudflare Pages</div>
+      <div class="stack-pill">GitHub repo + CI/CD</div>
+      <div class="stack-pill">Claude Design (UI)</div>
+      <div class="stack-pill">Claude Code (implementación)</div>
+    </div>
+  </div>
+
+  <!-- Pendiente -->
+  <div class="card c-orange full">
+    <div class="card-label">Pendiente de definir</div>
+    <div class="card-title">Próximos pasos</div>
+    <ul class="checklist">
+      <li><span class="check-icon check-warn">⏳</span><span class="check-text">Paleta de colores — ver muestras visuales (verde de Arda como punto de partida)</span></li>
+      <li><span class="check-icon check-warn">⏳</span><span class="check-text">Tipografía — ver pares tipográficos, JetBrains Mono como referencia de Arda</span></li>
+      <li><span class="check-icon check-warn">⏳</span><span class="check-text">Avatar — generar diseño ilustrado/estilizado</span></li>
+      <li><span class="check-icon check-warn">⏳</span><span class="check-text">Contenido del About — estructura: apertura · trayectoria · forma de trabajar · qué construyes ahora · cierre humano</span></li>
+    </ul>
+  </div>
+
+</div>
+
+</body>
+</html>

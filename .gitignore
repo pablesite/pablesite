@@ -3,6 +3,7 @@
 !.env.example
 node_modules/
 dist/
+.astro/
 coverage/
 .venv/
 __pycache__/

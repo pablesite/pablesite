@@ -1,0 +1,178 @@
+---
+import Icon from "@components/Icon.astro";
+import MetaLabel from "@components/MetaLabel.astro";
+import Section from "@components/Section.astro";
+import ServiceCard from "@components/ServiceCard.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { ardaServices } from "@data/content";
+
+const locale = "es";
+const title = "Arda — pablesite.es";
+const description =
+  "Mi homelab: un PC del trastero reconvertido en servidor Docker dentro de ARDA.";
+const specs = [
+  ["CPU", "Intel i7-3770 (2012)"],
+  ["RAM", "24 GB DDR3"],
+  ["Almacenamiento", "2× SSD + 2× HDD"],
+  ["Sistema", "Debian 13 (Trixie)"],
+];
+const usage = [
+  ["CPU", "usage-card__fill--cpu", "18% · i7-3770, 4c/8t"],
+  ["RAM", "usage-card__fill--ram", "10 / 24 GB"],
+  ["Disco", "usage-card__fill--disk", "961 GB / 1.5 TB"],
+];
+const stack = [
+  ["Sistema operativo", "Debian 13 (Trixie)"],
+  ["Contenedores", "Docker + Docker Compose"],
+  ["Reverse proxy", "Traefik"],
+  ["Exposición pública", "Cloudflare Tunnel"],
+  ["Acceso remoto", "Tailscale"],
+  ["Backups", "Restic (diario, retención semanal/mensual)"],
+  ["Actualizaciones", "Watchtower (terceros) + CI/CD (propios)"],
+  ["Seguridad", "fail2ban + actualizaciones automáticas"],
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  locale={locale}
+  path="arda/"
+>
+  <a class="back-link" href="/es/">← pablesite.es</a>
+
+  <section class="page-hero">
+    <MetaLabel label="arda" />
+    <h1 class="page-title">
+      Un PC del trastero, <span class="highlight">reconvertido</span>
+    </h1>
+    <div class="prose">
+      <p>
+        En 2012 monté un PC de sobremesa que llevaba años acumulando polvo en el
+        trastero. En vez de comprarlo nuevo o tirarlo, lo reconvertí en mi
+        servidor casero: Debian, Docker y Traefik corriendo sobre hardware que
+        ya tenía olvidado.
+      </p>
+      <p>
+        El objetivo es triple: aprender infraestructura real con algo que se
+        pueda romper sin consecuencias graves, alojar mis propios servicios
+        reduciendo la dependencia de terceros y tener un sitio donde probar y
+        desplegar proyectos antes de llevarlos a producción.
+      </p>
+      <p>
+        Cada servicio recibe un nombre del legendarium de Tolkien. Arda es el
+        nombre del mundo entero: el servidor que lo sostiene todo.
+      </p>
+    </div>
+
+    <div class="specs-box">
+      <div class="outside-card__label">Hardware</div>
+      <div class="specs-grid">
+        {
+          specs.map(([key, value]) => (
+            <div>
+              <div class="spec-key">{key}</div>
+              <div class="spec-value">{value}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <Section title="Servicios" accent="estado curado">
+    <p class="section-subtitle">
+      Estado publicado como contenido curado para esta v1. La conexión con
+      Palantír/Uptime Kuma queda para una API posterior.
+    </p>
+    <div class="service-grid">
+      {
+        ardaServices.map((service) => (
+          <ServiceCard {...service} locale={locale} />
+        ))
+      }
+    </div>
+  </Section>
+
+  <Section title="Uso del servidor" accent="snapshot">
+    <div class="usage-grid">
+      {
+        usage.map(([label, fillClass, value]) => (
+          <article class="usage-card">
+            <div class="usage-card__label">{label}</div>
+            <div class="usage-card__bar">
+              <div class={`usage-card__fill ${fillClass}`} />
+            </div>
+            <div class="usage-card__value">{value}</div>
+          </article>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Section title="Arquitectura" accent="cómo funciona">
+    <div class="prose">
+      <p>
+        Todo corre en contenedores Docker, orquestados con Docker Compose. Cada
+        servicio vive en su propio contenedor, con volúmenes y configuración
+        aislada.
+      </p>
+    </div>
+    <div class="arch-flow">
+      <article class="arch-node">
+        <Icon name="globe" /><div class="arch-node__label">Internet</div><div
+          class="arch-node__sub"
+        >
+          tráfico público
+        </div>
+      </article>
+      <article class="arch-node">
+        <Icon name="cloud" /><div class="arch-node__label">Cloudflare</div><div
+          class="arch-node__sub"
+        >
+          DNS + túnel
+        </div>
+      </article>
+      <article class="arch-node">
+        <Icon name="route" /><div class="arch-node__label">Traefik</div><div
+          class="arch-node__sub"
+        >
+          reverse proxy
+        </div>
+      </article>
+      <article class="arch-node">
+        <Icon name="box" /><div class="arch-node__label">Servicios</div><div
+          class="arch-node__sub"
+        >
+          contenedores
+        </div>
+      </article>
+    </div>
+    <div class="prose">
+      <p>
+        No hay puertos abiertos al exterior: el acceso público pasa por un túnel
+        de Cloudflare hasta Traefik, que enruta cada petición al contenedor
+        correspondiente según el dominio. Para administración remota uso
+        Tailscale.
+      </p>
+      <p>
+        Las copias de seguridad se ejecutan con Restic. Los servicios de
+        terceros se actualizan con Watchtower; los proyectos propios, como The
+        Arkenstone y pablesite, se despliegan con pipeline propio para mantener
+        control de versiones.
+      </p>
+    </div>
+    <div class="stack-list">
+      {
+        stack.map(([key, value]) => (
+          <div class="stack-row">
+            <>
+              <span class="stack-key">{key}</span>
+              <span class="stack-value">{value}</span>
+            </>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+</BaseLayout>

@@ -33,12 +33,14 @@ jobs:
 
       - uses: actions/setup-node@v6
         with:
-          node-version: "20"
+          node-version: "22"
+          cache: npm
 
-      - name: Mark stack-specific checks as deferred
-        run: |
-          echo "No app stack selected yet."
-          echo "This workflow currently validates the portable repo gate only."
+      - name: Install dependencies
+        run: npm ci
 
       - name: Run pre-push gate
         run: ./scripts/pre-push-check.sh
+
+      - name: Build Docker image
+        run: docker build -t pablesite:ci .

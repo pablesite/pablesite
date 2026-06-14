@@ -6,15 +6,17 @@ Definir una política simple de publicación antes de automatizar versiones o de
 
 ## Estado actual
 
-`pablesite` todavía no tiene una app ni un versionado funcional cerrado, así que no se automatiza
-release todavía.
+`pablesite` tiene una v1 estática en Astro y una imagen Docker preparada para ARDA. Todavía no se
+automatiza release ni deploy remoto.
 
 ## Reglas actuales
 
 1. Usar Conventional Commits
 2. Validar localmente antes de push
 3. Mantener `main` siempre en estado razonablemente publicable
-4. No introducir automation de release hasta que exista una necesidad real de versionado
+4. Construir la imagen Docker antes de preparar un despliegue
+5. No introducir automation de release hasta que exista una necesidad real de versionado
+6. No ejecutar `git push` ni despliegues remotos sin confirmación explícita
 
 ## Cuándo activar release automation
 
@@ -29,4 +31,5 @@ Tiene sentido activar `release-please` o equivalente cuando se cumplan estas con
 
 1. si `pablesite` usará versionado semántico formal
 2. si se publicarán artefactos o imágenes
-3. si el despliegue será GitHub Actions, Docker, plataforma managed o similar
+3. si el despliegue a ARDA será manual, GitHub Actions con aprobación o pull desde el servidor
+4. política de rollback por tags de imagen

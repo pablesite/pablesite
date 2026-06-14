@@ -1,0 +1,6 @@
+dist/
+node_modules/
+.astro/
+AGENTS.md
+design/*.html
+package-lock.json

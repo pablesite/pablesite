@@ -1,0 +1,30 @@
+---
+import BlogList from "@components/BlogList.astro";
+import MetaLabel from "@components/MetaLabel.astro";
+import Section from "@components/Section.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { blogPosts } from "@data/content";
+
+const locale = "es";
+---
+
+<BaseLayout
+  title="Blog — pablesite.es"
+  description="Notas y aprendizajes sobre Arda, The Arkenstone, IA agéntica e infraestructura propia."
+  locale={locale}
+  path="blog/"
+>
+  <a class="back-link" href="/es/">← pablesite.es</a>
+  <section class="page-hero">
+    <MetaLabel label="blog" />
+    <h1 class="page-title">Notas sin promesa de frecuencia.</h1>
+    <p class="page-subtitle">
+      Casos de éxito, migraciones, decisiones técnicas y aprendizajes que
+      merezca la pena dejar escritos.
+    </p>
+  </section>
+
+  <Section title="Próximas entradas" accent="borradores">
+    <BlogList posts={blogPosts[locale]} statusLabel="próximamente" />
+  </Section>
+</BaseLayout>

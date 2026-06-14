@@ -1,0 +1,27 @@
+---
+interface Props {
+  title: string;
+  accent?: string;
+  actionHref?: string;
+  actionLabel?: string;
+}
+
+const { title, accent, actionHref, actionLabel } = Astro.props;
+---
+
+<section class="section">
+  <div class="section__head">
+    <h2 class="section__title">
+      {title}
+      {accent && <span class="section__accent">// {accent}</span>}
+    </h2>
+    {
+      actionHref && actionLabel && (
+        <a class="section__action" href={actionHref}>
+          {actionLabel}
+        </a>
+      )
+    }
+  </div>
+  <slot />
+</section>

@@ -1,0 +1,19 @@
+---
+interface Props {
+  posts: string[];
+  statusLabel: string;
+}
+
+const { posts, statusLabel } = Astro.props;
+---
+
+<div class="blog-list">
+  {
+    posts.map((post) => (
+      <article class="blog-item">
+        <h3 class="blog-item__title">{post}</h3>
+        <span class="blog-item__status">{statusLabel}</span>
+      </article>
+    ))
+  }
+</div>

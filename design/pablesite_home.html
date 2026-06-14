@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>pablesite.es — Home (borrador de contenido)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Syne:wght@400;700;800&display=swap');
+  :root {
+    --bg: #080b10; --bg2: #0d1117; --bg3: #131923; --border: #1e2a38;
+    --green: #00e5a0; --blue: #38bdf8; --purple: #a78bfa; --orange: #fb923c;
+    --red: #f87171; --teal: #2dd4bf; --text: #cbd5e1; --text-dim: #64748b;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); font-family: 'JetBrains Mono', monospace; color: var(--text); line-height: 1.7; }
+
+  .wrap { max-width: 760px; margin: 0 auto; padding: 60px 24px 100px; }
+
+  /* Tag / meta label */
+  .meta-label { font-size: 10px; letter-spacing: 4px; color: var(--green); text-transform: uppercase; margin-bottom: 14px; }
+  .meta-label::before { content: '// '; color: var(--text-dim); }
+
+  /* HERO */
+  .hero { margin-bottom: 70px; }
+  .hero-top { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .hero-top .meta-label { margin-bottom: 0; }
+  .hero-avatar {
+    width: 36px; height: 36px; image-rendering: pixelated; image-rendering: crisp-edges;
+  }
+  .hero-tagline {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 30px; color: #fff;
+    line-height: 1.25; margin-bottom: 14px;
+  }
+  .hero-sub { font-size: 14px; color: var(--text-dim); line-height: 1.7; max-width: 540px; }
+  .hero-sub .hl { color: var(--green); font-weight: 600; }
+
+  .hero-links { display: flex; gap: 10px; margin-top: 24px; flex-wrap: wrap; }
+  .hero-link {
+    border: 1px solid var(--border); border-radius: 20px; padding: 6px 16px;
+    font-size: 11px; color: var(--text); background: var(--bg2);
+    min-width: 76px; text-align: center;
+  }
+  .hero-link.hl-green { border-color: #00e5a030; color: var(--green); }
+
+  /* SECTION */
+  .section { margin-bottom: 64px; }
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 18px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+  .section-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 18px; color: #fff; }
+  .section-title .accent { color: var(--green); }
+  .section-link { font-size: 11px; color: var(--blue); white-space: nowrap; }
+
+  /* ABOUT */
+  .about p { font-size: 13px; color: var(--text); margin-bottom: 16px; max-width: 620px; }
+  .about p:last-child { margin-bottom: 0; }
+  .about .role-box {
+    display: inline-block; background: var(--bg3); border: 1px solid var(--green);
+    border-radius: 6px; padding: 1px 6px; color: var(--green); font-size: 12px;
+    text-decoration: none;
+  }
+
+  /* NOW */
+  .now-box {
+    background: var(--bg2); border: 1px solid #00e5a025; border-radius: 10px; padding: 16px 18px;
+    margin-top: 18px; font-size: 12px; color: var(--text-dim); line-height: 1.7;
+  }
+  .now-box .now-tag { color: var(--green); font-weight: 600; }
+  .now-box code { color: var(--purple); font-size: 11px; }
+
+  /* PROJECTS */
+  .proj-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+  @media (min-width: 640px) {
+    .proj-grid { grid-template-columns: 1fr 1fr; }
+  }
+  .proj-card {
+    background: var(--bg2); border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px 18px; position: relative; overflow: hidden;
+  }
+  .proj-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--accent, var(--border)); }
+  .proj-card.c-green { --accent: var(--green); }
+  .proj-card.c-blue { --accent: var(--blue); }
+  .proj-card.c-purple { --accent: var(--purple); }
+  .proj-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; color: var(--accent, #fff); margin-bottom: 4px; }
+  .proj-desc { font-size: 12px; color: var(--text-dim); line-height: 1.6; }
+  .proj-link { font-size: 11px; color: var(--blue); margin-top: 8px; display: inline-block; }
+
+  /* ARDA TEASER */
+  .arda-teaser {
+    background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 20px;
+  }
+  .arda-desc { font-size: 13px; color: var(--text); margin-bottom: 14px; max-width: 580px; }
+  .arda-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 14px; }
+  @media (min-width: 640px) {
+    .arda-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  .arda-svc { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 10px; text-align: center; font-size: 10px; display: flex; flex-direction: column; }
+  .arda-svc .as-name { color: #fff; font-weight: 600; font-size: 11px; }
+  .arda-svc .as-sub { color: var(--text-dim); font-size: 9px; margin-top: 2px; margin-bottom: 6px; flex-grow: 1; }
+  .arda-svc.live { border-color: #00e5a030; }
+  .arda-svc.live .as-name { color: var(--green); }
+  .arda-svc.soon { opacity: 0.55; }
+  .arda-svc.soon .as-name { color: var(--text); }
+  .as-tag { display: inline-block; font-size: 8px; padding: 2px 6px; border-radius: 8px; letter-spacing: 0.5px; }
+  .as-tag.tag-blue { background: #38bdf815; color: var(--blue); border: 1px solid #38bdf830; }
+  .as-tag.tag-green { background: #00e5a015; color: var(--green); border: 1px solid #00e5a030; }
+  .as-tag.tag-dim { background: var(--bg2); color: var(--text-dim); border: 1px solid var(--border); }
+
+  /* ARKENSTONE TEASER */
+  .ark-teaser {
+    background: var(--bg2); border: 1px solid #38bdf825; border-radius: 10px; padding: 20px;
+  }
+  .ark-desc { font-size: 13px; color: var(--text); margin-bottom: 12px; max-width: 580px; }
+  .ark-features { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+  .ark-stack { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+  .ark-pill { background: var(--bg3); border: 1px solid var(--border); border-radius: 14px; padding: 3px 10px; font-size: 10px; color: var(--blue); }
+  .ark-pill.ark-feat { color: var(--green); border-color: #00e5a030; }
+
+  /* BLOG */
+  .blog-list { display: flex; flex-direction: column; gap: 4px; }
+  .blog-item {
+    display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+    padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 12px;
+  }
+  .blog-item:last-child { border-bottom: none; }
+  .blog-title { color: var(--text); }
+  .blog-status { font-size: 9px; padding: 2px 8px; border-radius: 10px; white-space: nowrap; background: #fb923c15; color: var(--orange); border: 1px solid #fb923c30; }
+
+  /* CONTACT */
+  .contact-box {
+    background: var(--bg2); border: 1px solid #00e5a025; border-radius: 10px; padding: 24px;
+    text-align: center;
+  }
+  .contact-text { font-size: 13px; color: var(--text); margin-bottom: 18px; }
+  .contact-links { display: flex; flex-direction: column; gap: 10px; align-items: stretch; max-width: 280px; margin: 0 auto; }
+  @media (min-width: 480px) {
+    .contact-links { flex-direction: row; justify-content: center; max-width: none; }
+  }
+  .contact-link { border: 1px solid var(--green); color: var(--green); border-radius: 20px; padding: 8px 20px; font-size: 12px; text-align: center; }
+
+  /* FOOTER */
+  .footer { text-align: center; font-size: 10px; color: var(--text-dim); margin-top: 60px; letter-spacing: 1px; }
+  .footer span { color: var(--green); }
+
+  /* FUERA DEL CÓDIGO */
+  .outside-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+  @media (min-width: 640px) {
+    .outside-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  .outside-card {
+    background: var(--bg2); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .outside-icon { font-size: 20px; margin-bottom: 6px; }
+  .outside-label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); margin-bottom: 8px; }
+  .outside-main { font-size: 12px; color: #fff; font-weight: 600; line-height: 1.5; }
+  .outside-main .outside-hl { color: var(--green); }
+  .outside-main .outside-dim { color: var(--text-dim); font-weight: 400; }
+  .outside-sub { font-size: 11px; color: var(--text-dim); margin-top: 6px; line-height: 1.5; }
+  .outside-link { font-size: 11px; color: var(--blue); margin-top: 8px; display: inline-block; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-top">
+      <img class="hero-avatar" src="data:image/png;base64,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" alt="Avatar de Pablo Ruiz">
+      <div class="meta-label">pablesite.es</div>
+    </div>
+    <div class="hero-tagline">De gestionar equipos a gestionar también agentes de IA.</div>
+    <div class="hero-sub">
+      Mismo enfoque, distinto equipo — construyendo mi propio
+      <span class="hl">sistema de finanzas personales</span> y un
+      <span class="hl">homelab</span> desde cero.
+    </div>
+    <div class="hero-links">
+      <div class="hero-link hl-green">GitHub</div>
+      <div class="hero-link hl-green">LinkedIn</div>
+      <div class="hero-link hl-green">X</div>
+      <div class="hero-link hl-green">Email</div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="section about">
+    <div class="section-head">
+      <div class="section-title">About <span class="accent">// quién soy</span></div>
+    </div>
+    <p>
+      Desde bien pequeño me ha gustado entender cómo funcionan las cosas por dentro — desmontar y montar de todo, desde Legos hasta máquinas de escribir (que le pregunten a mi padre por su preciada Olivetti) y, por supuesto, ordenadores, todos los que he tenido. Esa curiosidad me llevó a terminar mi primera etapa de formación importante: ingeniería de telecomunicaciones, seguida de un máster en tecnologías de la información y las comunicaciones.
+    </p>
+    <p>
+      Por otra parte, cada vez predico más con el mantra de que lo que no se mide no se puede mejorar. Esa obsesión por medir y anotar todo —en campos como la salud o las finanzas personales— me llevó a otra fase de mi vida, en la que no solo me he reencontrado con las matemáticas en un máster de ingeniería matemática y computación, sino que también he aprendido (y sigo aprendiendo) sobre finanzas personales de forma autodidacta.
+    </p>
+    <p>
+      Hoy soy lo que en mi centro tecnológico llamamos <a href="/cv" class="role-box">Director de Tecnología</a>. Aunque creo que cada CTO tiene su propia definición del cargo... en mi caso es fácil de explicar: dirijo a un equipo de personas para que construya tecnología de calidad. En el día a día eso significa coordinar, priorizar y tomar decisiones técnicas en un contexto de proyectos de I+D y contratos en el sector naval.
+    </p>
+    <p>
+      No obstante, para mí la mejor forma de entender algo es construyéndolo. Por eso, fuera del trabajo, sigo con las manos en la masa: Arda, mi homelab, y The Arkenstone, mi propio sistema de finanzas personales, son ahora mismo mis proyectos para seguir aprendiendo tecnología a bajo nivel — además de permitirme ganar tiempo y reducir costes en el proceso.
+    </p>
+    <p>
+      Fuera del teclado, soy padre de Lucas, marido de Ana, además de músico y ciclista frustrado.
+    </p>
+
+    <div class="now-box">
+      <span class="now-tag">Ahora mismo</span> estoy diseñando el frontend de <code>The Arkenstone</code> y adaptándolo a <code>PWA</code> para móviles, además de terminar de afinar contenido y diseño en pablesite.es.
+    </div>
+  </div>
+
+  <!-- PROYECTOS -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">Proyectos <span class="accent">// destacados</span></div>
+      <div class="section-link">ver GitHub →</div>
+    </div>
+    <div class="proj-grid">
+      <div class="proj-card c-blue">
+        <div class="proj-name">The Arkenstone</div>
+        <div class="proj-desc">Sistema de finanzas personales que nace de mi propia forma de gestionar el dinero. El core es público; sobre él corre el SaaS completo (Django + React + PostgreSQL, con CI/CD propio).</div>
+        <div class="proj-link">Ver repo (core) →</div>
+      </div>
+      <div class="proj-card c-purple">
+        <div class="proj-name">Fëanor</div>
+        <div class="proj-desc">Motor de backtesting para estrategias de trading, desarrollado como proyecto de máster.</div>
+        <div class="proj-link">Ver repo →</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARDA TEASER -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">Arda <span class="accent">// mi homelab</span></div>
+      <div class="section-link">/arda →</div>
+    </div>
+    <div class="arda-teaser">
+      <div class="arda-desc">
+        Un PC antiguo olvidado en el trastero, ahora reconvertido en mi servidor casero (Debian, Docker, Traefik) donde despliego mis propios servicios. Cada uno tiene nombre propio, sacado del universo de Tolkien.
+      </div>
+      <div class="arda-grid">
+        <div class="arda-svc live">
+          <div class="as-name">Moria</div>
+          <div class="as-sub">Gestión de contraseñas</div>
+          <div class="as-tag tag-blue">Passbolt</div>
+        </div>
+        <div class="arda-svc live">
+          <div class="as-name">Palantír</div>
+          <div class="as-sub">Monitorización del homelab</div>
+          <div class="as-tag tag-blue">Uptime Kuma</div>
+        </div>
+        <div class="arda-svc live">
+          <div class="as-name">The Arkenstone</div>
+          <div class="as-sub">Finanzas personales</div>
+          <div class="as-tag tag-green">Desarrollo propio</div>
+        </div>
+        <div class="arda-svc soon">
+          <div class="as-name">Lórien</div>
+          <div class="as-sub">Salud y deporte</div>
+          <div class="as-tag tag-dim">Desarrollo propio</div>
+        </div>
+        <div class="arda-svc soon">
+          <div class="as-name">Fëanor</div>
+          <div class="as-sub">Sistema automático de trading algorítmico</div>
+          <div class="as-tag tag-dim">Desarrollo propio</div>
+        </div>
+        <div class="arda-svc soon">
+          <div class="as-name">Rivendell</div>
+          <div class="as-sub">Almacenamiento personal en la nube</div>
+          <div class="as-tag tag-dim">Nextcloud</div>
+        </div>
+      </div>
+      <div class="proj-link">Ver todos los servicios →</div>
+    </div>
+  </div>
+
+  <!-- ARKENSTONE TEASER -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">The Arkenstone <span class="accent">// finanzas personales</span></div>
+      <div class="section-link">/arkenstone →</div>
+    </div>
+    <div class="ark-teaser">
+      <div class="ark-desc">
+        Empecé a construirlo porque las herramientas que existían no encajaban con cómo gestiono mi dinero, y acabé con un Excel demasiado complejo, lleno de integraciones de terceros, que cada vez costaba más mantener. Hoy es un sistema funcional con modelo open core. El núcleo es gratuito y autohospedable para quien quiera, y además ofrezco una versión gestionada para quien prefiera no complicarse.
+      </div>
+      <div class="ark-features">
+        <div class="ark-pill ark-feat">Patrimonio</div>
+        <div class="ark-pill ark-feat">Presupuesto</div>
+        <div class="ark-pill ark-feat">Contabilidad</div>
+        <div class="ark-pill ark-feat">Guía financiera</div>
+      </div>
+      <div class="ark-stack">
+        <div class="ark-pill">Django</div>
+        <div class="ark-pill">Vue</div>
+        <div class="ark-pill">PostgreSQL</div>
+        <div class="ark-pill">Docker</div>
+        <div class="ark-pill">CI/CD</div>
+      </div>
+      <div class="proj-link">Saber más →</div>
+    </div>
+  </div>
+
+  <!-- BLOG -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">Blog <span class="accent">// notas y aprendizajes</span></div>
+      <div class="section-link">/blog →</div>
+    </div>
+    <div class="blog-list">
+      <div class="blog-item">
+        <div class="blog-title">Cómo migré de AWS a mi propio homelab (y pasé de 47$/mes a 1$/mes)</div>
+        <div class="blog-status">próximamente</div>
+      </div>
+      <div class="blog-item">
+        <div class="blog-title">Por qué construí mi propio sistema de finanzas personales</div>
+        <div class="blog-status">próximamente</div>
+      </div>
+      <div class="blog-item">
+        <div class="blog-title">Cómo dirijo un equipo de agentes de IA (notas desde 2026)</div>
+        <div class="blog-status">próximamente</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FUERA DEL CÓDIGO -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">Fuera del código <span class="accent">// vida real</span></div>
+    </div>
+    <div class="outside-grid">
+      <div class="outside-card">
+        <div class="outside-icon">🚴</div>
+        <div class="outside-label">Strava</div>
+        <div class="outside-main">42 km esta semana <span class="outside-dim">(3 actividades)</span></div>
+        <div class="outside-sub">Última: Rodaje largo · 65 km · hace 2 días</div>
+        <div class="outside-link">Ver perfil →</div>
+      </div>
+      <div class="outside-card">
+        <div class="outside-icon">🎵</div>
+        <div class="outside-label">Spotify</div>
+        <div class="outside-main">Ahora: <span class="outside-hl">[canción]</span> — [artista]</div>
+        <div class="outside-sub">Esta semana: [artista 1], [artista 2], [artista 3]</div>
+        <div class="outside-link">Ver perfil →</div>
+      </div>
+      <div class="outside-card">
+        <div class="outside-icon">📖</div>
+        <div class="outside-label">Leyendo ahora</div>
+        <div class="outside-main">[Título del libro]</div>
+        <div class="outside-sub">de [Autor]</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">Contacto</div>
+    </div>
+    <div class="contact-box">
+      <div class="contact-text">¿Hablamos?</div>
+      <div class="contact-links">
+        <div class="contact-link">Email</div>
+        <div class="contact-link">LinkedIn</div>
+        <div class="contact-link">Enviar mensaje →</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">pablesite.es · Murcia, España · © 2026</div>
+
+</div>
+
+</body>
+</html>

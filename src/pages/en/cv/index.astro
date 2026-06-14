@@ -1,0 +1,89 @@
+---
+import MetaLabel from "@components/MetaLabel.astro";
+import Section from "@components/Section.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { site } from "@data/site";
+
+const locale = "en";
+---
+
+<BaseLayout
+  title="CV — pablesite.es"
+  description="Pablo Ruiz professional CV: technology leadership, R&D, software and infrastructure."
+  locale={locale}
+  path="cv/"
+>
+  <a class="back-link" href="/en/">← pablesite.es</a>
+  <section class="page-hero">
+    <MetaLabel label="cv" />
+    <h1 class="page-title">
+      Technology leadership with hands close to the code.
+    </h1>
+    <p class="page-subtitle">
+      I coordinate teams, make technical decisions and keep building my own
+      projects to stay practically grounded.
+    </p>
+    <div class="hero-links">
+      <a class="hero-link hero-link--primary" href="/cv-pablo-ruiz.pdf"
+        >Download PDF</a
+      >
+      <a class="hero-link hero-link--primary" href={site.links.linkedin}
+        >LinkedIn</a
+      >
+    </div>
+  </section>
+
+  <Section title="Profile" accent="summary">
+    <div class="prose">
+      <p>
+        Technology Director at a technology center, experienced in coordinating
+        technical teams, prioritizing R&D projects and making architecture
+        decisions where product, engineering, clients and constraints meet.
+      </p>
+      <p>
+        My strength is combining system-level thinking with practical execution:
+        architecture, quality, automation, deployment and a hands-on
+        relationship with agentic AI tools.
+      </p>
+    </div>
+  </Section>
+
+  <Section title="Experience" accent="current">
+    <div class="grid">
+      <article class="card card--accent-green">
+        <h3 class="card__title">Technology Director</h3>
+        <p class="card__text">
+          Technical-team leadership, R&D project coordination, architecture
+          decisions and technology delivery in the naval sector.
+        </p>
+      </article>
+      <article class="card card--accent-blue">
+        <h3 class="card__title">Own projects</h3>
+        <p class="card__text">
+          The Arkenstone, Arda and other personal systems to keep learning
+          infrastructure, product and automation through practice.
+        </p>
+      </article>
+    </div>
+  </Section>
+
+  <Section title="Education" accent="technical base">
+    <div class="stack-list">
+      <div class="stack-row">
+        <span class="stack-key">Engineering</span><span class="stack-value"
+          >Telecommunications</span
+        >
+      </div>
+      <div class="stack-row">
+        <span class="stack-key">Master's degree</span><span class="stack-value"
+          >Information and communication technologies</span
+        >
+      </div>
+      <div class="stack-row">
+        <span class="stack-key">Master's degree</span><span class="stack-value"
+          >Mathematical engineering and computing</span
+        >
+      </div>
+    </div>
+  </Section>
+</BaseLayout>

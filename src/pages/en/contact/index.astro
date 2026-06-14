@@ -1,0 +1,44 @@
+---
+import MetaLabel from "@components/MetaLabel.astro";
+import Section from "@components/Section.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { site } from "@data/site";
+
+const locale = "en";
+---
+
+<BaseLayout
+  title="Contact — pablesite.es"
+  description="Contact Pablo Ruiz directly by email or LinkedIn."
+  locale={locale}
+  path="contact/"
+>
+  <a class="back-link" href="/en/">← pablesite.es</a>
+  <section class="page-hero">
+    <MetaLabel label="contact" />
+    <h1 class="page-title">Shall we talk?</h1>
+    <p class="page-subtitle">
+      You can reach me directly by email or LinkedIn. A form can come later when
+      a safe integration is worth adding.
+    </p>
+  </section>
+
+  <Section title="Channels" accent="direct">
+    <div class="contact-box">
+      <p>
+        For professional opportunities, collaboration or questions about The
+        Arkenstone and Arda.
+      </p>
+      <div class="contact-links">
+        <a class="direct-link" href={site.email}>Email</a>
+        <a class="direct-link" href={site.links.linkedin}>LinkedIn</a>
+        <a class="direct-link" href={site.links.github}>GitHub</a>
+      </div>
+    </div>
+    <div class="form-note">
+      The original design included a form, but v1 avoids backend and external
+      providers so no secrets or operational dependency are introduced too
+      early.
+    </div>
+  </Section>
+</BaseLayout>

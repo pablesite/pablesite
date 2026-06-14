@@ -9,31 +9,34 @@ infraestructura del proyecto.
 
 ## Foundations
 
-| Area | Status | Notes |
-| --- | --- | --- |
-| AI workflow baseline | ✅ | `AGENTS.md`, `CLAUDE.md`, `.codex/skills/`, docs y scripts base creados |
-| Local validation gate | ✅ | `scripts/validate.sh` y `scripts/pre-push-check.sh` disponibles |
-| Frontend visual guardrails | ✅ | `scripts/check_frontend_visual_guardrails.py` + docs frontend |
-| CI/CD baseline | ✅ | Workflow de calidad, `dependabot` y documentación stack-agnostic listos |
-| Product stack | ⚪ | Pendiente decidir framework y arquitectura real |
-| Deployment pipeline | ⚪ | Estrategia documentada; jobs reales pendientes hasta decidir el stack |
+| Area                       | Status | Notes                                                                   |
+| -------------------------- | ------ | ----------------------------------------------------------------------- |
+| AI workflow baseline       | ✅     | `AGENTS.md`, `CLAUDE.md`, `.codex/skills/`, docs y scripts base creados |
+| Local validation gate      | ✅     | `scripts/validate.sh` y `scripts/pre-push-check.sh` disponibles         |
+| Frontend visual guardrails | ✅     | `scripts/check_frontend_visual_guardrails.py` + docs frontend           |
+| CI/CD baseline             | ✅     | Workflow de calidad, `dependabot` y documentación stack-agnostic listos |
+| Product stack              | ✅     | Astro + TypeScript para sitio estático bilingüe                         |
+| Site v1                    | ✅     | Home, Arda, Arkenstone, CV, Blog y Contacto en `/es/` y `/en/`          |
+| Deployment target          | ✅     | Docker en ARDA detrás de Traefik/Cloudflare Tunnel                      |
+| Deployment pipeline        | 🔄     | Imagen Docker y Compose listos; automatización remota pendiente         |
 
 ---
 
 ## Next Tasks
 
-| Type | Priority | Status | Description | Spec |
-| --- | --- | --- | --- | --- |
-| Manual | High | ⚪ | Definir stack inicial de `pablesite` y estructura de aplicación | — |
-| Manual | High | ⚪ | Crear shell inicial del sitio y sistema de rutas | — |
-| Manual | Medium | ⚪ | Completar jobs reales de build, test y deploy cuando el stack esté decidido | — |
+| Type     | Priority | Status | Description                                                                  | Spec                                        |
+| -------- | -------- | ------ | ---------------------------------------------------------------------------- | ------------------------------------------- |
+| Frontend | High     | ✅     | Implementar `pablesite` v1 con Astro, rutas i18n y diseño base               | `docs/tasks/frontend/phase-1-pablesite-v1/` |
+| Ops      | High     | ✅     | Preparar Dockerfile y Compose para despliegue como servicio ARDA             | `docs/tasks/frontend/phase-1-pablesite-v1/` |
+| Manual   | Medium   | ⚪     | Añadir CV PDF real y revisar URLs sociales antes de publicar                 | —                                           |
+| Manual   | Medium   | ⚪     | Diseñar integraciones dinámicas futuras para Arda, Spotify/Strava y contacto | —                                           |
 
 ---
 
 ## Legend
 
-| Symbol | Meaning |
-| --- | --- |
-| ✅ | Implemented and working |
-| 🔄 | In progress |
-| ⚪ | Not started |
+| Symbol | Meaning                 |
+| ------ | ----------------------- |
+| ✅     | Implemented and working |
+| 🔄     | In progress             |
+| ⚪     | Not started             |
