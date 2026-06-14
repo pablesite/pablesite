@@ -3,6 +3,7 @@ import BlogList from "@components/BlogList.astro";
 import Icon from "@components/Icon.astro";
 import ProjectCard from "@components/ProjectCard.astro";
 import Section from "@components/Section.astro";
+import ServiceGlyph from "@components/ServiceGlyph.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import {
   ardaServices,
@@ -91,18 +92,21 @@ const featuredServices = ardaServices.slice(0, 8);
             <article
               class={`compact-service ${service.status === "up" ? "compact-service--live" : ""}`}
             >
-              {"url" in service && service.url ? (
-                <a
-                  class="compact-service__name compact-service__name--link"
-                  href={service.url}
-                  rel="noreferrer"
-                  target="_blank"
-                >
-                  {service.name}
-                </a>
-              ) : (
-                <h3 class="compact-service__name">{service.name}</h3>
-              )}
+              <div class="compact-service__brand">
+                <ServiceGlyph icon={service.icon} compact />
+                {"url" in service && service.url ? (
+                  <a
+                    class="compact-service__name compact-service__name--link"
+                    href={service.url}
+                    rel="noreferrer"
+                    target="_blank"
+                  >
+                    {service.name}
+                  </a>
+                ) : (
+                  <h3 class="compact-service__name">{service.name}</h3>
+                )}
+              </div>
               <p class="compact-service__description">
                 {service.description[locale]}
               </p>

@@ -375,6 +375,31 @@ img {
   opacity: 0.62;
 }
 
+.service-card__identity {
+  align-items: center;
+  display: flex;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.service-glyph {
+  color: var(--blue);
+  flex: 0 0 auto;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+  width: var(--space-12);
+}
+
+.service-card--live .service-glyph {
+  color: var(--green);
+}
+
+.service-glyph--compact {
+  width: var(--space-11);
+}
+
 .service-card__head,
 .service-card__foot,
 .stack-row,
@@ -500,6 +525,14 @@ img {
 
 .compact-service--live {
   border-color: color-mix(in srgb, var(--green), transparent 70%);
+}
+
+.compact-service__brand {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: 100%;
 }
 
 .compact-service__name {

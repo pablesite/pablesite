@@ -126,9 +126,23 @@ export const projects = {
   }[]
 >;
 
+export type ServiceIcon =
+  | "vault"
+  | "orb"
+  | "mountain"
+  | "gem"
+  | "ring"
+  | "staff"
+  | "library"
+  | "council"
+  | "leaf"
+  | "home"
+  | "forge";
+
 export const ardaServices = [
   {
     name: "Moria",
+    icon: "vault",
     description: {
       es: "Gestión de contraseñas. Solo entra quien sabe la palabra.",
       en: "Password management. Only those who know the word may enter.",
@@ -140,6 +154,7 @@ export const ardaServices = [
   },
   {
     name: "Palantír",
+    icon: "orb",
     description: {
       es: "Monitorización de todos los servicios de Arda: disponibilidad, latencia y alertas.",
       en: "Monitoring for Arda services: availability, latency and alerts.",
@@ -151,6 +166,7 @@ export const ardaServices = [
   },
   {
     name: "Valinor",
+    icon: "mountain",
     description: {
       es: "Backups con Restic: la tierra inmortal donde nada debería perderse.",
       en: "Restic backups: the undying land where nothing should be lost.",
@@ -161,6 +177,7 @@ export const ardaServices = [
   },
   {
     name: "The Arkenstone",
+    icon: "gem",
     description: {
       es: "Mi sistema de finanzas personales: patrimonio, presupuesto y contabilidad.",
       en: "My personal finance system: net worth, budgeting and accounting.",
@@ -175,6 +192,7 @@ export const ardaServices = [
   },
   {
     name: "Narya",
+    icon: "ring",
     description: {
       es: "Gateway a modelos de IA, con registro y control de uso.",
       en: "Gateway to AI models, with logging and usage control.",
@@ -185,6 +203,7 @@ export const ardaServices = [
   },
   {
     name: "Gandalf",
+    icon: "staff",
     description: {
       es: "Bot de Telegram y asistente IA para gestionar Arda desde el móvil.",
       en: "Telegram bot and AI assistant to manage Arda from the phone.",
@@ -195,6 +214,7 @@ export const ardaServices = [
   },
   {
     name: "Rivendell",
+    icon: "library",
     description: {
       es: "Almacenamiento personal en la nube. La biblioteca élfica del homelab.",
       en: "Personal cloud storage. The homelab's elven library.",
@@ -205,6 +225,7 @@ export const ardaServices = [
   },
   {
     name: "The Council",
+    icon: "council",
     description: {
       es: "Gestor de tareas y proyectos: decidir qué misiones acometer.",
       en: "Tasks and projects: deciding which quests to take on.",
@@ -215,6 +236,7 @@ export const ardaServices = [
   },
   {
     name: "Lórien",
+    icon: "leaf",
     description: {
       es: "Dashboard de salud y deporte, con datos de Garmin y Apple Health.",
       en: "Health and sport dashboard with Garmin and Apple Health data.",
@@ -228,6 +250,7 @@ export const ardaServices = [
   },
   {
     name: "The Shire",
+    icon: "home",
     description: {
       es: "Fotos familiares con Immich, para guardar memoria sin depender de terceros.",
       en: "Family photos with Immich, keeping memories without relying on third parties.",
@@ -238,6 +261,7 @@ export const ardaServices = [
   },
   {
     name: "Fëanor",
+    icon: "forge",
     description: {
       es: "Sistema automático de trading algorítmico.",
       en: "Automated algorithmic trading system.",

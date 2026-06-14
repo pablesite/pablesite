@@ -13,8 +13,9 @@ Patrones base para cualquier frontend que se añada a `pablesite`.
 1. `BaseLayout` define shell, navegación, metadata SEO, alternates i18n y footer.
 2. `Section` define encabezados de bloque con acento y acción opcional.
 3. `ProjectCard`, `ServiceCard` y `BlogList` cubren patrones repetidos de contenido.
-4. `src/styles/global.css` concentra tokens de color, tipografía, espaciado, radios y grids.
-5. El contenido editable vive en `src/data/` para evitar copy enterrado en componentes.
+4. `ServiceGlyph` define la iconografía propia de los servicios de Arda con SVGs de línea, alimentada desde `src/data/content.ts`.
+5. `src/styles/global.css` concentra tokens de color, tipografía, espaciado, radios y grids.
+6. El contenido editable vive en `src/data/` para evitar copy enterrado en componentes.
 
 ## Antipatrones
 

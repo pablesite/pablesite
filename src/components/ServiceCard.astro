@@ -1,8 +1,11 @@
 ---
+import ServiceGlyph from "@components/ServiceGlyph.astro";
 import type { Locale } from "@data/site";
+import type { ServiceIcon } from "@data/content";
 
 interface Props {
   name: string;
+  icon: ServiceIcon;
   description: Record<Locale, string>;
   technology: string | Record<Locale, string>;
   status: "up" | "planned";
@@ -11,7 +14,7 @@ interface Props {
   locale: Locale;
 }
 
-const { name, description, technology, status, kind, url, locale } =
+const { name, icon, description, technology, status, kind, url, locale } =
   Astro.props;
 const technologyLabel =
   typeof technology === "string" ? technology : technology[locale];
@@ -29,20 +32,23 @@ const statusLabel = isUp
   class={`service-card ${isUp ? "service-card--live" : "service-card--planned"}`}
 >
   <div class="service-card__head">
-    {
-      url ? (
-        <a
-          class="service-card__name service-card__name--link"
-          href={url}
-          rel="noreferrer"
-          target="_blank"
-        >
-          {name}
-        </a>
-      ) : (
-        <h3 class="service-card__name">{name}</h3>
-      )
-    }
+    <div class="service-card__identity">
+      <ServiceGlyph icon={icon} />
+      {
+        url ? (
+          <a
+            class="service-card__name service-card__name--link"
+            href={url}
+            rel="noreferrer"
+            target="_blank"
+          >
+            {name}
+          </a>
+        ) : (
+          <h3 class="service-card__name">{name}</h3>
+        )
+      }
+    </div>
     <span class={`status ${isUp ? "status--up" : "status--dim"}`}>
       <span class="status__dot"></span>
       {statusLabel}
