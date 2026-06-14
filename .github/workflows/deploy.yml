@@ -1,5 +1,9 @@
 name: Build, Publish and Deploy
 
+permissions:
+  contents: read
+  packages: write
+
 on:
   push:
     branches: [ main ]
