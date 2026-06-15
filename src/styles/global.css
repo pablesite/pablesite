@@ -140,32 +140,23 @@ img {
 }
 
 .site-nav__link--locale {
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--green), transparent 92%) 0%,
-    color-mix(in srgb, var(--green), transparent 97%) 100%
-  );
-  border-color: color-mix(in srgb, var(--green), transparent 45%);
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--green), transparent 88%);
+  background: color-mix(in srgb, var(--green), transparent 95%);
+  border-color: color-mix(in srgb, var(--green), transparent 42%);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--green), transparent 86%);
   color: var(--green);
   font-size: 0.625rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.18em;
   min-height: var(--space-11);
-  min-width: calc(var(--space-11) + var(--space-4));
-  padding: 0 var(--space-6);
-  position: relative;
+  min-width: calc(var(--space-11) + var(--space-7));
+  padding: 0 var(--space-5);
+  text-align: center;
   text-indent: 0.14em;
 }
 
-.site-nav__link--locale::before {
-  color: color-mix(in srgb, var(--green), var(--white) 18%);
-  content: "01";
-  font-size: 0.42rem;
-  inset: 0.18rem auto auto 0.32rem;
-  letter-spacing: 0.08em;
-  opacity: 0.7;
-  position: absolute;
+.site-nav__link--locale:hover {
+  background: color-mix(in srgb, var(--green), transparent 92%);
+  border-color: color-mix(in srgb, var(--green), transparent 28%);
 }
 
 .hero {
@@ -218,6 +209,10 @@ img {
 
 .hero-links {
   margin-top: var(--space-10);
+}
+
+.ark-stack-row {
+  margin-top: var(--space-4);
 }
 
 .meta-label {
@@ -593,10 +588,16 @@ img {
   gap: var(--space-3);
 }
 
-.outside-card__icon,
-.arch-node__icon {
-  color: var(--green);
-  width: var(--space-10);
+.outside-card .icon {
+  color: color-mix(in srgb, var(--blue), var(--white) 28%);
+  height: var(--space-13);
+  width: var(--space-13);
+}
+
+.arch-node .icon {
+  color: color-mix(in srgb, var(--green), var(--white) 10%);
+  height: var(--space-11);
+  width: var(--space-11);
 }
 
 .outside-card__label,
@@ -697,10 +698,9 @@ img {
   text-align: center;
 }
 
-.arch-node__icon {
-  height: var(--space-12);
-  margin: 0 auto var(--space-2);
-  width: var(--space-12);
+.arch-node .icon {
+  display: block;
+  margin: 0 auto var(--space-3);
 }
 
 .arch-node__label {
