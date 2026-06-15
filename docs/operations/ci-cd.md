@@ -42,8 +42,10 @@ El workflow `deploy.yml` hace esto:
 1. `ARDA_SSH_HOST`
 2. `ARDA_SSH_USER`
 3. `ARDA_SSH_PRIVATE_KEY`
-4. `GHCR_PUSH_USERNAME` opcional
-5. `GHCR_PUSH_TOKEN` opcional
+4. `TAILSCALE_OAUTH_CLIENT_ID`
+5. `TAILSCALE_OAUTH_CLIENT_SECRET`
+6. `GHCR_PUSH_USERNAME` opcional
+7. `GHCR_PUSH_TOKEN` opcional
 
 ### GitHub variables
 
@@ -52,6 +54,18 @@ El workflow `deploy.yml` hace esto:
 3. `DEPLOY_PATH=/datos/docker/compose/pablesite`
 4. `DEPLOY_ENV_FILE=.env`
 5. `PRODUCTION_URL=https://pablesite.es`
+
+## Requisito de red para deploy automático
+
+El runner de GitHub no puede entrar a `192.168.1.180` directamente porque es una IP privada de la LAN.
+
+Para el deploy automático, el workflow usa Tailscale igual que `Arkenstone`. Eso implica:
+
+1. ARDA debe seguir conectado a la tailnet
+2. `ARDA_SSH_HOST` debe apuntar al host Tailscale de ARDA, no a la IP LAN
+3. El valor recomendado es `codinglab.tail519bdb.ts.net`
+
+También puedes usar la IP Tailscale `100.91.253.84`, pero MagicDNS suele ser más cómodo.
 
 ## Contrato del servidor
 

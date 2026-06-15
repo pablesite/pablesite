@@ -57,6 +57,13 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
+      - name: Connect Tailscale
+        uses: tailscale/github-action@v4
+        with:
+          oauth-client-id: ${{ secrets.TAILSCALE_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TAILSCALE_OAUTH_CLIENT_SECRET }}
+          tags: tag:ci
+
       - name: Configure SSH
         env:
           DEPLOY_HOST: ${{ secrets.ARDA_SSH_HOST }}
