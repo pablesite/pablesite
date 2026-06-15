@@ -42,8 +42,8 @@ El workflow `deploy.yml` hace esto:
 1. `ARDA_SSH_HOST`
 2. `ARDA_SSH_USER`
 3. `ARDA_SSH_PRIVATE_KEY`
-4. `GHCR_USERNAME` opcional
-5. `GHCR_TOKEN` opcional
+4. `GHCR_PUSH_USERNAME` opcional
+5. `GHCR_PUSH_TOKEN` opcional
 
 ### GitHub variables
 
