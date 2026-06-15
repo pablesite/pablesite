@@ -1,20 +1,18 @@
 services:
   pablesite:
-    build:
-      context: .
     image: ${PABLESITE_IMAGE:-pablesite:latest}
     container_name: pablesite
     restart: unless-stopped
     networks:
-      - traefik
+      - proxy
     labels:
       traefik.enable: "true"
       traefik.http.routers.pablesite.rule: "Host(`${PABLESITE_HOST:-pablesite.es}`)"
-      traefik.http.routers.pablesite.entrypoints: "${TRAEFIK_ENTRYPOINT:-websecure}"
-      traefik.http.routers.pablesite.tls: "true"
+      traefik.docker.network: "${TRAEFIK_NETWORK:-proxy}"
+      traefik.http.routers.pablesite.entrypoints: "${TRAEFIK_ENTRYPOINTS:-web}"
       traefik.http.services.pablesite.loadbalancer.server.port: "8080"
 
 networks:
-  traefik:
+  proxy:
     external: true
-    name: ${TRAEFIK_NETWORK:-traefik}
+    name: ${TRAEFIK_NETWORK:-proxy}

@@ -47,8 +47,8 @@ con `node:22-alpine` como fallback reproducible.
 
 1. `PABLESITE_IMAGE` — imagen a ejecutar; por defecto `pablesite:latest`
 2. `PABLESITE_HOST` — dominio público; por defecto `pablesite.es`
-3. `TRAEFIK_ENTRYPOINT` — entrypoint de Traefik; por defecto `websecure`
-4. `TRAEFIK_NETWORK` — red externa; por defecto `traefik`
+3. `TRAEFIK_ENTRYPOINTS` — entrypoints de Traefik; por defecto `web`
+4. `TRAEFIK_NETWORK` — red externa; por defecto `proxy`
 
 ## Diagnóstico estándar
 

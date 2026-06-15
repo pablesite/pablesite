@@ -1,102 +1,85 @@
-**Configurar Cloudflare Tunnel para `pablesite.es` (ARDA + Traefik)**
+# Cloudflare Tunnel para `pablesite.es`
 
-Resumen: usar un Cloudflare Tunnel existente (o crear uno nuevo) que exponga `pablesite.es` y reenvíe tráfico al Traefik local en ARDA (HTTP 80). Traefik se encargará de enrutar a la aplicación `pablesite` que escucha en el puerto 8080 dentro del contenedor.
+## Objetivo
 
-Prerequisitos en ARDA:
-- `docker` y `docker-compose` instalados
-- `traefik` corriendo en la red `traefik` (escuchando puertos 80/443 localmente)
-- Acceso administrativo a la cuenta de Cloudflare para el dominio `pablesite.es` (o el zone donde gestionas DNS)
-- `cloudflared` instalado en ARDA o un host que haga de cliente del Tunnel
+Exponer `pablesite.es` a internet usando el Cloudflare Tunnel ya existente en ARDA y enrutarlo a Traefik en `http://localhost:80`.
 
-Opciones: reutilizar un Tunnel existente (`codinglab` en tu captura) o crear un Tunnel nuevo.
+## Estado real en ARDA
 
-1) Reutilizar Tunnel existente (recomendado si ya usas `codinglab`)
+1. `cloudflared` corre como contenedor Docker, no como servicio `systemd`.
+2. El compose del tunnel vive en `/datos/docker/compose/cloudflared/compose.yml`.
+3. La configuración del tunnel vive en `/datos/docker/data/cloudflared/config.yml`.
+4. Traefik vive en la red Docker `proxy` y escucha en `:80` y `:443`.
+5. `pablesite` debe desplegarse en `/datos/docker/compose/pablesite/`.
 
-- En el panel Cloudflare → Zero Trust → Access → Tunnels → `codinglab` → "Configure" → "Hostname" añadir:
-  - Hostname: `pablesite.es`
-  - Service: `http://localhost:80` (o `http://127.0.0.1:80` si Traefik escucha en el host)
-  - Proxy status: Proxied
+## Configuración de Cloudflare
 
-- Guardar. Cloudflare creará un registro tipo `Tunnel` para `pablesite.es` (como el resto en tu captura).
+El hostname `pablesite.es` ya puede publicarse correctamente a través del tunnel actual siempre que Traefik tenga un router activo para ese host.
 
-2) Crear un Tunnel nuevo (si prefieres separar)
+Si hay que recrearlo o revisarlo en Zero Trust, la configuración es esta:
 
-- En ARDA instala `cloudflared` (ejemplo Debian/Ubuntu):
+1. Ir a Cloudflare Zero Trust.
+2. Abrir `Networks` o `Access` según la UI actual, luego `Tunnels`.
+3. Entrar en el tunnel `codinglab`.
+4. Añadir un `Public Hostname`:
+   - Hostname: `pablesite.es`
+   - Service type: `HTTP`
+   - URL: `http://localhost:80`
+5. Guardar con `Proxied` activo.
 
-```bash
-curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -o /usr/local/bin/cloudflared
-chmod +x /usr/local/bin/cloudflared
-```
+## Configuración esperada del tunnel
 
-- Autentica y crea un tunnel desde tu máquina local (necesita navegador):
-
-```bash
-cloudflared tunnel login
-cloudflared tunnel create pablesite
-# Esto crea un archivo de credenciales en ~/.cloudflared/<TUNNEL-UUID>.json
-```
-
-- Copia el archivo de credenciales a ARDA (por ejemplo a `/etc/cloudflared/`) y configura permisos.
-
-- Crear `config.yml` de cloudflared en `/etc/cloudflared/config.yml` con contenido mínimo:
+El archivo `/datos/docker/data/cloudflared/config.yml` puede seguir siendo mínimo:
 
 ```yaml
 tunnel: <TUNNEL-UUID>
 credentials-file: /etc/cloudflared/<TUNNEL-UUID>.json
+
 ingress:
-  - hostname: pablesite.es
-    service: http://127.0.0.1:80
-  - service: http_status:404
+  - service: http://localhost:80
 ```
 
-- Registrar el hostname en el panel Cloudflare (Zero Trust → Tunnels → Hostnames) apuntando `pablesite.es` al tunnel creado.
+La asociación de `pablesite.es` al tunnel se hace en el panel de Cloudflare, no en este archivo.
 
-- Ejecutar el tunnel como servicio systemd (ejemplo):
+## Configuración esperada de `pablesite`
+
+En ARDA:
+
+1. `compose.yaml` en `/datos/docker/compose/pablesite/compose.yaml`
+2. `.env` en `/datos/docker/compose/pablesite/.env`
+3. `.env.release` en `/datos/docker/compose/pablesite/.env.release`
+
+`.env` mínimo recomendado:
 
 ```bash
-cat >/etc/systemd/system/cloudflared-pablesite.service <<'EOF'
-[Unit]
-Description=Cloudflare Tunnel for pablesite
-After=network.target
-
-[Service]
-TimeoutStartSec=0
-Type=simple
-ExecStart=/usr/local/bin/cloudflared tunnel run --config /etc/cloudflared/config.yml
-Restart=on-failure
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-systemctl daemon-reload
-systemctl enable --now cloudflared-pablesite
+PABLESITE_HOST=pablesite.es
+TRAEFIK_NETWORK=proxy
+TRAEFIK_ENTRYPOINTS=web
 ```
 
-3) Ajustes en Traefik / Docker
+## Verificación
 
-- `compose.yaml` de `pablesite` ya contiene labels de Traefik con `Host(`${PABLESITE_HOST:-pablesite.es}`)`. Asegúrate en `/opt/arda/pablesite/.env` que `PABLESITE_HOST=pablesite.es`.
-- Traefik debe escuchar HTTP en `0.0.0.0:80` (para que cloudflared pueda reenviarle tráfico en `127.0.0.1:80`). Si Traefik está en un contenedor separado, cloudflared puede apuntar al puerto expuesto en el host o al puerto del contenedor si usas `service: http://traefik:80` y ejecutas cloudflared en la misma red Docker.
+En ARDA:
 
-4) Verificación
+```bash
+docker compose --env-file /datos/docker/compose/pablesite/.env \
+  --env-file /datos/docker/compose/pablesite/.env.release \
+  -f /datos/docker/compose/pablesite/compose.yaml ps
 
-- Desde internet: `curl -I https://pablesite.es/es/` → deberías obtener `200 OK` y certificado TLS gestionado por Cloudflare.
-- Logs: en ARDA revisar `journalctl -u cloudflared-pablesite -f` y `docker logs traefik` si hay problemas de enrutamiento.
+curl -I -H "Host: pablesite.es" http://127.0.0.1/
+docker logs cloudflared --tail 100
+docker logs traefik --tail 100
+```
 
-5) Notas de seguridad
+Desde internet:
 
-- Usa las entradas DNS tipo `Tunnel` en Cloudflare (no un A record público) si tu host está detrás del Tunnel.
-- Mantén las credenciales del Tunnel en `/etc/cloudflared` con permisos restringidos (`600`) y propietario `root`.
-- Si tu Traefik expone el panel (dashboard), protégelo con auth y un entrypoint interno.
+```bash
+curl -I https://pablesite.es/es/
+curl -I https://pablesite.es/en/
+```
 
-6) Troubleshooting rápido
+## Troubleshooting rápido
 
-- Si obtienes 502 desde Cloudflare: verificar `cloudflared` está corriendo y el servicio destino (`http://127.0.0.1:80`) responde en ARDA.
-- Si Traefik no enruta: revisar que `docker network` usado por pablesite y traefik es el mismo (`traefik`).
-
----
-
-Si quieres, puedo:
-
-- Añadir el `config.yml` y el unit file como plantilla en este repo en `deploy/` para que los copies a ARDA.
-- Crear el workflow CI/CD (build→ghcr→deploy via SSH) — ya lo añadí y requiere que agregues los secrets `ARDA_SSH_HOST`, `ARDA_SSH_USER`, `ARDA_SSH_PRIVATE_KEY` y opcional `ARDA_SSH_PORT`.
+1. Si `curl -I https://pablesite.es/...` devuelve `404`, suele faltar el router en Traefik o el hostname público en el tunnel.
+2. Si `curl -I -H "Host: pablesite.es" http://127.0.0.1/` devuelve `404` en ARDA, el contenedor no está desplegado o no está unido a la red `proxy`.
+3. Si Cloudflare devuelve `502`, revisar `docker logs cloudflared` y confirmar que Traefik responde en `localhost:80`.

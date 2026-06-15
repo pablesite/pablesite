@@ -9,16 +9,16 @@ infraestructura del proyecto.
 
 ## Foundations
 
-| Area                       | Status | Notes                                                                   |
-| -------------------------- | ------ | ----------------------------------------------------------------------- |
-| AI workflow baseline       | ✅     | `AGENTS.md`, `CLAUDE.md`, `.codex/skills/`, docs y scripts base creados |
-| Local validation gate      | ✅     | `scripts/validate.sh` y `scripts/pre-push-check.sh` disponibles         |
-| Frontend visual guardrails | ✅     | `scripts/check_frontend_visual_guardrails.py` + docs frontend           |
-| CI/CD baseline             | ✅     | Workflow de calidad, `dependabot` y documentación stack-agnostic listos |
-| Product stack              | ✅     | Astro + TypeScript para sitio estático bilingüe                         |
-| Site v1                    | ✅     | Home, Arda, Arkenstone, CV, Blog y Contacto en `/es/` y `/en/`          |
-| Deployment target          | ✅     | Docker en ARDA detrás de Traefik/Cloudflare Tunnel                      |
-| Deployment pipeline        | 🔄     | Imagen Docker y Compose listos; automatización remota pendiente         |
+| Area                       | Status | Notes                                                                                                                                  |
+| -------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------- |
+| AI workflow baseline       | ✅     | `AGENTS.md`, `CLAUDE.md`, `.codex/skills/`, docs y scripts base creados                                                                |
+| Local validation gate      | ✅     | `scripts/validate.sh` y `scripts/pre-push-check.sh` disponibles                                                                        |
+| Frontend visual guardrails | ✅     | `scripts/check_frontend_visual_guardrails.py` + docs frontend                                                                          |
+| CI/CD baseline             | ✅     | Workflow de calidad, `dependabot` y documentación stack-agnostic listos                                                                |
+| Product stack              | ✅     | Astro + TypeScript para sitio estático bilingüe                                                                                        |
+| Site v1                    | ✅     | Home, Arda, Arkenstone, CV, Blog y Contacto en `/es/` y `/en/`                                                                         |
+| Deployment target          | ✅     | Docker en ARDA detrás de Traefik/Cloudflare Tunnel                                                                                     |
+| Deployment pipeline        | 🔄     | Sitio ya servido en ARDA con compose image-only; falta publicar una imagen GHCR con los últimos fixes y dejar automatizado el redeploy |
 
 ---
 
