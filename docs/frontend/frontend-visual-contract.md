@@ -17,6 +17,7 @@ Patrones base para cualquier frontend que se añada a `pablesite`.
 5. `src/styles/global.css` concentra tokens de color, tipografía, espaciado, radios y grids.
 6. El contenido editable vive en `src/data/` para evitar copy enterrado en componentes.
 7. `blog-article` y `blog-list` cubren el patrón reusable de índice y detalle para posts Markdown del blog.
+8. `locale-switcher` define el patrón de utilidades de cabecera para cambiar idioma sin competir visualmente con la navegación principal.
 
 ## Antipatrones
 

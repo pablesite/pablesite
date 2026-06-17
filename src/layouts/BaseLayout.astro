@@ -1,5 +1,5 @@
 ---
-import { nav, site, type Locale } from "@data/site";
+import { localizePath, locales, nav, site, type Locale } from "@data/site";
 import "@styles/global.css";
 
 interface Props {
@@ -14,6 +14,14 @@ const { title, description, locale, path = "", alternatePath } = Astro.props;
 const canonical = new URL(`/${locale}/${path}`, site.baseUrl).toString();
 const alternateLocale = locale === "es" ? "en" : "es";
 const resolvedAlternatePath = alternatePath ?? `/${alternateLocale}/${path}`;
+const localeLinks = locales.map((entry) => ({
+  code: entry.toUpperCase(),
+  href:
+    entry === alternateLocale
+      ? resolvedAlternatePath
+      : localizePath(entry, path),
+  isCurrent: entry === locale,
+}));
 ---
 
 <!doctype html>
@@ -53,26 +61,49 @@ const resolvedAlternatePath = alternatePath ?? `/${alternateLocale}/${path}`;
           <img class="brand__avatar" src={site.avatar} alt="" />
           <span>{site.name}</span>
         </a>
-        <nav
-          class="site-nav"
-          aria-label={locale === "es"
-            ? "Navegación principal"
-            : "Main navigation"}
-        >
-          {
-            nav[locale].map((item) => (
-              <a href={item.href} class="site-nav__link">
-                {item.label}
-              </a>
-            ))
-          }
-          <a
-            class="site-nav__link site-nav__link--locale"
-            href={resolvedAlternatePath}
+        <div class="site-header__actions">
+          <nav
+            class="site-nav"
+            aria-label={locale === "es"
+              ? "Navegación principal"
+              : "Main navigation"}
           >
-            {alternateLocale.toUpperCase()}
-          </a>
-        </nav>
+            {
+              nav[locale].map((item) => (
+                <a href={item.href} class="site-nav__link">
+                  {item.label}
+                </a>
+              ))
+            }
+          </nav>
+
+          <div
+            class="locale-switcher"
+            role="group"
+            aria-label={locale === "es"
+              ? "Selector de idioma"
+              : "Language selector"}
+          >
+            {
+              localeLinks.map((entry) =>
+                entry.isCurrent ? (
+                  <span class="locale-switcher__option locale-switcher__option--active">
+                    {entry.code}
+                  </span>
+                ) : (
+                  <a
+                    class="locale-switcher__option"
+                    href={entry.href}
+                    lang={entry.code.toLowerCase()}
+                    hreflang={entry.code.toLowerCase()}
+                  >
+                    {entry.code}
+                  </a>
+                ),
+              )
+            }
+          </div>
+        </div>
       </header>
 
       <main>
