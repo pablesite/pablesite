@@ -275,19 +275,6 @@ export const ardaServices = [
   },
 ] as const;
 
-export const blogPosts = {
-  es: [
-    "Cómo migré de AWS a mi propio homelab (y pasé de 47$/mes a 1$/mes)",
-    "Por qué construí mi propio sistema de finanzas personales",
-    "Cómo dirijo un equipo de agentes de IA (notas desde 2026)",
-  ],
-  en: [
-    "How I moved from AWS to my homelab and cut the bill from $47/month to $1/month",
-    "Why I built my own personal finance system",
-    "How I manage a team of AI agents: notes from 2026",
-  ],
-} satisfies Localized<string[]>;
-
 export const outside = {
   es: [
     {

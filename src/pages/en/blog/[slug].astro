@@ -1,0 +1,61 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { getCollection, render } from "astro:content";
+import MetaLabel from "@components/MetaLabel.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { formatBlogDate } from "@data/blog";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("blogEn", ({ data }) => !data.draft);
+
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<"blogEn">;
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const alternateEntries = await getCollection(
+  "blogEs",
+  ({ data }) => !data.draft,
+);
+const alternateEntry = alternateEntries.find(
+  (candidate) => candidate.data.translationKey === entry.data.translationKey,
+);
+---
+
+<BaseLayout
+  title={`${entry.data.title} — Blog — pablesite.es`}
+  description={entry.data.description}
+  locale="en"
+  path={`blog/${entry.id}/`}
+  alternatePath={alternateEntry
+    ? `/es/blog/${alternateEntry.id}/`
+    : "/es/blog/"}
+>
+  <a class="back-link" href="/en/blog/">← back to blog</a>
+
+  <article class="blog-article">
+    <header class="page-hero">
+      <MetaLabel label="blog" />
+      <p class="blog-article__meta">
+        Published on {formatBlogDate("en", entry.data.publishDate)}
+        {
+          entry.data.updatedDate &&
+            ` · Updated on ${formatBlogDate("en", entry.data.updatedDate)}`
+        }
+      </p>
+      <h1 class="page-title">{entry.data.title}</h1>
+      <p class="page-subtitle">{entry.data.description}</p>
+    </header>
+
+    <div class="prose blog-article__content">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>

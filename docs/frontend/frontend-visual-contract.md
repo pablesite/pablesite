@@ -16,6 +16,7 @@ Patrones base para cualquier frontend que se añada a `pablesite`.
 4. `ServiceGlyph` define la iconografía propia de los servicios de Arda con SVGs de línea, alimentada desde `src/data/content.ts`.
 5. `src/styles/global.css` concentra tokens de color, tipografía, espaciado, radios y grids.
 6. El contenido editable vive en `src/data/` para evitar copy enterrado en componentes.
+7. `blog-article` y `blog-list` cubren el patrón reusable de índice y detalle para posts Markdown del blog.
 
 ## Antipatrones
 

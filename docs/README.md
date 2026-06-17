@@ -12,6 +12,7 @@ Esta carpeta es la fuente canónica de documentación de `pablesite`.
 6. `frontend/frontend-visual-contract.md`
 7. `operations/ci-cd.md`
 8. `operations/release-flow.md`
+9. `content/blog-writing-guide.md`
 
 ## Regla de uso
 

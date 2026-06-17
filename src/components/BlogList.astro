@@ -1,19 +1,39 @@
 ---
-interface Props {
-  posts: string[];
-  statusLabel: string;
+export interface BlogListItem {
+  title: string;
+  href: string;
+  description?: string;
+  meta: string;
 }
 
-const { posts, statusLabel } = Astro.props;
+interface Props {
+  posts: BlogListItem[];
+  emptyMessage?: string;
+}
+
+const { posts, emptyMessage } = Astro.props;
 ---
 
 <div class="blog-list">
   {
-    posts.map((post) => (
-      <article class="blog-item">
-        <h3 class="blog-item__title">{post}</h3>
-        <span class="blog-item__status">{statusLabel}</span>
-      </article>
-    ))
+    posts.length > 0 ? (
+      posts.map((post) => (
+        <article class="blog-item">
+          <div class="blog-item__body">
+            <h3 class="blog-item__title">
+              <a class="blog-item__link" href={post.href}>
+                {post.title}
+              </a>
+            </h3>
+            {post.description && (
+              <p class="blog-item__description">{post.description}</p>
+            )}
+          </div>
+          <span class="blog-item__status">{post.meta}</span>
+        </article>
+      ))
+    ) : (
+      <p class="blog-list__empty">{emptyMessage}</p>
+    )
   }
 </div>

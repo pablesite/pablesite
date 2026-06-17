@@ -32,6 +32,35 @@ desplegable como contenedor Docker en ARDA.
 5. `npm run typecheck` — validación TypeScript
 6. `npm run format:check` — comprobación de formato
 
+## Crear un post
+
+1. Crear un Markdown en `src/content/blogEs/` para español y otro en `src/content/blogEn/` para inglés
+2. Mantener el mismo `translationKey` en ambos ficheros para que los alternates i18n del post apunten a su traducción
+3. Definir al menos `title`, `description`, `publishDate` y `draft`
+4. Usar el nombre del fichero como slug final de la URL
+5. Partir de la plantilla `src/content/_templates/blog-post.md`
+6. Respetar la guía editorial en `docs/content/blog-writing-guide.md`
+
+Ejemplo:
+
+```md
+---
+title: "Título del post"
+description: "Resumen corto"
+publishDate: 2026-06-17
+translationKey: "mi-post"
+draft: false
+---
+```
+
+## Escribir con ayuda de un agente
+
+1. Dar al agente 3-5 ideas clave del artículo
+2. Añadir el contexto personal o la motivación real
+3. Explicar la solución aplicada con el nivel técnico que quieras contar
+4. Si ya tienes una conclusión o aprendizaje, incluirlo también
+5. Pedir que use la skill `blog-post-writer` para convertir esas notas en un borrador con tu tono
+
 Si el entorno local no expone `node` pero sí Docker, `./scripts/validate.sh` ejecuta los scripts npm
 con `node:22-alpine` como fallback reproducible.
 

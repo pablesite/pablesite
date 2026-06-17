@@ -3,9 +3,10 @@ import BlogList from "@components/BlogList.astro";
 import MetaLabel from "@components/MetaLabel.astro";
 import Section from "@components/Section.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
-import { blogPosts } from "@data/content";
+import { getPublishedBlogPosts } from "@data/blog";
 
 const locale = "en";
+const posts = await getPublishedBlogPosts(locale);
 ---
 
 <BaseLayout
@@ -24,7 +25,7 @@ const locale = "en";
     </p>
   </section>
 
-  <Section title="Upcoming posts" accent="drafts">
-    <BlogList posts={blogPosts[locale]} statusLabel="coming soon" />
+  <Section title="Posts" accent="published">
+    <BlogList posts={posts} emptyMessage="No posts have been published yet." />
   </Section>
 </BaseLayout>

@@ -4,19 +4,15 @@ import Icon from "@components/Icon.astro";
 import ProjectCard from "@components/ProjectCard.astro";
 import Section from "@components/Section.astro";
 import ServiceGlyph from "@components/ServiceGlyph.astro";
+import { getLatestBlogPosts } from "@data/blog";
 import BaseLayout from "@layouts/BaseLayout.astro";
-import {
-  ardaServices,
-  blogPosts,
-  copy,
-  outside,
-  projects,
-} from "@data/content";
+import { ardaServices, copy, outside, projects } from "@data/content";
 import { site } from "@data/site";
 
 const locale = "es";
 const t = copy[locale];
 const featuredServices = ardaServices.slice(0, 8);
+const latestBlogPosts = await getLatestBlogPosts(locale);
 ---
 
 <BaseLayout
@@ -162,7 +158,10 @@ const featuredServices = ardaServices.slice(0, 8);
     actionHref="/es/blog/"
     actionLabel="/blog →"
   >
-    <BlogList posts={blogPosts[locale]} statusLabel={t.labels.soon} />
+    <BlogList
+      posts={latestBlogPosts}
+      emptyMessage="Todavía no hay artículos publicados en español."
+    />
   </Section>
 
   <Section title={t.labels.outside} accent={t.labels.outsideAccent}>
