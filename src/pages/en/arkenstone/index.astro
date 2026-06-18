@@ -1,97 +1,162 @@
 ---
 import MetaLabel from "@components/MetaLabel.astro";
 import Section from "@components/Section.astro";
-import BaseLayout from "@layouts/BaseLayout.astro";
+import { arkenstoneLanding } from "@data/arkenstone";
 import { site } from "@data/site";
+import BaseLayout from "@layouts/BaseLayout.astro";
 
 const locale = "en";
+const t = arkenstoneLanding[locale];
 ---
 
 <BaseLayout
   title="The Arkenstone — pablesite.es"
-  description="The Arkenstone, formerly MoneyPlanner: an open-core personal finance system built from a real need."
+  description={t.seoDescription}
   locale={locale}
   path="arkenstone/"
 >
-  <a class="back-link" href="/en/">← pablesite.es</a>
+  <a class="back-link" href="/en/">{t.backLabel}</a>
 
-  <section class="page-hero">
-    <MetaLabel label="the arkenstone" />
-    <h1 class="page-title">
-      Personal finance <span class="highlight">without fighting the tool</span>
-    </h1>
-    <p class="page-subtitle">
-      The Arkenstone is the new name for MoneyPlanner: a system for net worth,
-      budgeting, accounting and financial decisions.
-    </p>
+  <section class="product-hero">
+    <div class="product-hero__main">
+      <MetaLabel label="the arkenstone" />
+      <h1 class="product-hero__title">
+        {t.hero.title}
+        <span class="highlight">{t.hero.highlight}</span>
+      </h1>
+      <p class="product-hero__subtitle">{t.hero.description}</p>
+
+      <div class="hero-links">
+        <a class="button button--primary" href={site.email}
+          >{t.hero.primaryCta}</a
+        >
+      </div>
+    </div>
+
+    <div class="product-hero__visual">
+      <img
+        class="product-hero__image"
+        src="/arkenstone-patrimonio.png"
+        alt="Arkenstone screenshot showing the net worth view"
+      />
+    </div>
   </section>
 
-  <Section title="Origin" accent="real problem">
+  <div id="approach"></div>
+  <Section title="How to use Arkenstone" accent="up front">
     <div class="prose">
-      <p>
-        It started from my own need. Existing tools did not match how I manage
-        money, so I built a spreadsheet that became more and more sophisticated.
-        It worked for a while; then it became fragile, manual and dependent on
-        scattered integrations.
-      </p>
-      <p>
-        The Arkenstone turns that system into a product: a clearer base to know
-        where you are, decide what to do with your money and reduce the
-        operational noise of personal finance.
-      </p>
+      <p>{t.openCoreIntro}</p>
     </div>
-  </Section>
-
-  <Section title="Product" accent="open core">
-    <div class="grid grid--two">
-      <article class="card card--accent-green">
-        <h3 class="card__title">Self-hostable core</h3>
-        <p class="card__text">
-          The core will be free and public for anyone who wants to run an
-          instance, inspect the model or adapt it.
-        </p>
-      </article>
-      <article class="card card--accent-blue">
-        <h3 class="card__title">Managed SaaS</h3>
-        <p class="card__text">
-          A managed version runs on top of the core for people who do not want
-          to handle servers, deploys, backups or maintenance.
-        </p>
-      </article>
-    </div>
-  </Section>
-
-  <Section title="What it covers" accent="v1">
     <div class="grid grid--two">
       {
-        [
-          "Net worth",
-          "Budgeting",
-          "Personal accounting",
-          "Financial guide",
-        ].map((item) => (
-          <article class="card card--accent-purple">
-            <h3 class="card__title">{item}</h3>
-            <p class="card__text">
-              One part of a system designed to turn scattered financial data
-              into clearer, reviewable decisions.
-            </p>
+        t.openCore.map((item) => (
+          <article class={`card card--accent-${item.tone}`}>
+            <h3 class="card__title">{item.title}</h3>
+            <p class="card__text">{item.description}</p>
           </article>
         ))
       }
     </div>
   </Section>
 
-  <Section title="Stack" accent="own product">
-    <div class="pill-row">
+  <Section title="The problem" accent="less friction, better judgement">
+    <div class="prose">
+      <p>{t.problem.intro}</p>
+    </div>
+    <div class="product-question-grid">
       {
-        ["Django", "Vue", "PostgreSQL", "Docker", "CI/CD", "PWA"].map(
-          (item) => <span class="pill">{item}</span>,
-        )
+        t.problem.questions.map((question) => (
+          <article class="product-question-card">
+            <span class="product-question-card__mark">?</span>
+            <p>{question}</p>
+          </article>
+        ))
       }
     </div>
+  </Section>
+
+  <Section title="What you see inside Arkenstone" accent="product in use">
+    <div class="product-showcase-list">
+      {
+        t.showcases.map((showcase, index) => (
+          <article
+            class={`product-showcase ${index % 2 === 1 ? "product-showcase--reverse" : ""}`}
+          >
+            <div class="product-showcase__media">
+              <div class="product-preview-card__window">
+                <div class="product-preview-card__chrome">
+                  <span />
+                  <span />
+                  <span />
+                </div>
+                <div class="product-preview-card__canvas">
+                  <div
+                    class={`product-preview-card__panel ${index === 0 ? "product-preview-card__panel--hero" : "product-preview-card__panel--wide"}`}
+                  />
+                  <div class="product-preview-card__row">
+                    <div class="product-preview-card__panel" />
+                    <div class="product-preview-card__panel" />
+                  </div>
+                  <div class="product-preview-card__panel product-preview-card__panel--tall" />
+                </div>
+              </div>
+            </div>
+            <div class="product-showcase__content">
+              <span class="product-preview-card__label">{showcase.label}</span>
+              <h3 class="product-showcase__title">{showcase.title}</h3>
+              <p class="card__text">{showcase.description}</p>
+              <ul class="product-bullet-list">
+                {showcase.bullets.map((bullet) => (
+                  <li>{bullet}</li>
+                ))}
+              </ul>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Section title="Two valid ways to use it" accent="same base, different depth">
+    <div class="grid grid--two">
+      {
+        t.modes.map((mode) => (
+          <article class={`card card--accent-${mode.tone}`}>
+            <h3 class="card__title">{mode.title}</h3>
+            <p class="card__text">{mode.description}</p>
+          </article>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Section title="A five-phase financial guide" accent="practical view">
+    <div class="product-phase-list">
+      {
+        t.phases.map((phase, index) => (
+          <article class="product-phase-card">
+            <div class="product-phase-card__index">0{index + 1}</div>
+            <div class="product-phase-card__body">
+              <h3 class="product-phase-card__title">{phase.name}</h3>
+              <p class="card__text">{phase.description}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+    <div class="now-box">
+      This is not meant to be a rigid linear path. The idea is to see your
+      situation across every phase at once and dive into the current bottleneck.
+    </div>
+  </Section>
+
+  <Section title="Technical base" accent="current stack">
+    <div class="pill-row">
+      {t.stack.map((item) => <span class="pill">{item}</span>)}
+    </div>
     <div class="contact-box">
-      <p>If The Arkenstone sounds interesting, let’s talk.</p>
+      <p>{t.contact.title}</p>
+      <p class="section-subtitle">{t.contact.body}</p>
       <div class="contact-links">
         <a class="direct-link" href={site.email}>Email</a>
         <a class="direct-link" href={site.links.linkedin}>LinkedIn</a>

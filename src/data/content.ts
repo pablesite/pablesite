@@ -84,7 +84,7 @@ export const projects = {
     {
       name: "The Arkenstone",
       description:
-        "Sistema de finanzas personales que nace de mi propia forma de gestionar el dinero. El core es público; sobre él corre el SaaS completo.",
+        "Sistema de finanzas personales que nace de mi propia forma de gestionar el dinero, disponible como Arkenstone autohospedado o Arkenstone Cloud.",
       href: "/es/arkenstone/",
       accent: "blue",
       stack: ["Django", "Vue", "PostgreSQL", "Docker"],
@@ -102,7 +102,7 @@ export const projects = {
     {
       name: "The Arkenstone",
       description:
-        "A personal finance system born from the way I manage my own money. The core is public; the full SaaS runs on top of it.",
+        "A personal finance system born from the way I manage my own money, available as self-hosted Arkenstone or Arkenstone Cloud.",
       href: "/en/arkenstone/",
       accent: "blue",
       stack: ["Django", "Vue", "PostgreSQL", "Docker"],

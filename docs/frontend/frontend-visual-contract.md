@@ -19,6 +19,7 @@ Patrones base para cualquier frontend que se añada a `pablesite`.
 7. `blog-article` y `blog-list` cubren el patrón reusable de índice y detalle para posts Markdown del blog.
 8. `locale-switcher` define el patrón de utilidades de cabecera para cambiar idioma sin competir visualmente con la navegación principal.
 9. `blog-media` define el patrón reusable para imágenes editoriales dentro de posts, con separación vertical, borde, radio y pie de foto discreto.
+10. `product-hero`, `product-question-card`, `product-phase-card` y `product-preview-card` cubren el patrón reusable de landing de producto con propuesta de valor, problema, fases y placeholders de capturas.
 
 ## Antipatrones
 

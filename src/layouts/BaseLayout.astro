@@ -52,6 +52,8 @@ const localeLinks = locales.map((entry) => ({
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={new URL(site.avatar, site.baseUrl)} />
+    <link rel="icon" type="image/png" href={site.avatar} />
+    <link rel="apple-touch-icon" href={site.avatar} />
     <meta name="theme-color" content="#080b10" />
   </head>
   <body>
