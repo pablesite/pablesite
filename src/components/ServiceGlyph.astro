@@ -123,4 +123,40 @@ const { icon, compact = false } = Astro.props;
       </>
     )
   }
+  {
+    icon === "tower" && (
+      <>
+        <path d="M18 38V14L24 10L30 14V38" />
+        <path d="M16 38H32" />
+        <path d="M21 18H27" />
+        <path d="M21 24H27" />
+        <path d="M21 30H27" />
+        <path d="M24 10V6" />
+      </>
+    )
+  }
+  {
+    icon === "pony" && (
+      <>
+        <path d="M14 32C16 26 20 22 25 22C31 22 34 26 36 32" />
+        <path d="M18 22L16 16L20 12L26 14L30 12L34 16L32 22" />
+        <path d="M19 32V38" />
+        <path d="M31 32V38" />
+        <path d="M22 18H22.1" />
+        <path d="M29 18H29.1" />
+      </>
+    )
+  }
+  {
+    icon === "ledger" && (
+      <>
+        <path d="M14 10H34V38H14Z" />
+        <path d="M19 16H29" />
+        <path d="M19 22H29" />
+        <path d="M19 28H25" />
+        <path d="M27 28H29" />
+        <path d="M19 34H24" />
+      </>
+    )
+  }
 </svg>

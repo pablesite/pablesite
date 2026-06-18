@@ -137,7 +137,10 @@ export type ServiceIcon =
   | "council"
   | "leaf"
   | "home"
-  | "forge";
+  | "forge"
+  | "tower"
+  | "pony"
+  | "ledger";
 
 export const ardaServices = [
   {
@@ -224,6 +227,17 @@ export const ardaServices = [
     kind: "third-party",
   },
   {
+    name: "Orthanc",
+    icon: "tower",
+    description: {
+      es: "Domótica para la casa nueva: automatizaciones, sensores y control centralizado.",
+      en: "Home automation for the new house: automations, sensors and centralized control.",
+    },
+    technology: "Home Assistant",
+    status: "planned",
+    kind: "third-party",
+  },
+  {
     name: "The Council",
     icon: "council",
     description: {
@@ -231,6 +245,20 @@ export const ardaServices = [
       en: "Tasks and projects: deciding which quests to take on.",
     },
     technology: "Vikunja",
+    status: "planned",
+    kind: "third-party",
+  },
+  {
+    name: "Prancing Pony",
+    icon: "pony",
+    description: {
+      es: "Estación multimedia del homelab para centralizar biblioteca y consumo doméstico.",
+      en: "The homelab media station for a centralized household library and playback.",
+    },
+    technology: {
+      es: "Stack multimedia",
+      en: "Media stack",
+    },
     status: "planned",
     kind: "third-party",
   },
@@ -258,6 +286,20 @@ export const ardaServices = [
     technology: "Immich",
     status: "planned",
     kind: "third-party",
+  },
+  {
+    name: "Glóin",
+    icon: "ledger",
+    description: {
+      es: "Scripting e integración para traer facturas y recibos a base de datos sin picado manual.",
+      en: "Scripting and integration to bring invoices and receipts into the database without manual entry.",
+    },
+    technology: {
+      es: "Scripts + integración",
+      en: "Scripts + integration",
+    },
+    status: "planned",
+    kind: "own",
   },
   {
     name: "Fëanor",
