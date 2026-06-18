@@ -3,7 +3,7 @@
 Estado actual de `pablesite`. Actualizar este archivo cuando cambie el estado funcional o de
 infraestructura del proyecto.
 
-**Last review:** 2026-06-17
+**Last review:** 2026-06-18
 
 ---
 
@@ -19,6 +19,7 @@ infraestructura del proyecto.
 | Site v1                    | ✅     | Home, Arda, Arkenstone, CV, Blog y Contacto en `/es/` y `/en/`                                                                       |
 | Blog publishing workflow   | ✅     | Blog real con Astro Content Collections, rutas por idioma y posts Markdown en `src/content/blogEs/` y `src/content/blogEn/`          |
 | Blog editorial workflow    | ✅     | Guía canónica, plantilla de post y skill `blog-post-writer` para redactar desde ideas clave respetando tono y estructura             |
+| Docker dev environment     | ✅     | `compose.dev.yaml` levanta Astro con hot reload sobre `node:22-alpine`, volúmenes persistentes y acceso local en `localhost:4321`    |
 | Deployment target          | ✅     | Docker en ARDA detrás de Traefik/Cloudflare Tunnel                                                                                   |
 | Deployment pipeline        | 🔄     | Sitio ya servido en ARDA con compose image-only y imagen GHCR; falta validar el deploy automático por Tailscale desde GitHub Actions |
 

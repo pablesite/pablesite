@@ -20,3 +20,9 @@ primer día.
 3. Usa `./scripts/validate.sh` antes de cada commit
 4. Usa `./scripts/pre-push-check.sh` antes de cualquier push
 5. Consulta `docs/operations/ci-cd.md` antes de tocar pipelines o releases
+
+## Docker desarrollo
+
+1. Levanta el entorno con `docker compose -f compose.dev.yaml up --build`
+2. Abre `http://localhost:4321/es/`
+3. Para parar el entorno usa `docker compose -f compose.dev.yaml down`

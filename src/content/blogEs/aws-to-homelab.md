@@ -53,6 +53,18 @@ proyecto dejó de ser una simple migración de un servicio de nube a otro, para 
 La solución empezó por el hardware. Desmonté por completo el PC viejo para ver qué merecía la pena salvar y qué
 no. Después de darle muchas vueltas, me deshice de la GPU dedicada que llevaba... eran tan obsoleta que sólo me iba a generar calor y consumo. Fuente, tarjeta WiFi, de sonido, lector de CDs, de disquetes.... sí sí, de disquetes, y alguna cosa más se fue fuera.
 
+<figure class="blog-media blog-media--expandable">
+  <a href="/blog/aws-to-homelab/arda-server.jpeg" target="_blank" rel="noreferrer">
+    <img
+      src="/blog/aws-to-homelab/arda-server.jpeg"
+      alt="La placa base de Arda durante el montaje del homelab, antes de reinstalar el resto de componentes."
+    />
+  </a>
+  <figcaption>
+    Arda en pleno montaje: limpiando, simplificando y preparando la base del homelab. Pulsa para verla en grande.
+  </figcaption>
+</figure>
+
 Me quedé con la placa, el procesador, la RAM y dos discos duros SSD Sata. La limpieza fue bastante más seria que un soplado rápido. Limpié todo a conciencia, use alcohol isopropílico para la electrónica, repasé a fondo ventiladores y disipador y quité la pasta térmica antigua.
 
 El equipo de partida tampoco era una reliquia inútil. Aunque es un PC de 2012,

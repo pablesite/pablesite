@@ -70,6 +70,23 @@ con `node:22-alpine` como fallback reproducible.
 2. `docker run --rm -p 8080:8080 pablesite:local`
 3. Abrir `http://localhost:8080/es/`
 
+## Docker desarrollo
+
+Para trabajar con un entorno parecido al de producción, pero con recarga en caliente:
+
+1. `docker compose -f compose.dev.yaml up --build`
+2. Abrir `http://localhost:4321/es/`
+3. Editar el código local y dejar que Astro recargue dentro del contenedor
+4. Parar con `docker compose -f compose.dev.yaml down`
+
+Características del entorno:
+
+1. Usa `node:22-alpine`, igual que las fases de build de producción
+2. Monta el repo como volumen para desarrollar sin rebuild completo
+3. Persiste `node_modules` y `.astro` en volúmenes Docker
+4. Expone Astro en `0.0.0.0:4321` para acceder desde el host
+5. Activa polling de cambios para evitar problemas de file watching en Docker Desktop
+
 ## Despliegue en ARDA
 
 `compose.yaml` asume una red externa de Traefik. Variables útiles:

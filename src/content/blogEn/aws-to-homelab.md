@@ -65,6 +65,18 @@ the dedicated GPU it had. It was so obsolete that it was only going to add
 heat and power consumption. The power supply, WiFi card, sound card, CD drive,
 floppy drive, yes, really, floppy drive, and a few other bits also went out.
 
+<figure class="blog-media blog-media--expandable">
+  <a href="/blog/aws-to-homelab/arda-server.jpeg" target="_blank" rel="noreferrer">
+    <img
+      src="/blog/aws-to-homelab/arda-server.jpeg"
+      alt="Arda's motherboard during the homelab rebuild, before reinstalling the rest of the components."
+    />
+  </a>
+  <figcaption>
+    Arda mid-rebuild: cleaning, simplifying and preparing the base of the homelab. Click to open full size.
+  </figcaption>
+</figure>
+
 I kept the motherboard, the CPU, the RAM and two SATA SSDs. The cleaning was a
 lot more serious than a quick dust-off. I cleaned everything properly, used
 isopropyl alcohol on the electronics, went over the fans and cooler carefully
