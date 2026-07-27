@@ -1437,6 +1437,11 @@ img {
   gap: var(--space-6);
 }
 
+.product-showcase--top-aligned {
+  align-items: start;
+  margin-top: var(--space-8);
+}
+
 .product-showcase__media,
 .product-showcase__content {
   min-width: 0;
@@ -1463,6 +1468,125 @@ img {
   line-height: 1.7;
   margin: 0;
   padding-left: var(--space-7);
+}
+
+.arkenstone-chip-row {
+  margin-top: var(--space-8);
+}
+
+.arkenstone-hero {
+  margin-bottom: var(--space-15);
+}
+
+.arkenstone-hero__subtitle {
+  max-width: var(--measure-wide);
+}
+
+.arkenstone-hero__visual {
+  margin-top: var(--space-10);
+}
+
+.decision-card,
+.mode-card,
+.improvement-card,
+.simulation-summary-card {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.decision-card__examples {
+  color: var(--green);
+  font-size: 0.6875rem;
+}
+
+.simulation-metrics-grid {
+  margin-top: var(--space-5);
+}
+
+.simulation-metric-card {
+  min-height: 100%;
+}
+
+.simulation-summary-card--full {
+  margin-top: var(--space-8);
+}
+
+.simulation-summary-card--full .product-hero__image {
+  margin-top: var(--space-4);
+}
+
+.simulation-metric-card strong {
+  color: var(--text);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+.module-explorer {
+  display: grid;
+  gap: var(--space-6);
+  margin-top: var(--space-8);
+}
+
+.module-explorer__list {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.module-explorer__button {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-3);
+  color: inherit;
+  cursor: pointer;
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-6);
+  text-align: left;
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    transform 160ms ease;
+}
+
+.module-explorer__button:hover {
+  border-color: color-mix(in srgb, var(--blue), transparent 52%);
+  transform: translateY(-1px);
+}
+
+.module-explorer__button--active {
+  background: color-mix(in srgb, var(--blue), transparent 92%);
+  border-color: color-mix(in srgb, var(--blue), transparent 56%);
+}
+
+.module-explorer__title,
+.module-explorer__visual-title {
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.module-explorer__description {
+  color: var(--text-dim);
+  font-size: 0.75rem;
+  line-height: 1.7;
+}
+
+.module-explorer__visual {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.module-explorer__image {
+  background: var(--bg-2);
+  border: 0;
+  box-shadow: none;
+  height: auto;
+  min-height: 0;
+  object-fit: contain;
+  object-position: top center;
+  width: 100%;
 }
 
 .back-link {
@@ -1640,6 +1764,15 @@ img {
   .product-showcase {
     align-items: center;
     grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.9fr);
+  }
+
+  .module-explorer {
+    align-items: start;
+    grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+  }
+
+  .simulation-metrics-grid--four {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .product-showcase--reverse .product-showcase__media {

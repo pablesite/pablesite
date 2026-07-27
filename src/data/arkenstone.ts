@@ -1,49 +1,79 @@
 import type { Locale } from "./site";
 
-type LandingCardTone = "green" | "blue" | "purple";
-
-interface LandingCard {
+interface ArkenstoneDecisionGroup {
   title: string;
   description: string;
-  tone: LandingCardTone;
+  examples: string[];
 }
 
-interface LandingPhase {
-  name: string;
+interface ArkenstoneMetric {
+  title: string;
   description: string;
 }
 
-interface LandingShowcase {
-  label: string;
+interface ArkenstoneDataMode {
   title: string;
   description: string;
   bullets: string[];
 }
 
-interface LandingCopy {
+interface ArkenstoneModule {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  imageAlt: string;
+}
+
+interface ArkenstoneImprovementGroup {
+  title: string;
+  description: string;
+  bullets: string[];
+}
+
+interface ArkenstoneLandingCopy {
   seoDescription: string;
   backLabel: string;
   hero: {
     title: string;
-    highlight: string;
     description: string;
     chips: string[];
     primaryCta: string;
-    secondaryCta: string;
-    asideTitle: string;
-    asideBody: string;
+    image: string;
+    imageAlt: string;
   };
-  openCoreIntro: string;
-  openCore: LandingCard[];
-  problem: {
+  decisions: {
+    title: string;
     intro: string;
-    questions: string[];
+    groups: ArkenstoneDecisionGroup[];
+    image: string;
+    imageAlt: string;
   };
-  showcases: LandingShowcase[];
-  modes: LandingCard[];
-  phases: LandingPhase[];
-  stack: string[];
-  contact: {
+  simulation: {
+    title: string;
+    intro: string;
+    summaryTitle: string;
+    summaryDescription: string;
+    image: string;
+    imageAlt: string;
+    metrics: ArkenstoneMetric[];
+  };
+  dataModes: {
+    title: string;
+    intro: string;
+    items: ArkenstoneDataMode[];
+  };
+  modules: {
+    title: string;
+    intro: string;
+    items: ArkenstoneModule[];
+  };
+  improvements: {
+    title: string;
+    intro: string;
+    groups: ArkenstoneImprovementGroup[];
+  };
+  cta: {
     title: string;
     body: string;
   };
@@ -52,271 +82,399 @@ interface LandingCopy {
 export const arkenstoneLanding = {
   es: {
     seoDescription:
-      "The Arkenstone es una app de finanzas personales para entender tu situación, priorizar decisiones y avanzar sin depender de hojas de cálculo frágiles.",
+      "The Arkenstone es una herramienta para evaluar decisiones financieras importantes viendo su impacto antes de comprometer patrimonio, deuda y flujo de caja.",
     backLabel: "← pablesite.es",
     hero: {
-      title: "Tu dinero debería",
-      highlight: "ayudarte a decidir",
+      title:
+        "Una herramienta para decidir con criterio qué hacer con tu dinero.",
       description:
-        "The Arkenstone convierte información financiera dispersa en una guía práctica. Puedes registrar cada movimiento o trabajar con revisiones más ligeras, pero en ambos casos terminas entendiendo qué está pasando y cuál es el siguiente paso razonable.",
-      chips: [],
-      primaryCta: "¿Tienes dudas?",
-      secondaryCta: "",
-      asideTitle: "Claridad para decidir mejor",
-      asideBody:
-        "Arkenstone te ayuda a ver tu patrimonio, entender cómo evoluciona tu caja y detectar qué decisión merece prioridad ahora, sin perder tiempo montando un sistema paralelo en hojas de cálculo.",
+        "Te ayuda a evaluar compras, deuda y cambios patrimoniales viendo su impacto antes de comprometer tu economía.",
+      chips: [
+        "Comprar vivienda",
+        "Comprar vehículo",
+        "Asumir deuda",
+        "Reorganizar patrimonio",
+      ],
+      primaryCta: "Únete como beta tester",
+      image: "/arkenstone-patrimonio-neto.png",
+      imageAlt:
+        "Captura de The Arkenstone mostrando la evolución del patrimonio neto",
     },
-    openCoreIntro:
-      "Arkenstone puede usarse de dos formas: Arkenstone autohospedado para quien quiere control total sobre su despliegue, y Arkenstone Cloud para quien quiere usar la herramienta sin operar infraestructura.",
-    openCore: [
-      {
-        title: "Arkenstone autohospedado",
-        description:
-          "Lo ejecutas en tu propia infraestructura para mantener control sobre los datos, adaptar el sistema a tu forma de trabajar y operar sin depender de terceros.",
-        tone: "green",
-      },
-      {
-        title: "Arkenstone Cloud",
-        description:
-          "Lo usas directamente, con la misma lógica de producto, pero sin ocuparte de servidores, backups ni mantenimiento.",
-        tone: "blue",
-      },
-    ],
-    problem: {
+    decisions: {
+      title: "Qué decisiones puedes evaluar con Arkenstone",
       intro:
-        "La mayoría de herramientas te dejan en uno de estos extremos: o registras datos sin parar, o ves dashboards que muestran números pero no te ayudan a decidir. Arkenstone está diseñado para cubrir el espacio intermedio.",
-      questions: [
-        "¿Tengo un flujo de caja sano o solo estoy sobreviviendo?",
-        "¿Debería priorizar deuda, ahorro, fondo de emergencia o inversión?",
-        "¿Mi patrimonio mejora de verdad o solo se mueve dinero entre cuentas?",
-        "¿Puedo llevar esto sin convertirlo en otro trabajo diario?",
+        "Arkenstone te ayuda a estudiar decisiones financieras importantes antes de incorporarlas a tu realidad.",
+      groups: [
+        {
+          title: "Grandes compras",
+          description:
+            "Evalúa decisiones que cambian tu patrimonio y tu nivel de compromiso a largo plazo.",
+          examples: ["Coche", "Vivienda", "Reforma"],
+        },
+        {
+          title: "Cambios en ingresos y trabajo",
+          description:
+            "Compara cómo afectaría a tu economía cambiar tu capacidad de ingreso durante meses o años.",
+          examples: ["Estudios", "Reducción de jornada", "Excedencia"],
+        },
+        {
+          title: "Deuda y equilibrio financiero",
+          description:
+            "Entiende cuánto margen tienes para endeudarte, amortizar o rebalancear sin tensionar tu caja.",
+          examples: [
+            "Amortizar deuda",
+            "Asumir nueva deuda",
+            "Reorganizar patrimonio",
+          ],
+        },
+        {
+          title: "Proyectos personales o profesionales",
+          description:
+            "Explora decisiones más abiertas, con impacto incierto, antes de comprometer tiempo y dinero.",
+          examples: ["Negocio", "Decisión genérica"],
+        },
+      ],
+      image: "/arkenstone-mi-plan-resumen.png",
+      imageAlt:
+        "Captura de Mi Plan mostrando una proyección patrimonial y el capital productivo",
+    },
+    simulation: {
+      title: "Qué te devuelve la simulación",
+      intro:
+        "Arkenstone traduce cada decisión a un escenario concreto para que veas su impacto antes de incorporarla a tu plan.",
+      summaryTitle: "Un resumen claro del escenario",
+      summaryDescription:
+        "La simulación no se queda en un número aislado. Te enseña cómo cambia la trayectoria esperada, qué sacrificio inicial exige y qué compromisos recurrentes introduce antes de aceptar la decisión dentro de tu plan.",
+      image: "/arkenstone-mi-plan-resumen.png",
+      imageAlt:
+        "Captura de The Arkenstone mostrando la evolución proyectada del patrimonio en Mi Plan",
+      metrics: [
+        {
+          title: "Impacto inicial",
+          description:
+            "Cuánto capital sale de inicio para ejecutar la decisión.",
+        },
+        {
+          title: "Impacto mensual",
+          description:
+            "Cómo cambia tu flujo mensual con nuevos gastos, ingresos o aportaciones.",
+        },
+        {
+          title: "Activo o deuda que introduces",
+          description:
+            "Qué patrimonio añades y qué obligaciones nuevas asumes al incorporarlo.",
+        },
+        {
+          title: "Comparación con tu plan actual",
+          description:
+            "Qué cambia frente al plan vigente en fechas, patrimonio y capital productivo.",
+        },
       ],
     },
-    showcases: [
-      {
-        label: "vista 01",
-        title: "Panel financiero con contexto, no solo números",
-        description:
-          "La app está pensada para que una primera vista ya te diga cómo vas: patrimonio, caja, foco del mes y señales de alerta sin obligarte a interpretar diez widgets sueltos.",
-        bullets: [
-          "Resumen rápido de salud financiera",
-          "Prioridades visibles sin navegar media app",
-          "Hueco ideal para la captura principal del producto",
-        ],
-      },
-      {
-        label: "vista 02",
-        title: "Cierre mensual para entender si realmente avanzas",
-        description:
-          "No se trata solo de registrar actividad. El cierre mensual convierte movimientos y balances en una lectura práctica: qué mejoró, qué empeoró y qué conviene hacer ahora.",
-        bullets: [
-          "Comparativa entre meses",
-          "Desviaciones de presupuesto y caja",
-          "Espacio para screenshot de revisión mensual",
-        ],
-      },
-      {
-        label: "vista 03",
-        title: "Mapa de fases para decidir qué toca primero",
-        description:
-          "Arkenstone organiza la vida financiera en fases comprensibles para que el usuario no solo vea datos, sino también dónde está el cuello de botella.",
-        bullets: [
-          "Diagnóstico por áreas financieras",
-          "Siguiente paso más razonable según contexto",
-          "Placeholder para la vista estratégica de fases",
-        ],
-      },
-    ],
-    modes: [
-      {
-        title: "Para quien quiere control detallado",
-        description:
-          "Movimientos, categorías, presupuestos y cierres periódicos para entender la operativa diaria con precisión.",
-        tone: "green",
-      },
-      {
-        title: "Para quien quiere claridad sin fricción",
-        description:
-          "Revisiones mensuales, evolución patrimonial e indicadores agregados para seguir avanzando sin anotar cada gasto.",
-        tone: "blue",
-      },
-    ],
-    phases: [
-      {
-        name: "Deuda",
-        description:
-          "Ordenar pasivos, distinguir deuda mala y reducir la fricción que te impide avanzar.",
-      },
-      {
-        name: "Flujo de caja",
-        description:
-          "Consolidar un superávit estable y saber si el mes está realmente bajo control.",
-      },
-      {
-        name: "Fondo de emergencia",
-        description:
-          "Construir un colchón realista que proteja la operativa diaria y las decisiones importantes.",
-      },
-      {
-        name: "Salud patrimonial",
-        description:
-          "Entender cómo se equilibran activos y pasivos y cómo evoluciona tu patrimonio neto.",
-      },
-      {
-        name: "Independencia financiera",
-        description:
-          "Medir hasta qué punto tus activos productivos empiezan a sostener tu estilo de vida.",
-      },
-    ],
-    stack: [
-      "Django 6",
-      "Django REST Framework",
-      "SimpleJWT",
-      "Vue 3",
-      "Vite",
-      "Pinia",
-      "PostgreSQL",
-      "Docker Compose",
-    ],
-    contact: {
-      title:
-        "Si esta forma de entender las finanzas personales te encaja, hablemos.",
-      body: "Puedo enseñarte hacia dónde va el producto y cómo estoy aterrizando esta idea en una app real.",
+    dataModes: {
+      title: "Cómo cambia Arkenstone según el nivel de detalle que quieras",
+      intro:
+        "Puedes usar Arkenstone con una base suficiente para simular decisiones importantes o llevarlo a un nivel mucho más preciso si trabajas también con contabilidad.",
+      items: [
+        {
+          title: "Datos básicos",
+          description:
+            "Para simular decisiones importantes con una visión suficiente de patrimonio, deuda, ingresos y gastos.",
+          bullets: [
+            "Patrimonio, deuda, ingresos y gastos principales",
+            "Simulaciones rápidas para decisiones importantes",
+            "Visión suficiente para comparar escenarios sin meter toda tu operativa",
+          ],
+        },
+        {
+          title: "Datos avanzados",
+          description:
+            "Para afinar el análisis con contabilidad, más detalle operativo y una lectura más precisa de tu situación.",
+          bullets: [
+            "Contabilidad y movimientos con más detalle",
+            "Análisis más preciso del impacto real de cada decisión",
+            "Mejor base para seguimiento, cierres y recomendaciones futuras",
+          ],
+        },
+      ],
+    },
+    modules: {
+      title: "Lo que Arkenstone ya hace hoy",
+      intro:
+        "Arkenstone ya cubre varias piezas importantes de la gestión financiera personal, desde la lectura del patrimonio hasta la comparación de decisiones dentro de Mi Plan.",
+      items: [
+        {
+          id: "net-worth",
+          title: "Patrimonio",
+          description:
+            "Visualiza cómo se reparte tu patrimonio y cómo evoluciona con el tiempo.",
+          image: "/arkenstone-module-net-worth-v2.png",
+          imageAlt:
+            "Captura de la vista de patrimonio de The Arkenstone con evolución temporal",
+        },
+        {
+          id: "budget",
+          title: "Presupuesto",
+          description:
+            "Ordena ingresos y gastos para entender cuánto margen real tienes cada mes.",
+          image: "/arkenstone-module-budget-v2.png",
+          imageAlt:
+            "Captura del presupuesto anual de The Arkenstone con balance previsto",
+        },
+        {
+          id: "monthly-close",
+          title: "Cierre mensual",
+          description:
+            "Convierte la actividad del mes en una lectura clara de avance, desvíos y prioridades.",
+          image: "/arkenstone-module-monthly-close-v2.png",
+          imageAlt:
+            "Captura de The Arkenstone mostrando un resumen presupuestario mensual",
+        },
+        {
+          id: "accounting",
+          title: "Contabilidad",
+          description:
+            "Añade más precisión y trazabilidad cuando necesitas trabajar con más detalle.",
+          image: "/arkenstone-module-accounting-v2.png",
+          imageAlt:
+            "Captura de The Arkenstone mostrando datos financieros detallados",
+        },
+        {
+          id: "plan",
+          title: "Mi Plan",
+          description:
+            "Conecta tu situación actual con decisiones futuras y compara escenarios antes de incorporarlos.",
+          image: "/arkenstone-module-plan-v2.png",
+          imageAlt:
+            "Captura de Mi Plan comparando el plan vigente con un escenario alternativo",
+        },
+      ],
+    },
+    improvements: {
+      title: "En qué está mejorando ahora",
+      intro:
+        "La base ya está en marcha. Ahora el foco está en hacer la experiencia más sencilla y en ampliar la capacidad analítica de la herramienta.",
+      groups: [
+        {
+          title: "Experiencia de usuario",
+          description:
+            "Mejoras orientadas a que la herramienta sea más fácil de usar y encaje mejor en distintos niveles de implicación.",
+          bullets: [
+            "Flujo de trabajo para quien no usa contabilidad",
+            'Simplificación de la app si no se usa la característica "ownership"',
+            "Registro de usuarios y login",
+          ],
+        },
+        {
+          title: "Profundidad analítica",
+          description:
+            "Mejoras orientadas a ampliar la capacidad de análisis y hacer más útil la lectura financiera.",
+          bullets: [
+            "Informes por categorías de ingresos y gastos",
+            "Monitorización de la cartera de inversión",
+          ],
+        },
+      ],
+    },
+    cta: {
+      title: "Únete como beta tester",
+      body: "Estoy buscando personas que quieran probar Arkenstone, dar feedback real y ayudar a afinar el producto.",
     },
   },
   en: {
     seoDescription:
-      "The Arkenstone is a personal finance app built to help people understand their situation, prioritise decisions and move beyond fragile spreadsheets.",
+      "The Arkenstone helps you evaluate important financial decisions by showing their impact before you commit your cash flow, debt and net worth.",
     backLabel: "← pablesite.es",
     hero: {
-      title: "Your money should",
-      highlight: "help you decide",
+      title: "A tool to decide wisely what to do with your money.",
       description:
-        "The Arkenstone turns scattered financial information into a practical guide. You can track every movement or work through lighter reviews, but in both cases you end up understanding what is happening and what the next sensible step should be.",
-      chips: [],
-      primaryCta: "Any questions?",
-      secondaryCta: "",
-      asideTitle: "Clarity for better decisions",
-      asideBody:
-        "Arkenstone helps you see your net worth, understand how your cash position evolves and spot which decision deserves attention now, without building a parallel system in spreadsheets.",
+        "It helps you evaluate purchases, debt and net worth changes by showing their impact before you commit your finances.",
+      chips: [
+        "Buying a home",
+        "Buying a vehicle",
+        "Taking on debt",
+        "Rebalancing net worth",
+      ],
+      primaryCta: "Join as a beta tester",
+      image: "/arkenstone-patrimonio-neto.png",
+      imageAlt: "The Arkenstone screenshot showing net worth evolution",
     },
-    openCoreIntro:
-      "Arkenstone can be used in two ways: self-hosted Arkenstone for people who want full control over the deployment, and Arkenstone Cloud for people who want to use the product without running infrastructure.",
-    openCore: [
-      {
-        title: "Self-hosted Arkenstone",
-        description:
-          "You run it on your own infrastructure to keep control over the data, adapt the system to your workflow and operate without relying on third parties.",
-        tone: "green",
-      },
-      {
-        title: "Arkenstone Cloud",
-        description:
-          "You use it directly, with the same product logic, without dealing with servers, backups or maintenance.",
-        tone: "blue",
-      },
-    ],
-    problem: {
+    decisions: {
+      title: "What decisions can you evaluate with Arkenstone",
       intro:
-        "Most tools leave you at one of two extremes: either you log data forever, or you get dashboards that show numbers without helping you decide what to do next. Arkenstone is designed for the middle ground.",
-      questions: [
-        "Is my cash flow actually healthy or am I just getting through the month?",
-        "Should I focus on debt, savings, emergency fund or investing first?",
-        "Is my net worth improving or am I only moving money between accounts?",
-        "Can I keep this system going without turning it into another daily job?",
+        "Arkenstone helps you study important financial decisions before you turn them into reality.",
+      groups: [
+        {
+          title: "Major purchases",
+          description:
+            "Evaluate decisions that reshape your net worth and your long-term commitments.",
+          examples: ["Vehicle", "Home", "Renovation"],
+        },
+        {
+          title: "Income and work changes",
+          description:
+            "Compare how your finances would react if your earning capacity changes for months or years.",
+          examples: ["Studies", "Reduced hours", "Career break"],
+        },
+        {
+          title: "Debt and financial balance",
+          description:
+            "Understand how much room you have to borrow, repay or rebalance without squeezing your cash flow.",
+          examples: [
+            "Repaying debt",
+            "Taking on new debt",
+            "Rebalancing net worth",
+          ],
+        },
+        {
+          title: "Personal or professional projects",
+          description:
+            "Explore more open-ended decisions with uncertain impact before committing time and money.",
+          examples: ["Business", "Generic decision"],
+        },
+      ],
+      image: "/arkenstone-mi-plan-resumen.png",
+      imageAlt:
+        "My Plan screenshot showing net worth projection and productive capital",
+    },
+    simulation: {
+      title: "What the simulation gives you back",
+      intro:
+        "Arkenstone turns each decision into a concrete scenario so you can see its impact before adding it to your plan.",
+      summaryTitle: "A clear scenario summary",
+      summaryDescription:
+        "The simulation does not stop at a single number. It shows how the expected path changes, what upfront sacrifice is required and what recurring commitments appear before you accept the decision into your plan.",
+      image: "/arkenstone-mi-plan-resumen.png",
+      imageAlt:
+        "The Arkenstone screenshot showing projected net worth evolution in My Plan",
+      metrics: [
+        {
+          title: "Upfront impact",
+          description:
+            "How much capital leaves on day one to execute the decision.",
+        },
+        {
+          title: "Monthly impact",
+          description:
+            "How your monthly cash flow changes with new costs, income or contributions.",
+        },
+        {
+          title: "Asset or debt introduced",
+          description:
+            "What new net worth you add and what obligations come with it.",
+        },
+        {
+          title: "Comparison against your current plan",
+          description:
+            "What changes versus the active plan in timing, net worth and productive capital.",
+        },
       ],
     },
-    showcases: [
-      {
-        label: "view 01",
-        title: "A financial dashboard with context, not just numbers",
-        description:
-          "The app is designed so that a first view already tells you how things stand: net worth, cash flow, current focus and warning signals without forcing you to interpret ten isolated widgets.",
-        bullets: [
-          "Fast financial health summary",
-          "Visible priorities without digging through the app",
-          "Ideal slot for the main product screenshot",
-        ],
-      },
-      {
-        label: "view 02",
-        title:
-          "A monthly close that tells you if you are really moving forward",
-        description:
-          "This is not only about logging activity. The monthly close turns movements and balances into a practical reading: what improved, what got worse and what deserves attention now.",
-        bullets: [
-          "Month-over-month comparison",
-          "Budget and cash flow variance",
-          "Reserved space for the review screenshot",
-        ],
-      },
-      {
-        label: "view 03",
-        title: "A phase map that helps you choose what matters first",
-        description:
-          "Arkenstone organises personal finance into understandable phases so the user does not just see data, but also where the current bottleneck sits.",
-        bullets: [
-          "Diagnosis across financial areas",
-          "Most sensible next step based on context",
-          "Placeholder for the strategic phase view",
-        ],
-      },
-    ],
-    modes: [
-      {
-        title: "For people who want detailed control",
-        description:
-          "Transactions, categories, budgets and recurring closes for a precise daily picture.",
-        tone: "green",
-      },
-      {
-        title: "For people who want clarity with less friction",
-        description:
-          "Monthly reviews, net worth progress and aggregate indicators so you can keep moving without logging every expense.",
-        tone: "blue",
-      },
-    ],
-    phases: [
-      {
-        name: "Debt",
-        description:
-          "Structure liabilities, isolate bad debt and reduce the drag that keeps progress slow.",
-      },
-      {
-        name: "Cash flow",
-        description:
-          "Build a stable surplus and understand whether the month is truly under control.",
-      },
-      {
-        name: "Emergency fund",
-        description:
-          "Create a realistic safety buffer that protects daily operations and important decisions.",
-      },
-      {
-        name: "Net worth health",
-        description:
-          "Understand how assets and liabilities balance out and how net worth evolves over time.",
-      },
-      {
-        name: "Financial independence",
-        description:
-          "Measure how far productive assets are starting to support the life you want to live.",
-      },
-    ],
-    stack: [
-      "Django 6",
-      "Django REST Framework",
-      "SimpleJWT",
-      "Vue 3",
-      "Vite",
-      "Pinia",
-      "PostgreSQL",
-      "Docker Compose",
-    ],
-    contact: {
-      title:
-        "If this way of approaching personal finance resonates with you, let’s talk.",
-      body: "I can show where the product is heading and how I am turning the idea into a real app.",
+    dataModes: {
+      title: "How Arkenstone changes with the level of detail you want",
+      intro:
+        "You can use Arkenstone with just enough information to simulate important decisions, or take it much further if you also work with accounting data.",
+      items: [
+        {
+          title: "Basic data",
+          description:
+            "For simulating important decisions with a sufficient view of net worth, debt, income and expenses.",
+          bullets: [
+            "Main net worth, debt, income and expense figures",
+            "Fast simulations for important decisions",
+            "Enough context to compare scenarios without logging your full operation",
+          ],
+        },
+        {
+          title: "Advanced data",
+          description:
+            "For sharper analysis through accounting, more operational detail and a more precise reading of your situation.",
+          bullets: [
+            "Accounting and movements with more detail",
+            "More accurate analysis of each decision's real impact",
+            "A better base for monitoring, closes and future recommendations",
+          ],
+        },
+      ],
+    },
+    modules: {
+      title: "What Arkenstone already does today",
+      intro:
+        "Arkenstone already covers several important parts of personal finance, from reading your net worth to comparing decisions inside My Plan.",
+      items: [
+        {
+          id: "net-worth",
+          title: "Net worth",
+          description:
+            "See how your net worth is distributed and how it evolves over time.",
+          image: "/arkenstone-module-net-worth-v2.png",
+          imageAlt: "The Arkenstone net worth view with long-term evolution",
+        },
+        {
+          id: "budget",
+          title: "Budget",
+          description:
+            "Structure income and expenses so you understand your real monthly margin.",
+          image: "/arkenstone-module-budget-v2.png",
+          imageAlt: "The Arkenstone annual budget view with projected balance",
+        },
+        {
+          id: "monthly-close",
+          title: "Monthly close",
+          description:
+            "Turn the month into a clear reading of progress, deviations and priorities.",
+          image: "/arkenstone-module-monthly-close-v2.png",
+          imageAlt:
+            "The Arkenstone screenshot showing a monthly financial summary",
+        },
+        {
+          id: "accounting",
+          title: "Accounting",
+          description:
+            "Add more precision and traceability when you need deeper detail.",
+          image: "/arkenstone-module-accounting-v2.png",
+          imageAlt: "The Arkenstone screenshot showing detailed financial data",
+        },
+        {
+          id: "plan",
+          title: "My Plan",
+          description:
+            "Connect your current situation to future decisions and compare scenarios before accepting them.",
+          image: "/arkenstone-module-plan-v2.png",
+          imageAlt:
+            "My Plan screenshot comparing the current plan with an alternative scenario",
+        },
+      ],
+    },
+    improvements: {
+      title: "What is improving right now",
+      intro:
+        "The foundation is already there. The focus now is making the experience simpler and expanding the analytical depth of the tool.",
+      groups: [
+        {
+          title: "User experience",
+          description:
+            "Improvements aimed at making the product easier to use and a better fit for different levels of involvement.",
+          bullets: [
+            "A clearer workflow for people who do not use accounting",
+            'Simplifying the app when the "ownership" feature is not used',
+            "User registration and login",
+          ],
+        },
+        {
+          title: "Analytical depth",
+          description:
+            "Improvements aimed at extending the analytical capabilities and making the financial reading more useful.",
+          bullets: [
+            "Income and expense reporting by category",
+            "Investment portfolio monitoring",
+          ],
+        },
+      ],
+    },
+    cta: {
+      title: "Join as a beta tester",
+      body: "I am looking for people who want to try Arkenstone, give real feedback and help sharpen the product.",
     },
   },
-} satisfies Record<Locale, LandingCopy>;
+} satisfies Record<Locale, ArkenstoneLandingCopy>;

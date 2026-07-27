@@ -7,6 +7,7 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 
 const locale = "en";
 const t = arkenstoneLanding[locale];
+const firstModule = t.modules.items[0];
 ---
 
 <BaseLayout
@@ -17,150 +18,197 @@ const t = arkenstoneLanding[locale];
 >
   <a class="back-link" href="/en/">{t.backLabel}</a>
 
-  <section class="product-hero">
-    <div class="product-hero__main">
-      <MetaLabel label="the arkenstone" />
-      <h1 class="product-hero__title">
-        {t.hero.title}
-        <span class="highlight">{t.hero.highlight}</span>
-      </h1>
-      <p class="product-hero__subtitle">{t.hero.description}</p>
-
-      <div class="hero-links">
-        <a class="button button--primary" href={site.email}
-          >{t.hero.primaryCta}</a
-        >
-      </div>
+  <section class="page-hero arkenstone-hero">
+    <MetaLabel label="the arkenstone" />
+    <h1 class="page-title">{t.hero.title}</h1>
+    <p class="page-subtitle arkenstone-hero__subtitle">{t.hero.description}</p>
+    <div class="pill-row arkenstone-chip-row">
+      {t.hero.chips.map((chip) => <span class="pill tag--green">{chip}</span>)}
     </div>
-
-    <div class="product-hero__visual">
+    <div class="hero-links">
+      <a class="hero-link hero-link--primary" href={site.email}
+        >{t.hero.primaryCta}</a
+      >
+    </div>
+    <div class="arkenstone-hero__visual">
       <img
         class="product-hero__image"
-        src="/arkenstone-patrimonio.png"
-        alt="Arkenstone screenshot showing the net worth view"
+        src={t.hero.image}
+        alt={t.hero.imageAlt}
       />
     </div>
   </section>
 
-  <div id="approach"></div>
-  <Section title="How to use Arkenstone" accent="up front">
+  <Section title={t.decisions.title} accent="real simulations">
     <div class="prose">
-      <p>{t.openCoreIntro}</p>
+      <p>{t.decisions.intro}</p>
+    </div>
+    <div class="grid grid--two decision-grid">
+      {
+        t.decisions.groups.map((group) => (
+          <article class="card card--accent-green decision-card">
+            <h3 class="card__title">{group.title}</h3>
+            <p class="card__text">{group.description}</p>
+            <p class="decision-card__examples">{group.examples.join(" · ")}</p>
+          </article>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Section title={t.simulation.title} accent="before you accept it">
+    <div class="prose">
+      <p>{t.simulation.intro}</p>
+    </div>
+    <article
+      class="card card--accent-blue simulation-summary-card simulation-summary-card--full"
+    >
+      <h3 class="card__title">{t.simulation.summaryTitle}</h3>
+      <p class="card__text">{t.simulation.summaryDescription}</p>
+      <img
+        class="product-hero__image"
+        src={t.simulation.image}
+        alt={t.simulation.imageAlt}
+      />
+    </article>
+    <div class="grid simulation-metrics-grid simulation-metrics-grid--four">
+      {
+        t.simulation.metrics.map((metric) => (
+          <article class="product-mini-card simulation-metric-card">
+            <span class="product-mini-card__label">{metric.title}</span>
+            <strong>{metric.description}</strong>
+          </article>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Section title={t.dataModes.title} accent="two valid depths">
+    <div class="prose">
+      <p>{t.dataModes.intro}</p>
     </div>
     <div class="grid grid--two">
       {
-        t.openCore.map((item) => (
-          <article class={`card card--accent-${item.tone}`}>
+        t.dataModes.items.map((item) => (
+          <article class="card card--accent-green mode-card">
             <h3 class="card__title">{item.title}</h3>
             <p class="card__text">{item.description}</p>
+            <ul class="product-bullet-list">
+              {item.bullets.map((bullet) => (
+                <li>{bullet}</li>
+              ))}
+            </ul>
           </article>
         ))
       }
     </div>
   </Section>
 
-  <Section title="The problem" accent="less friction, better judgement">
+  <Section title={t.modules.title} accent="product in use">
     <div class="prose">
-      <p>{t.problem.intro}</p>
+      <p>{t.modules.intro}</p>
     </div>
-    <div class="product-question-grid">
-      {
-        t.problem.questions.map((question) => (
-          <article class="product-question-card">
-            <span class="product-question-card__mark">?</span>
-            <p>{question}</p>
-          </article>
-        ))
-      }
+    <div class="module-explorer" data-module-explorer>
+      <div
+        class="module-explorer__list"
+        role="tablist"
+        aria-label="Arkenstone modules"
+      >
+        {
+          t.modules.items.map((item, index) => (
+            <button
+              class={`module-explorer__button ${index === 0 ? "module-explorer__button--active" : ""}`}
+              type="button"
+              role="tab"
+              aria-selected={index === 0 ? "true" : "false"}
+              data-module-button
+              data-image={item.image}
+              data-alt={item.imageAlt}
+              data-title={item.title}
+            >
+              <span class="module-explorer__title">{item.title}</span>
+              <span class="module-explorer__description">
+                {item.description}
+              </span>
+            </button>
+          ))
+        }
+      </div>
+
+      <div class="module-explorer__visual">
+        <div class="outside-card__label">Featured view</div>
+        <h3 class="module-explorer__visual-title" data-module-title>
+          {firstModule.title}
+        </h3>
+        <img
+          class="product-hero__image module-explorer__image"
+          src={firstModule.image}
+          alt={firstModule.imageAlt}
+          data-module-image
+        />
+      </div>
     </div>
   </Section>
 
-  <Section title="What you see inside Arkenstone" accent="product in use">
-    <div class="product-showcase-list">
-      {
-        t.showcases.map((showcase, index) => (
-          <article
-            class={`product-showcase ${index % 2 === 1 ? "product-showcase--reverse" : ""}`}
-          >
-            <div class="product-showcase__media">
-              <div class="product-preview-card__window">
-                <div class="product-preview-card__chrome">
-                  <span />
-                  <span />
-                  <span />
-                </div>
-                <div class="product-preview-card__canvas">
-                  <div
-                    class={`product-preview-card__panel ${index === 0 ? "product-preview-card__panel--hero" : "product-preview-card__panel--wide"}`}
-                  />
-                  <div class="product-preview-card__row">
-                    <div class="product-preview-card__panel" />
-                    <div class="product-preview-card__panel" />
-                  </div>
-                  <div class="product-preview-card__panel product-preview-card__panel--tall" />
-                </div>
-              </div>
-            </div>
-            <div class="product-showcase__content">
-              <span class="product-preview-card__label">{showcase.label}</span>
-              <h3 class="product-showcase__title">{showcase.title}</h3>
-              <p class="card__text">{showcase.description}</p>
-              <ul class="product-bullet-list">
-                {showcase.bullets.map((bullet) => (
-                  <li>{bullet}</li>
-                ))}
-              </ul>
-            </div>
-          </article>
-        ))
-      }
+  <Section title={t.improvements.title} accent="current focus">
+    <div class="prose">
+      <p>{t.improvements.intro}</p>
     </div>
-  </Section>
-
-  <Section title="Two valid ways to use it" accent="same base, different depth">
     <div class="grid grid--two">
       {
-        t.modes.map((mode) => (
-          <article class={`card card--accent-${mode.tone}`}>
-            <h3 class="card__title">{mode.title}</h3>
-            <p class="card__text">{mode.description}</p>
+        t.improvements.groups.map((group) => (
+          <article class="card card--accent-blue improvement-card">
+            <h3 class="card__title">{group.title}</h3>
+            <p class="card__text">{group.description}</p>
+            <ul class="product-bullet-list">
+              {group.bullets.map((bullet) => (
+                <li>{bullet}</li>
+              ))}
+            </ul>
           </article>
         ))
       }
     </div>
   </Section>
 
-  <Section title="A five-phase financial guide" accent="practical view">
-    <div class="product-phase-list">
-      {
-        t.phases.map((phase, index) => (
-          <article class="product-phase-card">
-            <div class="product-phase-card__index">0{index + 1}</div>
-            <div class="product-phase-card__body">
-              <h3 class="product-phase-card__title">{phase.name}</h3>
-              <p class="card__text">{phase.description}</p>
-            </div>
-          </article>
-        ))
-      }
-    </div>
-    <div class="now-box">
-      This is not meant to be a rigid linear path. The idea is to see your
-      situation across every phase at once and dive into the current bottleneck.
-    </div>
-  </Section>
-
-  <Section title="Technical base" accent="current stack">
-    <div class="pill-row">
-      {t.stack.map((item) => <span class="pill">{item}</span>)}
-    </div>
+  <Section title={t.cta.title} accent="open beta">
     <div class="contact-box">
-      <p>{t.contact.title}</p>
-      <p class="section-subtitle">{t.contact.body}</p>
+      <p>{t.cta.body}</p>
       <div class="contact-links">
-        <a class="direct-link" href={site.email}>Email</a>
+        <a class="direct-link" href={site.email}>{t.cta.title}</a>
         <a class="direct-link" href={site.links.linkedin}>LinkedIn</a>
       </div>
     </div>
   </Section>
 </BaseLayout>
+
+<script>
+  const explorers = document.querySelectorAll("[data-module-explorer]");
+
+  for (const explorer of explorers) {
+    const buttons = explorer.querySelectorAll<HTMLButtonElement>(
+      "[data-module-button]",
+    );
+    const image = explorer.querySelector<HTMLImageElement>(
+      "[data-module-image]",
+    );
+    const title = explorer.querySelector<HTMLElement>("[data-module-title]");
+
+    if (!image || !title) continue;
+
+    for (const button of buttons) {
+      button.addEventListener("click", () => {
+        for (const current of buttons) {
+          current.classList.remove("module-explorer__button--active");
+          current.setAttribute("aria-selected", "false");
+        }
+
+        button.classList.add("module-explorer__button--active");
+        button.setAttribute("aria-selected", "true");
+        image.setAttribute("src", button.dataset.image ?? "");
+        image.setAttribute("alt", button.dataset.alt ?? "");
+        title.textContent = button.dataset.title ?? "";
+      });
+    }
+  }
+</script>
