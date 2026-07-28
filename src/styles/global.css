@@ -1486,6 +1486,13 @@ img {
   margin-top: var(--space-10);
 }
 
+.arkenstone-hero__visual .product-hero__image,
+.simulation-summary-card--full .product-hero__image {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
 .decision-card,
 .mode-card,
 .improvement-card,
