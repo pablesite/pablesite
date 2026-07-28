@@ -27,7 +27,7 @@ const card = getSpotifyCard(locale);
     hidden={!card.albumImageUrl}
   />
   <div class="outside-card__label">{card.label}</div>
-  <div class="spotify-status" data-spotify-status hidden={!card.status}>
+  <div class="outside-status" data-spotify-status hidden={!card.status}>
     {card.status}
   </div>
   <h3 class="outside-card__title" data-spotify-title>{card.title}</h3>

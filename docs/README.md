@@ -16,6 +16,7 @@ Esta carpeta es la fuente canónica de documentación de `pablesite`.
 10. `operations/email-routing.md`
 11. `operations/spotify-integration.md`
 12. `operations/earendil-service.md`
+13. `operations/strava-integration.md`
 
 ## Regla de uso
 

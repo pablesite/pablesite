@@ -1,0 +1,143 @@
+---
+import Icon from "@components/Icon.astro";
+import type { Locale } from "@data/site";
+import { getStravaCard } from "@data/strava";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const card = getStravaCard(locale);
+---
+
+<article
+  class="outside-card outside-card--strava"
+  data-strava-card
+  data-locale={locale}
+  data-state="fallback"
+  aria-busy="false"
+>
+  <Icon name="bike" />
+  <div class="outside-card__label">{card.label}</div>
+  <div class="outside-status" data-strava-status hidden={!card.status}>
+    {card.status}
+  </div>
+  <h3 class="outside-card__title" data-strava-title>{card.title}</h3>
+  <p class="outside-card__text outside-card__text--strong" data-strava-summary>
+    {card.summary}
+  </p>
+  <p class="outside-card__text" data-strava-detail>{card.detail}</p>
+  <a class="text-link" data-strava-link href={card.href}>
+    <span data-strava-link-label>{card.hrefLabel}</span> →
+  </a>
+  <p class="visually-hidden" data-strava-feedback aria-live="polite"></p>
+</article>
+
+<script>
+  import type { Locale } from "@data/site";
+  import {
+    getStravaCard,
+    isStravaSnapshot,
+    type StravaCardCopy,
+  } from "@data/strava";
+
+  const REFRESH_INTERVAL_MS = 5 * 60_000;
+  const STRAVA_ENDPOINT = import.meta.env.DEV
+    ? `${import.meta.env.PUBLIC_EARENDIL_ORIGIN || "https://pablesite.es"}/api/outside/strava`
+    : "/api/outside/strava";
+  const feedbackCopy = {
+    es: {
+      loading: "Actualizando Strava.",
+      success: "Strava actualizado.",
+      empty: "Strava no tiene ninguna actividad pública reciente.",
+      error:
+        "No se pudo actualizar Strava. Se mantiene la última información disponible.",
+    },
+    en: {
+      loading: "Updating Strava.",
+      success: "Strava updated.",
+      empty: "Strava has no recent public activity.",
+      error:
+        "Strava could not be updated. The latest available information remains visible.",
+    },
+  } satisfies Record<Locale, Record<string, string>>;
+
+  function setText(card: HTMLElement, selector: string, value: string) {
+    const element = card.querySelector<HTMLElement>(selector);
+
+    if (element) {
+      element.textContent = value;
+    }
+  }
+
+  function renderCard(card: HTMLElement, copy: StravaCardCopy) {
+    const status = card.querySelector<HTMLElement>("[data-strava-status]");
+    const link = card.querySelector<HTMLAnchorElement>("[data-strava-link]");
+
+    if (status) {
+      status.textContent = copy.status || "";
+      status.hidden = !copy.status;
+    }
+
+    if (link) {
+      link.href = copy.href;
+    }
+
+    setText(card, "[data-strava-title]", copy.title);
+    setText(card, "[data-strava-summary]", copy.summary);
+    setText(card, "[data-strava-detail]", copy.detail);
+    setText(card, "[data-strava-link-label]", copy.hrefLabel);
+  }
+
+  function setState(
+    card: HTMLElement,
+    locale: Locale,
+    state: keyof (typeof feedbackCopy)["es"],
+  ) {
+    card.dataset.state = state;
+    card.setAttribute("aria-busy", String(state === "loading"));
+    setText(card, "[data-strava-feedback]", feedbackCopy[locale][state]);
+  }
+
+  async function refreshStravaCard(card: HTMLElement, locale: Locale) {
+    setState(card, locale, "loading");
+
+    try {
+      const response = await fetch(STRAVA_ENDPOINT, {
+        headers: {
+          Accept: "application/json",
+        },
+        signal: AbortSignal.timeout(8_000),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Eärendil returned ${response.status}`);
+      }
+
+      const snapshot: unknown = await response.json();
+
+      if (!isStravaSnapshot(snapshot)) {
+        throw new Error("Eärendil returned an invalid Strava payload");
+      }
+
+      renderCard(card, getStravaCard(locale, snapshot));
+      setState(card, locale, snapshot.latestActivity ? "success" : "empty");
+    } catch {
+      setState(card, locale, "error");
+    }
+  }
+
+  document
+    .querySelectorAll<HTMLElement>("[data-strava-card]")
+    .forEach((card) => {
+      const locale = card.dataset.locale === "en" ? "en" : "es";
+
+      void refreshStravaCard(card, locale);
+      window.setInterval(() => {
+        if (document.visibilityState === "visible") {
+          void refreshStravaCard(card, locale);
+        }
+      }, REFRESH_INTERVAL_MS);
+    });
+</script>

@@ -739,7 +739,8 @@ img {
   gap: var(--space-3);
 }
 
-.outside-card--spotify {
+.outside-card--spotify,
+.outside-card--strava {
   align-content: start;
 }
 
@@ -760,11 +761,11 @@ img {
 }
 
 .spotify-cover[hidden],
-.spotify-status[hidden] {
+.outside-status[hidden] {
   display: none;
 }
 
-.spotify-status {
+.outside-status {
   background: color-mix(in srgb, var(--green), transparent 88%);
   border: 1px solid color-mix(in srgb, var(--green), transparent 65%);
   border-radius: var(--radius-pill);

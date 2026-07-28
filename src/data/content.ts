@@ -336,6 +336,7 @@ export const outside = {
     {
       label: "Strava",
       icon: "bike",
+      kind: "strava",
       main: "Rutas, rodillo y volver a coger ritmo",
       sub: "Mi perfil real en Strava: salidas cuando puedo y métricas para no engañarme con lo poco que entreno.",
       href: "https://www.strava.com/athletes/16376516",
@@ -359,6 +360,7 @@ export const outside = {
     {
       label: "Strava",
       icon: "bike",
+      kind: "strava",
       main: "Rides, indoor sessions and getting back in shape",
       sub: "My real Strava profile: actual rides when life allows it, plus enough metrics to stay honest.",
       href: "https://www.strava.com/athletes/16376516",
@@ -382,7 +384,7 @@ export const outside = {
   {
     label: string;
     icon: "bike" | "music" | "book";
-    kind?: "spotify";
+    kind?: "spotify" | "strava";
     main: string;
     sub: string;
     href?: string;

@@ -66,20 +66,25 @@ Ejemplo conceptual:
 
 ### Strava
 
-1. última actividad
-2. distancia
-3. desnivel o tiempo según disponibilidad
+1. última actividad pública
+2. distancia, tiempo en movimiento y desnivel
+3. resumen de actividades públicas de los últimos 30 días
 4. enlace al perfil o a la actividad
+5. persistencia del refresh token rotado en un volumen Docker
+
+No se publican mapas, coordenadas ni actividades cuya visibilidad no sea
+`everyone`.
 
 ## Estado actual
 
 1. el servicio canónico vive en `https://github.com/pablesite/earendil`
 2. está desplegado en ARDA desde `/datos/docker/compose/earendil`
-3. Spotify responde en producción desde `/api/outside/spotify`
-4. Strava queda preparado como siguiente integración
+3. el despliegue automático funciona mediante GitHub Actions y Tailscale
+4. Spotify responde en producción desde `/api/outside/spotify`
+5. Strava está implementado y autorizado, pero la aplicación permanece inactiva hasta contratar una suscripción
 
 ## Siguiente paso natural
 
-1. configurar el despliegue automático de `Eärendil`
-2. implementar el provider de Strava
-3. conectar la tarjeta de Strava al mismo contrato dinámico
+1. activar la suscripción de Strava
+2. desplegar y validar `/api/outside/strava`
+3. comprobar la tarjeta dinámica en ambos idiomas
