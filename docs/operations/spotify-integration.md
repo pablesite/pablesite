@@ -17,6 +17,9 @@ La tarjeta sigue esta prioridad:
 4. si la API falla, conservar la última información disponible
 5. si no hay escucha reciente, caer al enlace público del perfil
 
+En desarrollo, el cliente consulta la instancia configurada mediante
+`PUBLIC_EARENDIL_ORIGIN`; por defecto usa la instancia de producción.
+
 ## Archivos implicados
 
 1. `src/components/SpotifyCard.astro`

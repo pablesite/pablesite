@@ -12,6 +12,7 @@ services:
       HOST: 0.0.0.0
       PORT: 4321
       CHOKIDAR_USEPOLLING: "true"
+      PUBLIC_EARENDIL_ORIGIN: ${PUBLIC_EARENDIL_ORIGIN:-https://pablesite.es}
     volumes:
       - .:/app
       - pablesite_node_modules:/app/node_modules

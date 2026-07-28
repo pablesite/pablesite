@@ -86,6 +86,13 @@ Características del entorno:
 3. Persiste `node_modules` y `.astro` en volúmenes Docker
 4. Expone Astro en `0.0.0.0:4321` para acceder desde el host
 5. Activa polling de cambios para evitar problemas de file watching en Docker Desktop
+6. Consulta la instancia pública de `Eärendil` para probar las integraciones dinámicas
+
+Por defecto usa `https://pablesite.es`. Se puede apuntar a otra instancia:
+
+```bash
+PUBLIC_EARENDIL_ORIGIN=http://127.0.0.1:4010 npm run dev
+```
 
 ## Despliegue en ARDA
 

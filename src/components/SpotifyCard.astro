@@ -50,6 +50,9 @@ const card = getSpotifyCard(locale);
   import type { Locale } from "@data/site";
 
   const REFRESH_INTERVAL_MS = 60_000;
+  const SPOTIFY_ENDPOINT = import.meta.env.DEV
+    ? `${import.meta.env.PUBLIC_EARENDIL_ORIGIN || "https://pablesite.es"}/api/outside/spotify`
+    : "/api/outside/spotify";
   const feedbackCopy = {
     es: {
       loading: "Actualizando Spotify.",
@@ -119,7 +122,7 @@ const card = getSpotifyCard(locale);
     setState(card, locale, "loading");
 
     try {
-      const response = await fetch("/api/outside/spotify", {
+      const response = await fetch(SPOTIFY_ENDPOINT, {
         headers: {
           Accept: "application/json",
         },
