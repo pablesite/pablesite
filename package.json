@@ -8,6 +8,9 @@
     "build": "astro build",
     "preview": "astro preview",
     "lint": "astro check",
+    "spotify:auth-url": "node scripts/spotify-auth-url.mjs",
+    "spotify:exchange-code": "node scripts/spotify-exchange-code.mjs",
+    "spotify:refresh": "node scripts/refresh-spotify.mjs",
     "format:check": "prettier --check .",
     "typecheck": "tsc --noEmit"
   },

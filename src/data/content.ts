@@ -277,15 +277,18 @@ export const ardaServices = [
     kind: "own",
   },
   {
-    name: "The Shire",
-    icon: "home",
+    name: "Eärendil",
+    icon: "library",
     description: {
-      es: "Fotos familiares con Immich, para guardar memoria sin depender de terceros.",
-      en: "Family photos with Immich, keeping memories without relying on third parties.",
+      es: "API de señales personales para pablesite: Spotify, Strava y futuras integraciones dinámicas de vida real.",
+      en: "Personal signals API for pablesite: Spotify, Strava and future dynamic real-life integrations.",
     },
-    technology: "Immich",
+    technology: {
+      es: "Desarrollo propio",
+      en: "Own product",
+    },
     status: "planned",
-    kind: "third-party",
+    kind: "own",
   },
   {
     name: "Glóin",
@@ -300,6 +303,17 @@ export const ardaServices = [
     },
     status: "planned",
     kind: "own",
+  },
+  {
+    name: "The Shire",
+    icon: "home",
+    description: {
+      es: "Fotos familiares con Immich, para guardar memoria sin depender de terceros.",
+      en: "Family photos with Immich, keeping memories without relying on third parties.",
+    },
+    technology: "Immich",
+    status: "planned",
+    kind: "third-party",
   },
   {
     name: "Fëanor",
@@ -329,6 +343,7 @@ export const outside = {
     {
       label: "Spotify",
       icon: "music",
+      kind: "spotify",
       main: "Lo que estoy escuchando últimamente",
       sub: "Metal, rock y lo que se cuele entre medias. Perfil abierto, sin widgets fake ni ahora-suena inventados.",
       href: "https://open.spotify.com/user/pablesite?si=0793724c165f4439",
@@ -351,6 +366,7 @@ export const outside = {
     {
       label: "Spotify",
       icon: "music",
+      kind: "spotify",
       main: "What I have been listening to lately",
       sub: "Mostly metal and rock, with room for detours. An open profile, without fake live widgets.",
       href: "https://open.spotify.com/user/pablesite?si=0793724c165f4439",
@@ -366,6 +382,7 @@ export const outside = {
   {
     label: string;
     icon: "bike" | "music" | "book";
+    kind?: "spotify";
     main: string;
     sub: string;
     href?: string;

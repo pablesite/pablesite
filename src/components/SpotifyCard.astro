@@ -1,0 +1,158 @@
+---
+import type { Locale } from "@data/site";
+import { getSpotifyCard } from "@data/spotify";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const card = getSpotifyCard(locale);
+---
+
+<article
+  class="outside-card outside-card--spotify"
+  data-spotify-card
+  data-locale={locale}
+  data-state="fallback"
+  aria-busy="false"
+>
+  <img
+    class="spotify-cover"
+    data-spotify-cover
+    src={card.albumImageUrl ?? undefined}
+    alt=""
+    loading="lazy"
+    decoding="async"
+    hidden={!card.albumImageUrl}
+  />
+  <div class="outside-card__label">{card.label}</div>
+  <div class="spotify-status" data-spotify-status hidden={!card.status}>
+    {card.status}
+  </div>
+  <h3 class="outside-card__title" data-spotify-title>{card.title}</h3>
+  <p class="outside-card__text outside-card__text--strong" data-spotify-summary>
+    {card.summary}
+  </p>
+  <p class="outside-card__text" data-spotify-detail>{card.detail}</p>
+  <a class="text-link" data-spotify-link href={card.href}>
+    <span data-spotify-link-label>{card.hrefLabel}</span> →
+  </a>
+  <p class="visually-hidden" data-spotify-feedback aria-live="polite"></p>
+</article>
+
+<script>
+  import {
+    getSpotifyCard,
+    isSpotifySnapshot,
+    type SpotifyCardCopy,
+  } from "@data/spotify";
+  import type { Locale } from "@data/site";
+
+  const REFRESH_INTERVAL_MS = 60_000;
+  const feedbackCopy = {
+    es: {
+      loading: "Actualizando Spotify.",
+      success: "Spotify actualizado.",
+      empty: "Spotify no tiene ninguna escucha reciente.",
+      error:
+        "No se pudo actualizar Spotify. Se mantiene la última información disponible.",
+    },
+    en: {
+      loading: "Updating Spotify.",
+      success: "Spotify updated.",
+      empty: "Spotify has no recent listening activity.",
+      error:
+        "Spotify could not be updated. The latest available information remains visible.",
+    },
+  } satisfies Record<Locale, Record<string, string>>;
+
+  function setText(card: HTMLElement, selector: string, value: string) {
+    const element = card.querySelector<HTMLElement>(selector);
+
+    if (element) {
+      element.textContent = value;
+    }
+  }
+
+  function renderCard(card: HTMLElement, copy: SpotifyCardCopy) {
+    const cover = card.querySelector<HTMLImageElement>("[data-spotify-cover]");
+    const status = card.querySelector<HTMLElement>("[data-spotify-status]");
+    const link = card.querySelector<HTMLAnchorElement>("[data-spotify-link]");
+
+    if (cover) {
+      if (copy.albumImageUrl) {
+        cover.src = copy.albumImageUrl;
+        cover.hidden = false;
+      } else {
+        cover.removeAttribute("src");
+        cover.hidden = true;
+      }
+    }
+
+    if (status) {
+      status.textContent = copy.status || "";
+      status.hidden = !copy.status;
+    }
+
+    if (link) {
+      link.href = copy.href;
+    }
+
+    setText(card, "[data-spotify-title]", copy.title);
+    setText(card, "[data-spotify-summary]", copy.summary);
+    setText(card, "[data-spotify-detail]", copy.detail);
+    setText(card, "[data-spotify-link-label]", copy.hrefLabel);
+  }
+
+  function setState(
+    card: HTMLElement,
+    locale: Locale,
+    state: keyof (typeof feedbackCopy)["es"],
+  ) {
+    card.dataset.state = state;
+    card.setAttribute("aria-busy", String(state === "loading"));
+    setText(card, "[data-spotify-feedback]", feedbackCopy[locale][state]);
+  }
+
+  async function refreshSpotifyCard(card: HTMLElement, locale: Locale) {
+    setState(card, locale, "loading");
+
+    try {
+      const response = await fetch("/api/outside/spotify", {
+        headers: {
+          Accept: "application/json",
+        },
+        signal: AbortSignal.timeout(8_000),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Eärendil returned ${response.status}`);
+      }
+
+      const snapshot: unknown = await response.json();
+
+      if (!isSpotifySnapshot(snapshot)) {
+        throw new Error("Eärendil returned an invalid Spotify payload");
+      }
+
+      renderCard(card, getSpotifyCard(locale, snapshot));
+      setState(card, locale, snapshot.track ? "success" : "empty");
+    } catch {
+      setState(card, locale, "error");
+    }
+  }
+
+  document
+    .querySelectorAll<HTMLElement>("[data-spotify-card]")
+    .forEach((card) => {
+      const locale = card.dataset.locale === "en" ? "en" : "es";
+
+      void refreshSpotifyCard(card, locale);
+      window.setInterval(() => {
+        if (document.visibilityState === "visible") {
+          void refreshSpotifyCard(card, locale);
+        }
+      }, REFRESH_INTERVAL_MS);
+    });
+</script>

@@ -13,6 +13,9 @@ Esta carpeta es la fuente canónica de documentación de `pablesite`.
 7. `operations/ci-cd.md`
 8. `operations/release-flow.md`
 9. `content/blog-writing-guide.md`
+10. `operations/email-routing.md`
+11. `operations/spotify-integration.md`
+12. `operations/earendil-service.md`
 
 ## Regla de uso
 

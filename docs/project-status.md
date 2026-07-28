@@ -3,7 +3,7 @@
 Estado actual de `pablesite`. Actualizar este archivo cuando cambie el estado funcional o de
 infraestructura del proyecto.
 
-**Last review:** 2026-06-18
+**Last review:** 2026-07-28
 
 ---
 
@@ -27,13 +27,13 @@ infraestructura del proyecto.
 
 ## Next Tasks
 
-| Type     | Priority | Status | Description                                                                  | Spec                                        |
-| -------- | -------- | ------ | ---------------------------------------------------------------------------- | ------------------------------------------- |
-| Frontend | High     | ✅     | Implementar `pablesite` v1 con Astro, rutas i18n y diseño base               | `docs/tasks/frontend/phase-1-pablesite-v1/` |
-| Ops      | High     | ✅     | Preparar Dockerfile y Compose para despliegue como servicio ARDA             | `docs/tasks/frontend/phase-1-pablesite-v1/` |
-| Manual   | Medium   | ✅     | Añadir CV PDF real y revisar URLs sociales antes de publicar                 | —                                           |
-| Manual   | Medium   | ⚪     | Diseñar integraciones dinámicas futuras para Arda, Spotify/Strava y contacto | —                                           |
-| Ops      | Medium   | ⚪     | Definir correo `contacto@pablesite.es` en ARDA o proveedor externo           | —                                           |
+| Type     | Priority | Status | Description                                                                                           | Spec                                            |
+| -------- | -------- | ------ | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
+| Frontend | High     | ✅     | Implementar `pablesite` v1 con Astro, rutas i18n y diseño base                                        | `docs/tasks/frontend/phase-1-pablesite-v1/`     |
+| Ops      | High     | ✅     | Preparar Dockerfile y Compose para despliegue como servicio ARDA                                      | `docs/tasks/frontend/phase-1-pablesite-v1/`     |
+| Manual   | Medium   | ✅     | Añadir CV PDF real y revisar URLs sociales antes de publicar                                          | —                                               |
+| Manual   | Medium   | 🔄     | Spotify dinámico servido por `Eärendil` en ARDA; Strava queda como siguiente provider                 | `docs/tasks/backend/earendil-personal-signals/` |
+| Ops      | Medium   | ✅     | `contacto@pablesite.es` recibe correo vía Cloudflare Email Routing y redirige a `pablesite@gmail.com` | —                                               |
 
 ---
 

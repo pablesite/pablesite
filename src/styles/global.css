@@ -51,6 +51,7 @@
   --wealth-heading: var(--space-10);
   --wealth-metric-value: var(--space-7);
   --wealth-bar-height: var(--space-4);
+  --a11y-unit: 1px;
 }
 
 * {
@@ -85,6 +86,16 @@ h3 {
 img {
   display: block;
   max-width: 100%;
+}
+
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: var(--a11y-unit);
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: var(--a11y-unit);
 }
 
 .site-shell {
@@ -728,10 +739,43 @@ img {
   gap: var(--space-3);
 }
 
+.outside-card--spotify {
+  align-content: start;
+}
+
 .outside-card .icon {
   color: color-mix(in srgb, var(--blue), var(--white) 28%);
   height: var(--space-13);
   width: var(--space-13);
+}
+
+.spotify-cover {
+  aspect-ratio: 1;
+  border: 1px solid color-mix(in srgb, var(--blue), transparent 72%);
+  border-radius: var(--radius-2);
+  display: block;
+  margin-bottom: var(--space-2);
+  object-fit: cover;
+  width: min(100%, calc(var(--space-13) * 3));
+}
+
+.spotify-cover[hidden],
+.spotify-status[hidden] {
+  display: none;
+}
+
+.spotify-status {
+  background: color-mix(in srgb, var(--green), transparent 88%);
+  border: 1px solid color-mix(in srgb, var(--green), transparent 65%);
+  border-radius: var(--radius-pill);
+  color: var(--green);
+  display: inline-flex;
+  font-size: 0.5625rem;
+  font-weight: 600;
+  justify-self: start;
+  letter-spacing: 0.08em;
+  padding: var(--space-2) var(--space-4);
+  text-transform: uppercase;
 }
 
 .arch-node .icon {
@@ -758,6 +802,10 @@ img {
 .outside-card__text {
   color: var(--text-dim);
   font-size: 0.6875rem;
+}
+
+.outside-card__text--strong {
+  color: var(--text);
 }
 
 .page-hero {
